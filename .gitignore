@@ -1,35 +1,26 @@
-# Byte-compiled / optimized / DLL files
+# Python artifacts
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Distribution / packaging
-dist/
-build/
+*.so
+.Python
 *.egg-info/
 
-# Environments
-.env
-.venv
-env/
+# Virtual environments
 venv/
+env/
 ENV/
 
-# Development tools
-.idea/
-.vscode/
-**/.claude/settings.local.json
-
-# Application specific files
+# Model outputs and datasets
 models/
 NELL-995/
-*.log
+outputs/
+temp_download/
 
-# Ignore demo and benchmarks folders
+# Logs and temp files
+*.log
+*.out
+
+# Demo and benchmarks
 demo/
 benchmarks/
-
-# Output files
-*.out
-outputs/
-
