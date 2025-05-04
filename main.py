@@ -33,8 +33,29 @@ def train_supervised(relation, data_path):
     print(f"\n===== Training Supervised Agent for Relation: {relation} =====")
     agent = SupervisedPolicyAgent()
     
+    # Set up paths
     graph_path = os.path.join(data_path, 'tasks', relation, 'graph.txt')
     relation_path = os.path.join(data_path, 'tasks', relation, 'train_pos')
+    
+    # Create a training graph without direct links to encourage finding indirect paths
+    train_graph_dir = os.path.join(data_path, 'tasks', relation, 'train_graph')
+    train_graph_path = os.path.join(train_graph_dir, 'train_graph.txt')
+    
+    # Create the directory if it doesn't exist
+    os.makedirs(train_graph_dir, exist_ok=True)
+    
+    # Create a filtered graph without direct links for the target relation
+    if not os.path.exists(train_graph_path):
+        print(f"Creating training graph without direct {relation} links...")
+        relation_pattern = f"concept:{relation.lower()}"
+        with open(graph_path, 'r') as f_in, open(train_graph_path, 'w') as f_out:
+            for line in f_in:
+                if relation_pattern not in line.lower():
+                    f_out.write(line)
+        print(f"Training graph created at {train_graph_path}")
+    
+    # Use the training graph for finding paths
+    search_graph_path = train_graph_path
     
     # Read training data
     with open(relation_path) as f:
@@ -59,7 +80,19 @@ def train_supervised(relation, data_path):
         # Get teaching examples
         try:
             from deeppath.search import teacher
-            good_episodes = teacher(sample[0], sample[1], 5, env, graph_path)
+            # Try with the filtered graph first
+            good_episodes = teacher(sample[0], sample[1], 5, env, search_graph_path)
+            
+            # Fall back to the full graph if no paths found
+            if not good_episodes:
+                print("No paths found in filtered graph, trying full graph...")
+                good_episodes = teacher(sample[0], sample[1], 5, env, graph_path)
+                
+            if not good_episodes:
+                print("No paths found in either graph")
+                continue
+                
+            print(f"Found {len(good_episodes)} teaching paths")
         except Exception as e:
             print('Cannot find a path:', e)
             continue

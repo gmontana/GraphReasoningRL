@@ -332,12 +332,27 @@ def train_reinforce(agent, train_data, env_factory, graph_path, num_episodes):
                     action_batch.append(transition.action)
             agent.update(np.reshape(state_batch, (-1, STATE_DIM)), total_reward, action_batch)
             
-            print('Failed, Do one teacher guideline')
+            print('Failed, Applying teacher guidance...')
             try:
-                good_episodes = teacher(sample[0], sample[1], 1, env, graph_path)
+                # First try with a filtered graph if available
+                import os
+                train_graph_path = os.path.join(os.path.dirname(graph_path), 'train_graph', 'train_graph.txt')
+                
+                if os.path.exists(train_graph_path):
+                    # Try with the filtered graph (no direct links)
+                    good_episodes = teacher(sample[0], sample[1], 1, env, train_graph_path)
+                    if not good_episodes:
+                        print("No paths found in filtered graph, trying full graph...")
+                        good_episodes = teacher(sample[0], sample[1], 1, env, graph_path)
+                else:
+                    # Fall back to the original graph
+                    good_episodes = teacher(sample[0], sample[1], 1, env, graph_path)
+                
                 for item in good_episodes:
                     teacher_state_batch = []
                     teacher_action_batch = []
+                    
+                    # Weight reward by inverse path length
                     total_reward = 0.0*1 + 1*1/len(item)
                     for t, transition in enumerate(item):
                         teacher_state_batch.append(transition.state)
@@ -345,7 +360,7 @@ def train_reinforce(agent, train_data, env_factory, graph_path, num_episodes):
                     agent.update(np.squeeze(teacher_state_batch), 1, teacher_action_batch)
             
             except Exception as e:
-                print('Teacher guideline failed')
+                print('Teacher guidance failed:', e)
         
         print('Episode time: ', time.time() - start)
         print('\n')
