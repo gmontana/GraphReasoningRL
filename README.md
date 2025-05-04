@@ -75,9 +75,15 @@ Note: This only installs dependencies and doesn't install the DeepPath package i
 
 ## Download Dataset
 
-Download the knowledge graph dataset:
-- [NELL-995](http://cs.ucsb.edu/~xwhan/datasets/NELL-995.zip)
-- [FB15k-237](https://drive.google.com/file/d/1klWL11nW3ZS6b2MtLW0MHnXu-XlJqDyA/view?usp=sharing)
+Download the knowledge graph dataset from the official repository:
+- [NELL-995](https://github.com/wenhuchen/KB-Reasoning-Data/tree/master/NELL-995)
+
+You can clone the dataset repository directly:
+
+```bash
+git clone https://github.com/wenhuchen/KB-Reasoning-Data.git
+cp -r KB-Reasoning-Data/NELL-995 ./
+```
 
 Extract the dataset into the repository directory.
 
