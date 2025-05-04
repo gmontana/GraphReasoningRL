@@ -112,6 +112,7 @@ The DeepPath implementation includes these core components:
 - **Agent**: Implements the policy network for path finding
 - **Search**: Provides the teacher algorithm for supervised learning
 - **Utils**: Contains utility functions and constants
+
 ## Citation
 
 If you use this code, please cite the original paper:
@@ -130,4 +131,4 @@ If you use this code, please cite the original paper:
 
 ## Acknowledgements
 
-- [Original DeepPath implementation (TensorFlow)](https://github.com/xwhan/DeepPath)}}}}
+- [Original DeepPath implementation (TensorFlow)](https://github.com/xwhan/DeepPath)
