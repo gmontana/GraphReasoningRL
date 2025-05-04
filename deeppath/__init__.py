@@ -4,7 +4,7 @@ DeepPath: Reinforcement Learning for Knowledge Graph Reasoning
 A package for knowledge graph reasoning using reinforcement learning.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.1.0"
 
 from .models import PolicyNetwork, ValueNetwork, QNetwork
 from .agents import PolicyAgent, SupervisedPolicyAgent, train_reinforce
