@@ -1,6 +1,24 @@
 #!/usr/bin/env python
 """
 DeepPath - Main entry point for training and evaluating the PyTorch implementation.
+
+This script provides a command-line interface for:
+1. Training the DeepPath agent with supervised learning
+2. Training the agent with reinforcement learning
+3. Testing the agent's performance on knowledge graph reasoning tasks
+
+Example usage:
+    # Run full pipeline (train + test)
+    python main.py athletePlaysForTeam
+    
+    # Training only
+    python main.py athletePlaysForTeam --mode train
+    
+    # Testing only
+    python main.py athletePlaysForTeam --mode test
+    
+    # Specify a custom dataset path
+    python main.py athletePlaysForTeam --data_path ./custom/path/NELL-995/
 """
 
 import os

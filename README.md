@@ -116,8 +116,33 @@ The DeepPath implementation includes these core components:
 
 - **Environment**: Manages the knowledge graph and handles state transitions
 - **Agent**: Implements the policy network for path finding
-- **Search**: Provides the teacher algorithm for supervised learning
+- **Search**: Provides the teacher algorithm for supervised learning 
 - **Utils**: Contains utility functions and constants
+
+### Code Structure
+
+```
+DeepPath/
+├── deeppath/               # Main Python package
+│   ├── __init__.py         # Package initialization
+│   ├── agents.py           # Agent implementations
+│   ├── environment.py      # Knowledge graph environment
+│   ├── evaluate.py         # Evaluation utilities
+│   ├── models.py           # Neural network models
+│   ├── search.py           # Path finding algorithms
+│   └── utils.py            # Utility functions
+├── main.py                 # CLI entry point
+├── pathfinder.sh           # Convenience script
+├── setup.py                # Package setup script
+├── pyproject.toml          # Project metadata
+└── requirements.txt        # Package dependencies
+```
+
+### Implementation Notes
+
+- **Path Finding**: The teacher algorithm removes direct links between entities to encourage finding meaningful indirect paths
+- **Reinforcement Learning**: Uses the REINFORCE algorithm to train the policy network
+- **Evaluation**: Paths are evaluated based on efficiency (path length) and diversity
 
 ## Citation
 
