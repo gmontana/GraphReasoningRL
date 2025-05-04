@@ -12,7 +12,7 @@ import os
 from collections import namedtuple, Counter
 from datetime import datetime
 
-# Constants - these should match your data
+# Constants 
 STATE_DIM = 200  # 2 * entity embedding dimension
 ACTION_SPACE = 10  # Number of relations in the dataset - match TF implementation
 MAX_STEPS = 50
