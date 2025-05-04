@@ -1,0 +1,16 @@
+name: deeppath
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy>=1.24.0
+  - pytorch>=2.0.0
+  - torchvision>=0.15.0
+  - torchaudio>=2.0.0
+  - scikit-learn>=1.2.0
+  - scipy>=1.10.0
+  - pip
+  - pip:
+    - -e .
