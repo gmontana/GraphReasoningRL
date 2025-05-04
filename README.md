@@ -1,6 +1,6 @@
 # DeepPath: Reinforcement Learning for Knowledge Graph Reasoning
 
-This repository contains a PyTorch implementation of DeepPath, a reinforcement learning approach for knowledge graph reasoning.
+This repository contains a PyTorch implementation of DeepPath, a reinforcement learning approach for knowledge graph reasoning. This implementation introduces several modifications to the original TensorFlow version, including native hardware acceleration support, filtered knowledge graph training, improved path diversity calculation, and robust error handling while maintaining functional equivalence.
 
 ## How DeepPath Works
 
@@ -143,6 +143,13 @@ DeepPath/
 - **Path Finding**: The teacher algorithm removes direct links between entities to encourage finding meaningful indirect paths
 - **Reinforcement Learning**: Uses the REINFORCE algorithm to train the policy network
 - **Evaluation**: Paths are evaluated based on efficiency (path length) and diversity
+
+## Implementation Details
+
+Our PyTorch implementation maintains functional equivalence with the original algorithm:
+- Same REINFORCE algorithm with teacher guidance
+- Identical state representation and network architecture
+- Comparable success rates and Mean Average Precision (MAP) in evaluation
 
 ## Citation
 
