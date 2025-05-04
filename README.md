@@ -130,6 +130,4 @@ If you use this code, please cite the original paper:
 
 ## Acknowledgements
 
-- [Original DeepPath implementation](https://github.com/xwhan/DeepPath)
-- [TransX implementations by thunlp](https://github.com/thunlp/Fast-TransX)
-- [Ni Lao's PRA code](http://www.cs.cmu.edu/~nlao/)}}}}
+- [Original DeepPath implementation (TensorFlow)](https://github.com/xwhan/DeepPath)}}}}
