@@ -96,14 +96,16 @@ class Trainer:
     def calc_cum_discounted_reward(self, rewards):
         """Calculate cumulative discounted reward"""
         batch_size = rewards.shape[0]
-        cum_disc_reward = np.zeros([batch_size, self.path_length])
+        running_add = np.zeros([batch_size])  # [B]
+        cum_disc_reward = np.zeros([batch_size, self.path_length])  # [B, T]
         
         # Set last time step to final reward
         cum_disc_reward[:, self.path_length - 1] = rewards
         
         # Calculate cumulative discounted rewards backwards
-        for t in reversed(range(self.path_length - 1)):
-            cum_disc_reward[:, t] = cum_disc_reward[:, t + 1] * self.gamma
+        for t in reversed(range(self.path_length)):
+            running_add = self.gamma * running_add + cum_disc_reward[:, t]
+            cum_disc_reward[:, t] = running_add
             
         return cum_disc_reward
     
