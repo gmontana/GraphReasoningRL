@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(./run_tf_modern.sh:*)",
+      "Bash(./run_complete_benchmark.sh:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(grep:*)",
+      "Bash(python:*)"
+    ],
+    "deny": []
+  }
+}
