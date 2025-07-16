@@ -13,6 +13,7 @@ from collections import defaultdict
 from model.agent import Agent
 from model.environment import Environment
 from model.baseline import ReactiveBaseline
+from utils import get_device
 
 
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ class Trainer:
         for key, val in params.items():
             setattr(self, key, val)
             
-        self.device = torch.device(params.get('device', 'cuda' if torch.cuda.is_available() else 'cpu'))
+        self.device = get_device(params.get('device'))
         params['device'] = self.device
         
         # Initialize agent

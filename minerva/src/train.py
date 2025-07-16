@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from options import read_options
 from model.trainer import Trainer
+from utils import device_info
 
 # Set up logging
 logging.basicConfig(
@@ -24,11 +25,8 @@ def main():
     # Read options
     options = read_options()
     
-    # Set device
-    if options['device'] is None:
-        options['device'] = 'cuda' if torch.cuda.is_available() else 'cpu'
-    
-    logger.info(f"Using device: {options['device']}")
+    # Show device information
+    device_info()
     
     # Add file handler for logging
     if 'log_file_name' in options:

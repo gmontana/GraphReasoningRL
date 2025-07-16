@@ -127,6 +127,11 @@ def main():
         import torch
         print(f"PyTorch version: {torch.__version__}")
         print(f"CUDA available: {torch.cuda.is_available()}")
+        if torch.cuda.is_available():
+            print(f"CUDA device: {torch.cuda.get_device_name(0)}")
+        print(f"MPS available: {torch.backends.mps.is_available()}")
+        if torch.backends.mps.is_available():
+            print("MPS device: Apple Silicon GPU")
     except ImportError:
         print("PyTorch not installed. Please install with:")
         print("pip install -r requirements_pytorch.txt")

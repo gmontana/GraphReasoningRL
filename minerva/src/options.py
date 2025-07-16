@@ -55,7 +55,8 @@ def read_options():
     parser.add_argument("--nell_evaluation", default=0, type=int, help="Perform NELL evaluation (0/1)")
     
     # Device
-    parser.add_argument("--device", default=None, type=str, help="Device to use (cuda/cpu)")
+    parser.add_argument("--device", default=None, type=str, 
+                        help="Device to use: 'cuda', 'mps', 'cpu', or None for auto-detection")
     
     # Parse arguments
     args = parser.parse_args()
