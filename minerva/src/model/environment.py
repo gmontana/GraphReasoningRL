@@ -1,7 +1,7 @@
 import numpy as np
 import torch
-from ..data.feed_data import RelationEntityBatcher
-from ..data.grapher import RelationEntityGrapher
+from data.feed_data import RelationEntityBatcher
+from data.grapher import RelationEntityGrapher
 
 
 class Episode:
@@ -9,8 +9,6 @@ class Episode:
         self.grapher = graph
         self.batch_size, self.path_len, self.num_rollouts, self.test_rollouts, \
             self.positive_reward, self.negative_reward, self.mode, self.batcher = params
-        
-        self.mode = mode
         if self.mode == 'train':
             self.num_rollouts = self.num_rollouts
         else:

@@ -8,7 +8,7 @@ import time
 import os
 import logging
 from collections import defaultdict
-from scipy.special import logsumexp as lse
+# from scipy.special import logsumexp as lse  # Not used in PyTorch version
 
 from model.agent import Agent
 from model.environment import Environment
@@ -129,6 +129,7 @@ class Trainer:
             candidate_entity_sequence = []
             current_entities_sequence = []
             
+            # First collect all states for the trajectory
             for i in range(self.path_length):
                 candidate_relation_sequence.append(
                     torch.LongTensor(state['next_relations']).to(self.device)
@@ -140,21 +141,32 @@ class Trainer:
                     torch.LongTensor(state['current_entities']).to(self.device)
                 )
                 
-                # Forward pass for this step
-                if i == 0:
-                    range_arr = torch.arange(self.batch_size * self.num_rollouts).to(self.device)
-                    all_log_probs, all_action_idx = self.agent(
-                        candidate_relation_sequence,
-                        candidate_entity_sequence,
-                        current_entities_sequence,
-                        query_relation,
-                        range_arr,
-                        T=i + 1
-                    )
-                
-                # Take action in environment
-                action_idx = all_action_idx[i].cpu().numpy()
-                state = episode(action_idx)
+                if i < self.path_length - 1:  # Don't need next state for last step
+                    # We need to compute action for this step to get next state
+                    # Use a temporary forward pass just to get the action
+                    with torch.no_grad():
+                        if i == 0:
+                            range_arr = torch.arange(self.batch_size * self.num_rollouts).to(self.device)
+                        temp_log_probs, temp_action_idx = self.agent(
+                            candidate_relation_sequence[:i+1],
+                            candidate_entity_sequence[:i+1],
+                            current_entities_sequence[:i+1],
+                            query_relation,
+                            range_arr,
+                            T=i + 1
+                        )
+                    action_idx = temp_action_idx[i].cpu().numpy()
+                    state = episode(action_idx)
+            
+            # Now do the full forward pass for training
+            all_log_probs, all_action_idx = self.agent(
+                candidate_relation_sequence,
+                candidate_entity_sequence,
+                current_entities_sequence,
+                query_relation,
+                range_arr,
+                T=self.path_length
+            )
             
             # Get rewards
             rewards = episode.get_reward()

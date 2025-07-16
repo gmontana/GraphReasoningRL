@@ -78,17 +78,28 @@ def run_pytorch_minerva(dataset='countries_S1', num_iterations=100, load_model=F
     }
     
     # Extract final metrics from output
+    metrics_found = set()
     for line in reversed(output_lines):
-        if 'hits@1:' in line:
-            results['metrics']['hits@1'] = float(line.split(':')[1].strip())
-        elif 'hits@3:' in line:
-            results['metrics']['hits@3'] = float(line.split(':')[1].strip())
-        elif 'hits@5:' in line:
-            results['metrics']['hits@5'] = float(line.split(':')[1].strip())
-        elif 'hits@10:' in line:
-            results['metrics']['hits@10'] = float(line.split(':')[1].strip())
-        elif 'mrr:' in line:
-            results['metrics']['mrr'] = float(line.split(':')[1].strip())
+        if 'Final test results:' in line:
+            # Start looking for metrics after this line
+            continue
+        if 'hits@1:' in line and 'hits@1' not in metrics_found:
+            results['metrics']['hits@1'] = float(line.split(':')[-1].strip())
+            metrics_found.add('hits@1')
+        elif 'hits@3:' in line and 'hits@3' not in metrics_found:
+            results['metrics']['hits@3'] = float(line.split(':')[-1].strip())
+            metrics_found.add('hits@3')
+        elif 'hits@5:' in line and 'hits@5' not in metrics_found:
+            results['metrics']['hits@5'] = float(line.split(':')[-1].strip())
+            metrics_found.add('hits@5')
+        elif 'hits@10:' in line and 'hits@10' not in metrics_found:
+            results['metrics']['hits@10'] = float(line.split(':')[-1].strip())
+            metrics_found.add('hits@10')
+        elif 'mrr:' in line and 'mrr' not in metrics_found:
+            results['metrics']['mrr'] = float(line.split(':')[-1].strip())
+            metrics_found.add('mrr')
+        
+        if len(metrics_found) == 5:
             break  # Found all metrics
     
     # Save results

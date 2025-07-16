@@ -1,0 +1,8 @@
+{
+  "dataset": "kinship",
+  "framework": "pytorch",
+  "iterations": 10,
+  "metrics": {
+    "mrr": 26.0
+  }
+}
