@@ -144,12 +144,81 @@ DeepPath/
 - **Reinforcement Learning**: Uses the REINFORCE algorithm to train the policy network
 - **Evaluation**: Paths are evaluated based on efficiency (path length) and diversity
 
+## Comparing Implementations
+
+We provide comprehensive tools to verify parity between the PyTorch and original TensorFlow implementations:
+
+```bash
+cd comparison/
+
+# Run complete benchmark comparing both implementations
+./run_complete_benchmark.sh athletePlaysForTeam
+
+# Compare path discovery results
+python compare_implementations.py athletePlaysForTeam
+
+# Run individual implementations
+python run_tf_original.sh athletePlaysForTeam    # TensorFlow version
+cd .. && python main.py athletePlaysForTeam      # PyTorch version
+
+# Analyze benchmark results
+python analyze_benchmark_results.py
+```
+
+The comparison tools will:
+- Run both implementations on the same dataset
+- Compare discovered reasoning paths
+- Measure runtime performance
+- Generate detailed comparison reports in `comparison/logs/`
+
+See `comparison/README.md` for detailed instructions on running comparisons.
+
 ## Implementation Details
 
-Our PyTorch implementation maintains functional equivalence with the original algorithm:
-- Same REINFORCE algorithm with teacher guidance
-- Identical state representation and network architecture
-- Comparable success rates and Mean Average Precision (MAP) in evaluation
+### PyTorch Implementation Features
+
+1. **Modern Architecture**:
+   - Pure PyTorch implementation with eager execution
+   - Clean modular design separating agent, environment, and search components
+   - Type hints and comprehensive documentation
+   - Support for GPU acceleration (CUDA/MPS)
+
+2. **Verified Parity**:
+   - Same REINFORCE algorithm with teacher guidance
+   - Identical state representation and network architecture
+   - Matching path discovery behavior
+   - Comparable Mean Average Precision (MAP) scores
+
+3. **Enhanced Features**:
+   - Filtered knowledge graph training (removes test edges)
+   - Improved path diversity calculation
+   - Robust error handling and logging
+   - Batch processing for efficiency
+
+### Key Components
+
+- **Agent** (`agents.py`): Policy network implementation with REINFORCE algorithm
+- **Environment** (`environment.py`): Knowledge graph navigation and state management
+- **Search** (`search.py`): BFS teacher algorithm for supervised learning
+- **Models** (`models.py`): Neural network architectures for policy learning
+- **Evaluate** (`evaluate.py`): Path ranking and MAP calculation
+
+### Verified Results
+
+On NELL-995 dataset (athletePlaysForTeam relation):
+- Discovered meaningful reasoning paths
+- Achieved comparable MAP scores to original implementation
+- Successfully learned multi-hop reasoning patterns
+
+Example discovered paths:
+- athletePlaysForTeam → teamPlaysInLeague → leagueHasTeam
+- athletePlaysForTeam → athleteHomeStadium → stadiumHomeToTeam
+
+### Performance Considerations
+
+- Supports both CPU and GPU execution (CUDA/MPS)
+- Uses batch processing for training
+- Runtime varies based on hardware and dataset size
 
 ## Citation
 

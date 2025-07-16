@@ -1,0 +1,50 @@
+07/16/2025 07:21:55 PM: [ reading vocab files... ]
+07/16/2025 07:21:55 PM: [ Reading mid to name map ]
+07/16/2025 07:21:55 PM: [ Done.. ]
+07/16/2025 07:21:55 PM: [ Total number of entities 273 ]
+07/16/2025 07:21:55 PM: [ Total number of relations 6 ]
+07/16/2025 07:21:55 PM: [ Creating TF graph... ]
+07/16/2025 07:21:55 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: multinomial (from tensorflow.python.ops.random_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.random.categorical` instead. ]
+07/16/2025 07:21:55 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead. ]
+07/16/2025 07:21:56 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide. ]
+07/16/2025 07:21:56 PM: [ TF Graph creation done.. ]
+07/16/2025 07:21:56 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:224: BaseSession.partial_run_setup (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]
+07/16/2025 07:21:56 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:236: BaseSession.partial_run (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]
+07/16/2025 07:21:56 PM: [ batch_counter:    1, num_hits: 15.0000, avg. reward per batch  0.0469, num_ep_correct   11, avg_ep_correct  0.3438, train loss -0.0040 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 898056192 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    2, num_hits: 54.0000, avg. reward per batch  0.1688, num_ep_correct   18, avg_ep_correct  0.5625, train loss -0.0133 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 905166848 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    3, num_hits: 25.0000, avg. reward per batch  0.0781, num_ep_correct   13, avg_ep_correct  0.4062, train loss -0.0178 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 908836864 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    4, num_hits: 20.0000, avg. reward per batch  0.0625, num_ep_correct   14, avg_ep_correct  0.4375, train loss -0.0212 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 911032320 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    5, num_hits: 41.0000, avg. reward per batch  0.1281, num_ep_correct   12, avg_ep_correct  0.3750, train loss -0.0304 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 914210816 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    6, num_hits: 36.0000, avg. reward per batch  0.1125, num_ep_correct   11, avg_ep_correct  0.3438, train loss -0.0372 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 917192704 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    7, num_hits: 37.0000, avg. reward per batch  0.1156, num_ep_correct   12, avg_ep_correct  0.3750, train loss -0.0431 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 919568384 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    8, num_hits: 49.0000, avg. reward per batch  0.1531, num_ep_correct   19, avg_ep_correct  0.5938, train loss -0.0506 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 921583616 (kb) ]
+07/16/2025 07:21:56 PM: [ batch_counter:    9, num_hits: 40.0000, avg. reward per batch  0.1250, num_ep_correct   17, avg_ep_correct  0.5312, train loss -0.0558 ]
+07/16/2025 07:21:56 PM: [ Memory usage: 925827072 (kb) ]
+07/16/2025 07:21:57 PM: [ batch_counter:   10, num_hits: 46.0000, avg. reward per batch  0.1437, num_ep_correct   13, avg_ep_correct  0.4062, train loss -0.0629 ]
+07/16/2025 07:21:57 PM: [ Hits@1:  1.0000 ]
+07/16/2025 07:21:57 PM: [ Hits@3:  1.0000 ]
+07/16/2025 07:21:57 PM: [ Hits@5:  1.0000 ]
+07/16/2025 07:21:57 PM: [ Hits@10:  1.0000 ]
+07/16/2025 07:21:57 PM: [ Hits@20:  1.0000 ]
+07/16/2025 07:21:57 PM: [ auc:  1.0000 ]
+07/16/2025 07:21:57 PM: [ Memory usage: 981270528 (kb) ]
+07/16/2025 07:21:57 PM: [ Creating TF graph... ]
+07/16/2025 07:21:57 PM: [ TF Graph creation done.. ]

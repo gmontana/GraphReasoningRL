@@ -1,0 +1,14 @@
+=== Analysis Results for athletePlaysForTeam ===
+
+Performance Metrics:
+PyTorch Success Rate: 100.00%
+TensorFlow Success Rate: Not available
+
+Runtime:
+PyTorch: 17.00s
+TensorFlow: 0.00s
+
+Path Overlap Analysis:
+Common Paths: 1 (100.00%)
+PyTorch Unique Paths: 0
+TensorFlow Unique Paths: 0

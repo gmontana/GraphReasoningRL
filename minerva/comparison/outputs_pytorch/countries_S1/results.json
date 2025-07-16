@@ -1,12 +1,12 @@
 {
   "dataset": "countries_S1",
   "framework": "pytorch",
-  "iterations": 20,
+  "iterations": 100,
   "metrics": {
-    "mrr": 0.7569,
+    "mrr": 0.9097,
     "hits@10": 1.0,
     "hits@5": 1.0,
-    "hits@3": 0.9167,
-    "hits@1": 0.5833
+    "hits@3": 1.0,
+    "hits@1": 0.8333
   }
 }

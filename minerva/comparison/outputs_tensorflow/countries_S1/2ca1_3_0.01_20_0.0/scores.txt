@@ -1,0 +1,8 @@
+Score for iteration 5
+Hits@1:  1.0000
+Hits@3:  1.0000
+Hits@5:  1.0000
+Hits@10:  1.0000
+Hits@20:  1.0000
+auc:  1.0000
+

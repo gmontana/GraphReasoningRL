@@ -1,0 +1,15 @@
+07/16/2025 07:05:42 PM: [ reading vocab files... ]
+07/16/2025 07:05:42 PM: [ Reading mid to name map ]
+07/16/2025 07:05:42 PM: [ Done.. ]
+07/16/2025 07:05:42 PM: [ Total number of entities 273 ]
+07/16/2025 07:05:42 PM: [ Total number of relations 6 ]
+07/16/2025 07:05:42 PM: [ Creating TF graph... ]
+07/16/2025 07:05:42 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: multinomial (from tensorflow.python.ops.random_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.random.categorical` instead. ]
+07/16/2025 07:05:42 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead. ]
+07/16/2025 07:05:42 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide. ]

@@ -1,0 +1,22 @@
+07/16/2025 07:17:38 PM: [ reading vocab files... ]
+07/16/2025 07:17:38 PM: [ Reading mid to name map ]
+07/16/2025 07:17:38 PM: [ Done.. ]
+07/16/2025 07:17:38 PM: [ Total number of entities 273 ]
+07/16/2025 07:17:38 PM: [ Total number of relations 6 ]
+07/16/2025 07:17:38 PM: [ Creating TF graph... ]
+07/16/2025 07:17:38 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: multinomial (from tensorflow.python.ops.random_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.random.categorical` instead. ]
+07/16/2025 07:17:38 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead. ]
+07/16/2025 07:17:38 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide. ]
+07/16/2025 07:17:38 PM: [ TF Graph creation done.. ]
+07/16/2025 07:17:38 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:224: BaseSession.partial_run_setup (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]
+07/16/2025 07:17:38 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:236: BaseSession.partial_run (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]

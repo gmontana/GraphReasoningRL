@@ -1,0 +1,230 @@
+#!/bin/bash
+# Script to create a complex benchmark dataset with longer paths
+
+# Get the directory of the script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Get the repository root directory (one level up from script)
+REPO_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+
+echo "=== Creating complex benchmark dataset with longer paths ==="
+
+# Relation to benchmark
+relation="athletePlaysForTeam"
+
+# Create directories
+mkdir -p "$REPO_ROOT/NELL-995/tasks/$relation"
+
+# Create a complex knowledge graph with longer paths
+# This will require multiple hops to find paths between entities
+cat > "$REPO_ROOT/NELL-995/tasks/$relation/graph.txt" << 'EOL'
+# Direct relations (but these are removed for path finding to force longer paths)
+concept_athlete_michael_jordan concept_sportsTeam_chicago_bulls concept:athletePlaysForTeam
+concept_sportsTeam_chicago_bulls concept_athlete_michael_jordan concept:athletePlaysForTeam_inv
+concept_athlete_stephen_curry concept_sportsTeam_golden_state_warriors concept:athletePlaysForTeam
+concept_sportsTeam_golden_state_warriors concept_athlete_stephen_curry concept:athletePlaysForTeam_inv
+concept_athlete_lebron_james concept_sportsTeam_cleveland_cavaliers concept:athletePlaysForTeam
+concept_sportsTeam_cleveland_cavaliers concept_athlete_lebron_james concept:athletePlaysForTeam_inv
+
+# Sports
+concept_athlete_michael_jordan concept_sport_basketball concept:athletePlaysSport
+concept_sport_basketball concept_athlete_michael_jordan concept:athletePlaysSport_inv
+concept_athlete_stephen_curry concept_sport_basketball concept:athletePlaysSport
+concept_sport_basketball concept_athlete_stephen_curry concept:athletePlaysSport_inv
+concept_athlete_lebron_james concept_sport_basketball concept:athletePlaysSport
+concept_sport_basketball concept_athlete_lebron_james concept:athletePlaysSport_inv
+concept_sportsTeam_chicago_bulls concept_sport_basketball concept:teamPlaysSport
+concept_sport_basketball concept_sportsTeam_chicago_bulls concept:teamPlaysSport_inv
+concept_sportsTeam_golden_state_warriors concept_sport_basketball concept:teamPlaysSport
+concept_sport_basketball concept_sportsTeam_golden_state_warriors concept:teamPlaysSport_inv
+concept_sportsTeam_cleveland_cavaliers concept_sport_basketball concept:teamPlaysSport
+concept_sport_basketball concept_sportsTeam_cleveland_cavaliers concept:teamPlaysSport_inv
+
+# Leagues
+concept_athlete_michael_jordan concept_sportsLeague_nba concept:athletePlaysInLeague
+concept_sportsLeague_nba concept_athlete_michael_jordan concept:athletePlaysInLeague_inv
+concept_athlete_stephen_curry concept_sportsLeague_nba concept:athletePlaysInLeague
+concept_sportsLeague_nba concept_athlete_stephen_curry concept:athletePlaysInLeague_inv
+concept_athlete_lebron_james concept_sportsLeague_nba concept:athletePlaysInLeague
+concept_sportsLeague_nba concept_athlete_lebron_james concept:athletePlaysInLeague_inv
+concept_sportsTeam_chicago_bulls concept_sportsLeague_nba concept:teamPlaysInLeague
+concept_sportsLeague_nba concept_sportsTeam_chicago_bulls concept:teamPlaysInLeague_inv
+concept_sportsTeam_golden_state_warriors concept_sportsLeague_nba concept:teamPlaysInLeague
+concept_sportsLeague_nba concept_sportsTeam_golden_state_warriors concept:teamPlaysInLeague_inv
+concept_sportsTeam_cleveland_cavaliers concept_sportsLeague_nba concept:teamPlaysInLeague
+concept_sportsLeague_nba concept_sportsTeam_cleveland_cavaliers concept:teamPlaysInLeague_inv
+
+# Coaches
+concept_coach_phil_jackson concept_sportsTeam_chicago_bulls concept:coachesTeam
+concept_sportsTeam_chicago_bulls concept_coach_phil_jackson concept:coachesTeam_inv
+concept_coach_steve_kerr concept_sportsTeam_golden_state_warriors concept:coachesTeam
+concept_sportsTeam_golden_state_warriors concept_coach_steve_kerr concept:coachesTeam_inv
+concept_coach_tyronn_lue concept_sportsTeam_cleveland_cavaliers concept:coachesTeam
+concept_sportsTeam_cleveland_cavaliers concept_coach_tyronn_lue concept:coachesTeam_inv
+
+# Coach-athlete mentorships
+concept_coach_phil_jackson concept_athlete_michael_jordan concept:mentorsAthlete
+concept_athlete_michael_jordan concept_coach_phil_jackson concept:mentorsAthlete_inv
+concept_coach_steve_kerr concept_athlete_stephen_curry concept:mentorsAthlete
+concept_athlete_stephen_curry concept_coach_steve_kerr concept:mentorsAthlete_inv
+concept_coach_tyronn_lue concept_athlete_lebron_james concept:mentorsAthlete
+concept_athlete_lebron_james concept_coach_tyronn_lue concept:mentorsAthlete_inv
+
+# Home stadiums
+concept_sportsTeam_chicago_bulls concept_stadium_united_center concept:teamHomeStadium
+concept_stadium_united_center concept_sportsTeam_chicago_bulls concept:teamHomeStadium_inv
+concept_sportsTeam_golden_state_warriors concept_stadium_chase_center concept:teamHomeStadium
+concept_stadium_chase_center concept_sportsTeam_golden_state_warriors concept:teamHomeStadium_inv
+concept_sportsTeam_cleveland_cavaliers concept_stadium_rocket_mortgage_fieldhouse concept:teamHomeStadium
+concept_stadium_rocket_mortgage_fieldhouse concept_sportsTeam_cleveland_cavaliers concept:teamHomeStadium_inv
+
+# Athletes play in stadiums
+concept_athlete_michael_jordan concept_stadium_united_center concept:athletePlaysInStadium
+concept_stadium_united_center concept_athlete_michael_jordan concept:athletePlaysInStadium_inv
+concept_athlete_stephen_curry concept_stadium_chase_center concept:athletePlaysInStadium
+concept_stadium_chase_center concept_athlete_stephen_curry concept:athletePlaysInStadium_inv
+concept_athlete_lebron_james concept_stadium_rocket_mortgage_fieldhouse concept:athletePlaysInStadium
+concept_stadium_rocket_mortgage_fieldhouse concept_athlete_lebron_james concept:athletePlaysInStadium_inv
+
+# Cities
+concept_stadium_united_center concept_city_chicago concept:stadiumLocatedInCity
+concept_city_chicago concept_stadium_united_center concept:stadiumLocatedInCity_inv
+concept_stadium_chase_center concept_city_san_francisco concept:stadiumLocatedInCity
+concept_city_san_francisco concept_stadium_chase_center concept:stadiumLocatedInCity_inv
+concept_stadium_rocket_mortgage_fieldhouse concept_city_cleveland concept:stadiumLocatedInCity
+concept_city_cleveland concept_stadium_rocket_mortgage_fieldhouse concept:stadiumLocatedInCity_inv
+
+# Teams located in cities
+concept_sportsTeam_chicago_bulls concept_city_chicago concept:teamLocatedInCity
+concept_city_chicago concept_sportsTeam_chicago_bulls concept:teamLocatedInCity_inv
+concept_sportsTeam_golden_state_warriors concept_city_san_francisco concept:teamLocatedInCity
+concept_city_san_francisco concept_sportsTeam_golden_state_warriors concept:teamLocatedInCity_inv
+concept_sportsTeam_cleveland_cavaliers concept_city_cleveland concept:teamLocatedInCity
+concept_city_cleveland concept_sportsTeam_cleveland_cavaliers concept:teamLocatedInCity_inv
+
+# Athletes born in cities
+concept_athlete_michael_jordan concept_city_new_york concept:athleteBornInCity
+concept_city_new_york concept_athlete_michael_jordan concept:athleteBornInCity_inv
+concept_athlete_stephen_curry concept_city_akron concept:athleteBornInCity
+concept_city_akron concept_athlete_stephen_curry concept:athleteBornInCity_inv
+concept_athlete_lebron_james concept_city_akron concept:athleteBornInCity
+concept_city_akron concept_athlete_lebron_james concept:athleteBornInCity_inv
+
+# Additional connections for longer paths
+concept_city_akron concept_state_ohio concept:cityInState
+concept_state_ohio concept_city_akron concept:cityInState_inv
+concept_city_cleveland concept_state_ohio concept:cityInState
+concept_state_ohio concept_city_cleveland concept:cityInState_inv
+concept_city_chicago concept_state_illinois concept:cityInState
+concept_state_illinois concept_city_chicago concept:cityInState_inv
+concept_city_san_francisco concept_state_california concept:cityInState
+concept_state_california concept_city_san_francisco concept:cityInState_inv
+concept_city_new_york concept_state_new_york concept:cityInState
+concept_state_new_york concept_city_new_york concept:cityInState_inv
+
+# Team rivalries
+concept_sportsTeam_chicago_bulls concept_sportsTeam_cleveland_cavaliers concept:teamRivalsWith
+concept_sportsTeam_cleveland_cavaliers concept_sportsTeam_chicago_bulls concept:teamRivalsWith
+concept_sportsTeam_golden_state_warriors concept_sportsTeam_cleveland_cavaliers concept:teamRivalsWith
+concept_sportsTeam_cleveland_cavaliers concept_sportsTeam_golden_state_warriors concept:teamRivalsWith
+concept_sportsTeam_chicago_bulls concept_sportsTeam_golden_state_warriors concept:teamRivalsWith
+concept_sportsTeam_golden_state_warriors concept_sportsTeam_chicago_bulls concept:teamRivalsWith
+EOL
+
+# Create training data
+cat > "$REPO_ROOT/NELL-995/tasks/$relation/train_pos" << 'EOL'
+concept_athlete_michael_jordan concept_sportsTeam_chicago_bulls concept:athletePlaysForTeam+
+concept_athlete_stephen_curry concept_sportsTeam_golden_state_warriors concept:athletePlaysForTeam+
+concept_athlete_lebron_james concept_sportsTeam_cleveland_cavaliers concept:athletePlaysForTeam+
+EOL
+
+# Create testing data
+cp "$REPO_ROOT/NELL-995/tasks/$relation/train_pos" "$REPO_ROOT/NELL-995/tasks/$relation/test_pos"
+
+# Create train.pairs and sort_test.pairs
+cp "$REPO_ROOT/NELL-995/tasks/$relation/train_pos" "$REPO_ROOT/NELL-995/tasks/$relation/train.pairs"
+cp "$REPO_ROOT/NELL-995/tasks/$relation/test_pos" "$REPO_ROOT/NELL-995/tasks/$relation/sort_test.pairs"
+
+# Create a modified version of kb_env_rl.txt without direct paths and without comments
+# This forces the agent to find longer paths
+grep -v "#" "$REPO_ROOT/NELL-995/tasks/$relation/graph.txt" | grep -v "concept:athletePlaysForTeam" > "$REPO_ROOT/NELL-995/kb_env_rl.txt"
+
+# Create entity2id.txt
+cat > "$REPO_ROOT/NELL-995/entity2id.txt" << 'EOL'
+concept_athlete_michael_jordan 0
+concept_sportsTeam_chicago_bulls 1
+concept_athlete_stephen_curry 2
+concept_sportsTeam_golden_state_warriors 3
+concept_athlete_lebron_james 4
+concept_sportsTeam_cleveland_cavaliers 5
+concept_sport_basketball 6
+concept_sportsLeague_nba 7
+concept_coach_phil_jackson 8
+concept_coach_steve_kerr 9
+concept_coach_tyronn_lue 10
+concept_stadium_united_center 11
+concept_stadium_chase_center 12
+concept_stadium_rocket_mortgage_fieldhouse 13
+concept_city_chicago 14
+concept_city_san_francisco 15
+concept_city_cleveland 16
+concept_city_new_york 17
+concept_city_akron 18
+concept_state_ohio 19
+concept_state_illinois 20
+concept_state_california 21
+concept_state_new_york 22
+EOL
+
+# Create relation2id.txt
+cat > "$REPO_ROOT/NELL-995/relation2id.txt" << 'EOL'
+concept:athletePlaysForTeam 0
+concept:athletePlaysForTeam_inv 1
+concept:athletePlaysSport 2
+concept:athletePlaysSport_inv 3
+concept:teamPlaysSport 4
+concept:teamPlaysSport_inv 5
+concept:athletePlaysInLeague 6
+concept:athletePlaysInLeague_inv 7
+concept:teamPlaysInLeague 8
+concept:teamPlaysInLeague_inv 9
+concept:coachesTeam 10
+concept:coachesTeam_inv 11
+concept:mentorsAthlete 12
+concept:mentorsAthlete_inv 13
+concept:teamHomeStadium 14
+concept:teamHomeStadium_inv 15
+concept:athletePlaysInStadium 16
+concept:athletePlaysInStadium_inv 17
+concept:stadiumLocatedInCity 18
+concept:stadiumLocatedInCity_inv 19
+concept:teamLocatedInCity 20
+concept:teamLocatedInCity_inv 21
+concept:athleteBornInCity 22
+concept:athleteBornInCity_inv 23
+concept:cityInState 24
+concept:cityInState_inv 25
+concept:teamRivalsWith 26
+EOL
+
+# Create entity and relation embeddings with correct dimensions
+python3 -c "
+import numpy as np
+
+# Create entity embeddings (100-dim as per the TensorFlow implementation)
+entity_count = 23
+entity_dim = 100
+np.random.seed(42)  # For reproducibility
+entity_embeddings = np.random.normal(0, 0.1, (entity_count, entity_dim))
+np.savetxt('$REPO_ROOT/NELL-995/entity2vec.bern', entity_embeddings)
+
+# Create relation embeddings (100-dim as per the TensorFlow implementation)
+relation_count = 27
+relation_dim = 100
+relation_embeddings = np.random.normal(0, 0.1, (relation_count, relation_dim))
+np.savetxt('$REPO_ROOT/NELL-995/relation2vec.bern', relation_embeddings)
+"
+
+echo "Complex benchmark dataset created at $REPO_ROOT/NELL-995/tasks/$relation/"
+echo "KB_ENV_RL created WITHOUT direct athletePlaysForTeam paths to force longer path finding"
+echo "You can now run the benchmark with:"
+echo "./run_complete_benchmark.sh $relation"

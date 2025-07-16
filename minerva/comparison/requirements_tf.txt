@@ -1,5 +1,0 @@
-# Requirements for running original TensorFlow MINERVA implementation
-tensorflow==1.15.0
-numpy==1.19.5
-scipy==1.5.4
-tqdm==4.62.3
