@@ -2,6 +2,11 @@
 """
 Compare TensorFlow and PyTorch MINERVA implementations
 This script runs both implementations on the same dataset and compares results
+
+IMPORTANT: This comparison only evaluates TRAINING PHASE performance.
+- TensorFlow: Uses training validation metrics (dev set evaluation during training)
+- PyTorch: Uses training validation metrics (dev set evaluation during training)
+- Test phase evaluation is NOT included due to TensorFlow checkpoint compatibility issues
 """
 import os
 import sys
@@ -15,6 +20,9 @@ def setup_environments():
     """Set up virtual environments for TF and PyTorch"""
     print("=" * 80)
     print("MINERVA Implementation Comparison")
+    print("=" * 80)
+    print("⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance")
+    print("⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues")
     print("=" * 80)
     
     # Check if we can import both frameworks
@@ -63,10 +71,12 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
     print(f"Iterations: {iterations}")
     print(f"Random seed: {seed}")
     print(f"Output directory: {comparison_dir}")
+    print(f"\n⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only")
+    print(f"⚠️  TensorFlow test phase is disabled due to checkpoint issues")
     
     # Run TensorFlow implementation
     print("\n" + "="*60)
-    print("Running TensorFlow Implementation")
+    print("Running TensorFlow Implementation (Training Validation Only)")
     print("="*60)
     
     tf_cmd = [
@@ -94,7 +104,7 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
     
     # Run PyTorch implementation
     print("\n" + "="*60)
-    print("Running PyTorch Implementation")
+    print("Running PyTorch Implementation (Training Validation Only)")
     print("="*60)
     
     pytorch_cmd = [
@@ -121,7 +131,7 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
     
     # Compare results
     print("\n" + "="*60)
-    print("Comparison Results")
+    print("Comparison Results (Training Validation Metrics Only)")
     print("="*60)
     
     comparison = {
@@ -194,12 +204,14 @@ def create_summary_report(comparison, output_dir):
     
     with open(report_file, 'w') as f:
         f.write("# MINERVA Implementation Comparison Report\n\n")
+        f.write("⚠️ **IMPORTANT**: This comparison only evaluates TRAINING VALIDATION metrics\n")
+        f.write("⚠️ **Test phase evaluation is disabled** due to TensorFlow checkpoint compatibility issues\n\n")
         f.write(f"**Dataset**: {comparison['dataset']}\n")
         f.write(f"**Iterations**: {comparison['iterations']}\n")
         f.write(f"**Random Seed**: {comparison['seed']}\n")
         f.write(f"**Timestamp**: {comparison['timestamp']}\n")
         
-        f.write("## Results Comparison\n\n")
+        f.write("## Results Comparison (Training Validation Metrics Only)\n\n")
         f.write("| Metric | TensorFlow | PyTorch | Difference | Relative Diff | Status |\n")
         f.write("|--------|------------|---------|------------|---------------|--------|\n")
         

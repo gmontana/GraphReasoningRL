@@ -89,7 +89,7 @@ def run_tensorflow_minerva(dataset='countries_S1', iterations=100):
             elif 'auc:' in line:
                 match = re.search(r'auc:\s*([\d.]+)', line)
                 if match:
-                    metrics['auc'] = float(match.group(1))
+                    metrics['mrr'] = float(match.group(1))  # auc is actually MRR
         
         if result.returncode == 0:
             print("✅ TensorFlow implementation completed successfully!")

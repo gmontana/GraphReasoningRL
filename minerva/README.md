@@ -127,9 +127,11 @@ python run_tensorflow.py --dataset countries_S1 --iterations 100
 # - Python 3.8+ compatibility
 ```
 
+**⚠️ Limitation**: The TensorFlow implementation currently has checkpoint compatibility issues that prevent test phase evaluation. Training and validation evaluation work correctly.
+
 ## Comparing Implementations
 
-We provide comprehensive tools to verify parity between implementations:
+We provide comprehensive tools to compare implementations:
 
 ```bash
 cd comparison/
@@ -140,9 +142,9 @@ python compare.py --dataset countries_S1 --iterations 100
 # Run individual implementations
 python run_pytorch.py --dataset kinship --iterations 200
 python run_tensorflow.py --dataset kinship --iterations 200
-
-# Both implementations now work with modern Python 3.8+ and TensorFlow 2.x
 ```
+
+**⚠️ Important Note**: The comparison currently evaluates **training validation metrics only**. The TensorFlow implementation has checkpoint compatibility issues that prevent test phase evaluation. This is clearly indicated in the comparison output.
 
 See `comparison/COMPARISON_GUIDE.md` for detailed instructions.
 
@@ -176,24 +178,24 @@ See `comparison/COMPARISON_GUIDE.md` for detailed instructions.
 
 ### Verified Results
 
-Both implementations have been thoroughly tested and validated:
+Both implementations have been tested and validated:
 
-**Countries S1 Dataset (100 iterations):**
+**Countries S1 Dataset (Training Validation Metrics):**
 - **TensorFlow Implementation**: 
   - Hits@1: 100.0%
   - Hits@3: 100.0%
   - Hits@5: 100.0%
   - Hits@10: 100.0%
-  - AUC: 100.0%
+  - MRR: 100.0%
   
 - **PyTorch Implementation**:
-  - Hits@1: 83.3%
-  - Hits@3: 100.0%
-  - Hits@5: 100.0%
-  - Hits@10: 100.0%
-  - MRR: 0.910
+  - Hits@1: 50.0% - 95.8% (varies by run)
+  - Hits@3: 95.8% - 100.0%
+  - Hits@5: 95.8% - 100.0%
+  - Hits@10: 95.8% - 100.0%
+  - MRR: 0.729 - 0.979
 
-Both implementations demonstrate excellent performance, with the TensorFlow implementation achieving perfect scores on this dataset. The slight variation between implementations is expected due to different random initializations and computational precision.
+**Note**: TensorFlow shows perfect training validation scores, while PyTorch shows more realistic performance with some variance across runs. The TensorFlow implementation cannot currently perform test phase evaluation due to checkpoint compatibility issues.
 
 ## Implementation Achievements
 
@@ -209,7 +211,8 @@ We successfully modernized the original TensorFlow 1.x implementation to work wi
 - ✅ **Keras 3 LSTM compatibility** (Custom LSTM wrapper)
 - ✅ RNN cell API changes and state format handling
 - ✅ Division operator fixes (/ → // for integer division)
-- ✅ Checkpoint loading and variable initialization
+- ✅ Training phase execution and validation metrics
+- ⚠️ **Checkpoint compatibility issues** (test phase evaluation disabled)
 
 ### PyTorch Implementation
 Created a complete PyTorch implementation with:
