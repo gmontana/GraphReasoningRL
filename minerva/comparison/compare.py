@@ -79,7 +79,8 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
     tf_env['PYTHONHASHSEED'] = str(seed)
     tf_env['TF_CPP_MIN_LOG_LEVEL'] = '2'
     
-    tf_result = subprocess.run(tf_cmd, capture_output=True, text=True, env=tf_env)
+    print("Running TensorFlow implementation...")
+    tf_result = subprocess.run(tf_cmd, env=tf_env)
     
     # Parse TF results
     tf_results_file = os.path.join(base_dir, f'outputs_tensorflow/{dataset}/results.json')
@@ -105,7 +106,8 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
     pytorch_env = os.environ.copy()
     pytorch_env['PYTHONHASHSEED'] = str(seed)
     
-    pytorch_result = subprocess.run(pytorch_cmd, capture_output=True, text=True, env=pytorch_env)
+    print("Running PyTorch implementation...")
+    pytorch_result = subprocess.run(pytorch_cmd, env=pytorch_env)
     
     # Parse PyTorch results
     pytorch_results_file = os.path.join(base_dir, f'outputs_pytorch/{dataset}/results.json')
@@ -149,17 +151,12 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
             is_close = True
             status = "- N/A"
         elif tf_val == 0.0 or pt_val == 0.0:
-            # If one is missing, don't count it as a major difference
-            is_close = True
+            # If one is missing, this is a problem but don't count as major difference
+            is_close = False
             status = "- Missing"
         else:
-            # For RL algorithms, use more reasonable tolerance:
-            # - 15% relative tolerance for hits@1 (most variable)
-            # - 10% relative tolerance for other metrics
-            if metric == 'hits@1':
-                is_close = np.isclose(tf_val, pt_val, rtol=0.15, atol=0.05)
-            else:
-                is_close = np.isclose(tf_val, pt_val, rtol=0.10, atol=0.02)
+            # Use reasonable tolerance for RL algorithms
+            is_close = np.isclose(tf_val, pt_val, rtol=0.10, atol=0.05)
             status = "✓ Close" if is_close else "✗ Different"
         
         if not is_close and tf_val != 0.0 and pt_val != 0.0:
@@ -175,16 +172,6 @@ def run_comparison(dataset='countries_S1', iterations=100, seed=42):
         
         print(f"{metric:<15} {tf_val:<12.4f} {pt_val:<12.4f} {diff:<12.4f} {status}")
     
-    # Overall verdict - be more reasonable for RL algorithms
-    print("\n" + "="*60)
-    if major_differences <= 1:  # Allow 1 metric to be different
-        print("✅ VERDICT: Implementations produce comparable results!")
-        print(f"   Both implementations work correctly with {major_differences} major difference(s)")
-        comparison['verdict'] = 'PASS'
-    else:
-        print("❌ VERDICT: Implementations show significant differences!")
-        print(f"   {major_differences} metrics show major differences")
-        comparison['verdict'] = 'FAIL'
     print("="*60)
     
     # Save comparison results
@@ -211,7 +198,6 @@ def create_summary_report(comparison, output_dir):
         f.write(f"**Iterations**: {comparison['iterations']}\n")
         f.write(f"**Random Seed**: {comparison['seed']}\n")
         f.write(f"**Timestamp**: {comparison['timestamp']}\n")
-        f.write(f"**Verdict**: {comparison['verdict']}\n\n")
         
         f.write("## Results Comparison\n\n")
         f.write("| Metric | TensorFlow | PyTorch | Difference | Relative Diff | Status |\n")
@@ -222,19 +208,6 @@ def create_summary_report(comparison, output_dir):
             f.write(f"| {metric} | {values['tensorflow']:.4f} | {values['pytorch']:.4f} | "
                    f"{values['difference']:.4f} | {values['relative_diff']:.2%} | {status} |\n")
         
-        f.write("\n## Analysis\n\n")
-        
-        if comparison['verdict'] == 'PASS':
-            f.write("The implementations produce comparable results within acceptable tolerance (5% relative difference).\n")
-            f.write("This confirms that the PyTorch implementation correctly reproduces the TensorFlow behavior.\n")
-        else:
-            f.write("The implementations show significant differences in results.\n")
-            f.write("Possible causes:\n")
-            f.write("- Random initialization differences\n")
-            f.write("- Numerical precision differences between frameworks\n")
-            f.write("- Implementation bugs\n")
-            f.write("- Different random sampling behavior\n\n")
-            f.write("Recommendation: Run with more iterations or investigate specific differences.\n")
     
     print(f"Summary report saved to: {report_file}")
 

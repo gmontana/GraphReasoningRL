@@ -66,9 +66,10 @@ class Trainer:
         # Calculate advantage
         final_reward = cum_discounted_reward - baseline_value
         
-        # Normalize rewards
-        reward_mean = final_reward.mean()
-        reward_std = final_reward.std() + 1e-6
+        # Normalize rewards (match TensorFlow exactly)
+        reward_mean = final_reward.mean(dim=[0, 1], keepdim=True)
+        reward_var = final_reward.var(dim=[0, 1], keepdim=True, unbiased=False)
+        reward_std = torch.sqrt(reward_var) + 1e-6
         final_reward = (final_reward - reward_mean) / reward_std
         
         # Multiply loss with advantage
@@ -124,50 +125,56 @@ class Trainer:
             # Prepare inputs
             query_relation = torch.LongTensor(episode.get_query_relation()).to(self.device)
             state = episode.get_state()
+            range_arr = torch.arange(self.batch_size * self.num_rollouts).to(self.device)
             
-            # Collect trajectory
+            # Collect trajectory step by step (like TensorFlow)
             candidate_relation_sequence = []
             candidate_entity_sequence = []
             current_entities_sequence = []
+            all_log_probs = []
+            all_action_idx = []
             
-            # First collect all states for the trajectory
+            # Initialize agent state
+            batch_size = self.batch_size * self.num_rollouts
+            h = torch.zeros(self.agent.LSTM_Layers, batch_size, 
+                           self.agent.m * self.agent.hidden_size).to(self.device)
+            c = torch.zeros(self.agent.LSTM_Layers, batch_size,
+                           self.agent.m * self.agent.hidden_size).to(self.device)
+            lstm_state = (h, c)
+            
+            # Initialize previous relation
+            prev_relation = torch.ones(batch_size, dtype=torch.long).to(self.device) * self.agent.dummy_start_r
+            
+            # Get query embedding once
+            query_embedding = self.agent.relation_embeddings(query_relation)
+            
+            # Execute trajectory step by step
             for i in range(self.path_length):
-                candidate_relation_sequence.append(
-                    torch.LongTensor(state['next_relations']).to(self.device)
-                )
-                candidate_entity_sequence.append(
-                    torch.LongTensor(state['next_entities']).to(self.device)
-                )
-                current_entities_sequence.append(
-                    torch.LongTensor(state['current_entities']).to(self.device)
+                # Current state
+                next_relations = torch.LongTensor(state['next_relations']).to(self.device)
+                next_entities = torch.LongTensor(state['next_entities']).to(self.device)
+                current_entities = torch.LongTensor(state['current_entities']).to(self.device)
+                
+                # Store for later use
+                candidate_relation_sequence.append(next_relations)
+                candidate_entity_sequence.append(next_entities)
+                current_entities_sequence.append(current_entities)
+                
+                # One step forward
+                lstm_state, log_probs, action_idx, chosen_relation = self.agent.step(
+                    next_relations, next_entities, lstm_state, prev_relation,
+                    query_embedding, current_entities, range_arr
                 )
                 
-                if i < self.path_length - 1:  # Don't need next state for last step
-                    # We need to compute action for this step to get next state
-                    # Use a temporary forward pass just to get the action
-                    with torch.no_grad():
-                        if i == 0:
-                            range_arr = torch.arange(self.batch_size * self.num_rollouts).to(self.device)
-                        temp_log_probs, temp_action_idx = self.agent(
-                            candidate_relation_sequence[:i+1],
-                            candidate_entity_sequence[:i+1],
-                            current_entities_sequence[:i+1],
-                            query_relation,
-                            range_arr,
-                            T=i + 1
-                        )
-                    action_idx = temp_action_idx[i].cpu().numpy()
-                    state = episode(action_idx)
-            
-            # Now do the full forward pass for training
-            all_log_probs, all_action_idx = self.agent(
-                candidate_relation_sequence,
-                candidate_entity_sequence,
-                current_entities_sequence,
-                query_relation,
-                range_arr,
-                T=self.path_length
-            )
+                all_log_probs.append(log_probs)
+                all_action_idx.append(action_idx)
+                
+                # Update environment
+                if i < self.path_length - 1:
+                    state = episode(action_idx.cpu().numpy())
+                
+                # Update previous relation
+                prev_relation = chosen_relation
             
             # Get rewards
             rewards = episode.get_reward()

@@ -13,7 +13,7 @@ class ReactiveBaseline:
         
     def update(self, reward):
         """Update baseline with new reward value"""
-        self.b = self.l * self.b + (1 - self.l) * reward
+        self.b = (1 - self.l) * self.b + self.l * reward
         
     def get_baseline_value(self):
         """Get current baseline value"""
