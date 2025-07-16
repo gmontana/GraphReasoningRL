@@ -24,3 +24,7 @@ temp_download/
 # Demo and benchmarks
 demo/
 benchmarks/
+
+# Claude-related files
+.CLAUDE.md
+**/.CLAUDE.md
