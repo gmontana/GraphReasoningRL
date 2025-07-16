@@ -28,3 +28,4 @@ benchmarks/
 # Claude-related files
 .CLAUDE.md
 **/.CLAUDE.md
+.claude/
