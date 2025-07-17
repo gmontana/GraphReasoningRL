@@ -33,8 +33,8 @@ def run_tensorflow_minerva(dataset='countries_S1', iterations=100):
     # Prepare command
     cmd = [
         'python', 'tf_patched/model/trainer.py',
-        '--data_input_dir', f'../original/datasets/data_preprocessed/{dataset}',
-        '--vocab_dir', f'../original/datasets/data_preprocessed/{dataset}/vocab',
+        '--data_input_dir', f'../../datasets/{dataset}',
+        '--vocab_dir', f'../../datasets/{dataset}/vocab',
         '--base_output_dir', f'outputs_tensorflow/{dataset}',
         '--total_iterations', str(iterations),
         '--eval_every', str(iterations),

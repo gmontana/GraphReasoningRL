@@ -16,8 +16,8 @@ relation_vocab['DUMMY_START_RELATION'] = len(relation_vocab)
 relation_vocab['NO_OP'] = len(relation_vocab)
 relation_vocab['UNK'] = len(relation_vocab)
 
-root_dir = "../../../"
-output_dir = root_dir+'/'+"datasets/data_preprocessed/"+task_name
+root_dir = "../../../../"
+output_dir = root_dir+'/'+"datasets/"+task_name
 vocab_dir = output_dir +'/vocab'
 os.makedirs(vocab_dir)
 t_name  = ''

@@ -19,8 +19,8 @@ def run_pytorch_minerva(dataset='countries_S1', num_iterations=100, load_model=F
     src_dir = os.path.join(base_dir, '../src')
     original_dir = os.path.join(base_dir, '../original')
     
-    # Dataset paths (use same data as TF version)
-    data_dir = os.path.join(original_dir, f'datasets/data_preprocessed/{dataset}')
+    # Dataset paths (use shared datasets)
+    data_dir = os.path.join(base_dir, f'../../datasets/{dataset}')
     vocab_dir = os.path.join(data_dir, 'vocab')
     
     # Output directory
