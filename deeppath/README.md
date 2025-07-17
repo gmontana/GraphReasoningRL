@@ -2,37 +2,57 @@
 
 This repository contains both the original TensorFlow implementation and our new PyTorch implementation of DeepPath, a reinforcement learning method for reasoning over knowledge graphs. DeepPath finds reasoning paths between entities in knowledge graphs by training an agent to navigate from source to target entities.
 
-## How DeepPath Works
+## What DeepPath Does
 
-### 1. Knowledge Graph Query Answering
+DeepPath is a reinforcement learning method that finds interpretable reasoning paths in knowledge graphs. Given a pair of entities and a relation type, the agent learns to discover multi-hop paths that explain why the relation holds between those entities.
 
-DeepPath addresses the problem of finding missing links in knowledge graphs. Given a query like (LeBron James, playsForTeam, ?), the agent learns to navigate through the knowledge graph to find the answer (e.g., LA Lakers) by following a sequence of relations.
+### Algorithm Specification
 
-Unlike embedding-based methods, DeepPath:
-- Provides interpretable reasoning paths between entities
-- Learns to navigate the discrete graph structure
-- Can generalize to unseen entity pairs
-- Discovers multiple reasoning patterns for each relation
+**Query Format:**
+- Input: (source_entity, target_entity, relation_type)
+- Output: Ranked paths connecting source to target
+- Example: (LeBron_James, Lakers, playsForTeam) → paths explaining this relation
 
-### 2. Agent-Environment System
+**State Space:**
+- State s_t = [e_t_embed, e_target_embed] where:
+  - e_t_embed: Current entity embedding (100-dim)
+  - e_target_embed: Target entity embedding (100-dim)
+- Fixed 200-dimensional state vector
 
-- **State**: Current entity and target entity embeddings
-- **Actions**: Selecting which outgoing relation to follow
-- **Environment**: Knowledge graph with direct links removed during training
-- **Reward**: Binary reward for reaching the correct target entity
+**Action Space:**
+- Action a_t = relation_index
+- Agent selects only the relation to follow
+- Next entity determined by KG structure
+- Invalid relations masked during action selection
 
-### 3. Learning Process
+**Rewards:**
+- Terminal reward: +1 if target reached, 0 otherwise
+- Efficiency bonus: 1/path_length (shorter paths preferred)
+- Diversity bonus: Rewards for finding new paths
+- Global reward: accuracy@1 of path on validation set
 
-1. **Supervised Learning**: Agent learns from a teacher (BFS algorithm) that finds correct paths
-2. **Reinforcement Learning**: Agent refines its policy using REINFORCE algorithm
-3. **Path Ranking**: Discovered paths are ranked by their predictive accuracy
+**Training Process:**
+1. **Phase 1 - Supervised Learning:**
+   - BFS teacher finds correct paths between entity pairs
+   - Agent learns to imitate teacher via cross-entropy loss
+   - Typically 1000 episodes
 
-### 4. Key Innovations
+2. **Phase 2 - Reinforcement Learning:**
+   - Agent explores using learned policy
+   - REINFORCE with baseline updates policy
+   - Path diversity encouraged through reward shaping
+   - Typically 500 episodes
 
-- **Two-phase training**: Supervised pre-training followed by RL fine-tuning
-- **Path diversity**: Encourages finding multiple reasoning patterns
-- **Efficiency reward**: Shorter paths are preferred
-- **Teacher forcing**: BFS teacher provides initial guidance
+3. **Path Ranking:**
+   - Collect all discovered paths
+   - Rank by frequency and accuracy on validation set
+   - Select top paths for relation
+
+**Key Features:**
+- Two-phase training combines imitation and exploration
+- Teacher algorithm removes direct links to force reasoning
+- Path diversity metrics prevent redundant discoveries
+- Evaluation uses Mean Average Precision (MAP)
 
 ## Algorithm Deep Dive
 

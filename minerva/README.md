@@ -2,38 +2,50 @@
 
 This repository contains both the original TensorFlow implementation and our new PyTorch implementation of MINERVA, a reinforcement learning agent for knowledge graph reasoning. MINERVA learns to navigate knowledge graphs by taking a sequence of relation-following steps to answer queries.
 
-## How MINERVA Works
+## What MINERVA Does
 
-### 1. Knowledge Graph Query Answering
+MINERVA is a reinforcement learning agent that answers queries on knowledge graphs by learning to navigate from a source entity to a target entity. Given an incomplete query like (Colin Kaepernick, PLAYERHOMESTADIUM, ?), the agent finds the answer by walking through the graph following a sequence of relations.
 
-MINERVA addresses the task of answering queries on incomplete knowledge graphs. Given a query like (Colin Kaepernick, PLAYERHOMESTADIUM, ?), the agent learns to walk through the knowledge graph to find the answer entity.
+### Algorithm Specification
 
-Unlike traditional embedding-based methods, MINERVA:
-- Provides interpretable reasoning paths
-- Can leverage the graph structure during inference
-- Handles incomplete knowledge graphs naturally
-- Works with sparse graphs where embedding methods struggle
+**Query Format:**
+- Input: (source_entity, query_relation, ?)
+- Output: target_entity
+- Example: (Colin_Kaepernick, PLAYERHOMESTADIUM, ?) → Levi's_Stadium
 
-### 2. Agent-Environment System
+**State Space:**
+- State s_t = (e_t, h_t) where:
+  - e_t: Current entity (one-hot or embedding)
+  - h_t: LSTM hidden state encoding the path history
 
-- **State**: Current entity and query relation embeddings
-- **Actions**: Selecting which outgoing edge (relation-entity pair) to follow
-- **Environment**: The knowledge graph with allowed transitions
-- **Reward**: +1 for reaching correct answer, 0 otherwise
+**Action Space:**
+- Action a_t = (r, e) where:
+  - r: Relation to follow
+  - e: Destination entity
+- Actions are constrained by KG structure (only valid outgoing edges)
+- Self-loops with NO_OP relation added to all entities
 
-### 3. Learning Process
+**Rewards:**
+- Terminal reward only (sparse):
+  - r_T = +1 if agent reaches correct target entity
+  - r_T = 0 otherwise
+- No intermediate rewards
 
-1. **Policy Network**: LSTM-based network that maintains history of the walk
-2. **Training**: REINFORCE algorithm with entropy regularization
-3. **Inference**: Beam search to maintain multiple hypothesis paths
-4. **Evaluation**: Hits@k and Mean Reciprocal Rank (MRR)
+**Training Process:**
+1. Initialize at source entity with query relation
+2. Agent takes T steps (path_length hyperparameter)
+3. At each step:
+   - LSTM encodes history
+   - Policy network scores all valid actions
+   - Sample action from softmax distribution
+4. Update policy using REINFORCE with baseline
+5. Entropy regularization with decaying coefficient
 
-### 4. Key Innovations
-
-- **No Precomputed Paths**: Unlike DeepPath, MINERVA learns online
-- **History-Dependent Policy**: LSTM maintains memory of previous steps
-- **Beam Search**: Explores multiple paths during inference
-- **Entropy Regularization**: Encourages exploration during training
+**Key Features:**
+- No precomputed paths - learns online through exploration
+- History-dependent policy via LSTM
+- Beam search during inference for better performance
+- Invalid action masking with large negative values
 
 ## Algorithm Deep Dive: How MINERVA Works
 
