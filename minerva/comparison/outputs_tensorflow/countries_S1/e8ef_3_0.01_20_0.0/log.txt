@@ -1,0 +1,41 @@
+07/16/2025 08:36:30 PM: [ reading vocab files... ]
+07/16/2025 08:36:30 PM: [ Reading mid to name map ]
+07/16/2025 08:36:30 PM: [ Done.. ]
+07/16/2025 08:36:30 PM: [ Total number of entities 273 ]
+07/16/2025 08:36:30 PM: [ Total number of relations 6 ]
+07/16/2025 08:36:30 PM: [ Creating TF graph... ]
+07/16/2025 08:36:30 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: multinomial (from tensorflow.python.ops.random_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.random.categorical` instead. ]
+07/16/2025 08:36:30 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.cast` instead. ]
+07/16/2025 08:36:30 PM: [ From /opt/anaconda3/lib/python3.12/site-packages/tensorflow/python/util/dispatch.py:1260: div (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Deprecated in favor of operator or tf.math.divide. ]
+07/16/2025 08:36:31 PM: [ TF Graph creation done.. ]
+07/16/2025 08:36:31 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:224: BaseSession.partial_run_setup (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]
+07/16/2025 08:36:31 PM: [ From /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/tf_patched/model/trainer.py:236: BaseSession.partial_run (from tensorflow.python.client.session) is deprecated and will be removed after 2023-06-01.
+Instructions for updating:
+This function is deprecated and we do not expect adding newfunctionality to it. Please do not have your code dependingon this function. ]
+07/16/2025 08:36:31 PM: [ batch_counter:    1, num_hits: 19.0000, avg. reward per batch  0.0594, num_ep_correct   10, avg_ep_correct  0.3125, train loss -0.0037 ]
+07/16/2025 08:36:31 PM: [ Memory usage: 877232128 (kb) ]
+07/16/2025 08:36:31 PM: [ batch_counter:    2, num_hits: 31.0000, avg. reward per batch  0.0969, num_ep_correct   14, avg_ep_correct  0.4375, train loss -0.0112 ]
+07/16/2025 08:36:31 PM: [ Memory usage: 913948672 (kb) ]
+07/16/2025 08:36:31 PM: [ batch_counter:    3, num_hits: 32.0000, avg. reward per batch  0.1000, num_ep_correct   14, avg_ep_correct  0.4375, train loss -0.0167 ]
+07/16/2025 08:36:31 PM: [ Memory usage: 915275776 (kb) ]
+07/16/2025 08:36:31 PM: [ batch_counter:    4, num_hits: 19.0000, avg. reward per batch  0.0594, num_ep_correct    8, avg_ep_correct  0.2500, train loss -0.0234 ]
+07/16/2025 08:36:31 PM: [ Memory usage: 921419776 (kb) ]
+07/16/2025 08:36:31 PM: [ batch_counter:    5, num_hits: 24.0000, avg. reward per batch  0.0750, num_ep_correct   11, avg_ep_correct  0.3438, train loss -0.0273 ]
+07/16/2025 08:36:31 PM: [ Hits@1:  1.0000 ]
+07/16/2025 08:36:31 PM: [ Hits@3:  1.0000 ]
+07/16/2025 08:36:31 PM: [ Hits@5:  1.0000 ]
+07/16/2025 08:36:31 PM: [ Hits@10:  1.0000 ]
+07/16/2025 08:36:31 PM: [ Hits@20:  1.0000 ]
+07/16/2025 08:36:31 PM: [ auc:  1.0000 ]
+07/16/2025 08:36:31 PM: [ Memory usage: 975683584 (kb) ]
+07/16/2025 08:36:31 PM: [ Creating TF graph... ]
+07/16/2025 08:36:31 PM: [ TF Graph creation done.. ]
+07/16/2025 08:36:31 PM: [ Restoring parameters from outputs_tensorflow/countries_S1/e8ef_3_0.01_20_0.0/model/model.ckpt ]

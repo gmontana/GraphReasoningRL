@@ -1,0 +1,12 @@
+{
+  "dataset": "umls",
+  "framework": "pytorch",
+  "iterations": 100,
+  "metrics": {
+    "mrr": 0.059,
+    "hits@10": 0.1641,
+    "hits@5": 0.0828,
+    "hits@3": 0.0629,
+    "hits@1": 0.0215
+  }
+}

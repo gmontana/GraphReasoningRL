@@ -1,0 +1,8 @@
+Score for iteration 100
+Hits@1:  0.0131
+Hits@3:  0.0281
+Hits@5:  0.0375
+Hits@10:  0.0599
+Hits@20:  0.1002
+auc:  0.0275
+

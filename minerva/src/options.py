@@ -5,11 +5,29 @@ import json
 from pprint import pprint
 
 
+def load_config_from_json(json_path):
+    """Load configuration from JSON file and convert to command line format."""
+    with open(json_path, 'r') as f:
+        config = json.load(f)
+    
+    # Convert JSON config to command line arguments
+    args = []
+    for key, value in config.items():
+        if value is not None and value != "":
+            args.append(f"--{key}")
+            args.append(str(value))
+    
+    return args
+
+
 def read_options():
-    parser = argparse.ArgumentParser(description='MINERVA: PyTorch Implementation')
+    parser = argparse.ArgumentParser(description='MINERVA: PyTorch Implementation',
+                                   fromfile_prefix_chars='@')
     
     # Data parameters
     parser.add_argument("--data_input_dir", default="", type=str, help="Input data directory")
+    parser.add_argument("--input_file", default="train.txt", type=str, help="Input training file name")
+    parser.add_argument("--create_vocab", default=0, type=int, help="Create vocabulary files (0/1)")
     parser.add_argument("--vocab_dir", default="", type=str, help="Vocabulary directory")
     parser.add_argument("--max_num_actions", default=200, type=int, help="Maximum number of actions per state")
     
@@ -28,6 +46,7 @@ def read_options():
     parser.add_argument("--test_rollouts", default=100, type=int, help="Number of rollouts during testing")
     parser.add_argument("--learning_rate", default=1e-3, type=float, help="Learning rate")
     parser.add_argument("--grad_clip_norm", default=5, type=int, help="Gradient clipping norm")
+    parser.add_argument("--l2_reg_const", default=1e-2, type=float, help="L2 regularization constant")
     parser.add_argument("--beta", default=1e-2, type=float, help="Entropy regularization weight")
     parser.add_argument("--gamma", default=1, type=float, help="Discount factor")
     parser.add_argument("--Lambda", default=0.0, type=float, help="Baseline learning rate")
@@ -50,23 +69,50 @@ def read_options():
     # Logging
     parser.add_argument("--log_dir", default="./logs/", type=str, help="Log directory")
     parser.add_argument("--log_file_name", default="train.log", type=str, help="Log file name")
+    parser.add_argument("--output_file", default="", type=str, help="Output file for results")
     
     # NELL evaluation
     parser.add_argument("--nell_evaluation", default=0, type=int, help="Perform NELL evaluation (0/1)")
+    
+    # Pretrained embeddings
+    parser.add_argument("--pretrained_embeddings_action", default="", type=str, help="Path to pretrained action/relation embeddings")
+    parser.add_argument("--pretrained_embeddings_entity", default="", type=str, help="Path to pretrained entity embeddings")
     
     # Device
     parser.add_argument("--device", default=None, type=str, 
                         help="Device to use: 'cuda', 'mps', 'cpu', or None for auto-detection")
     
-    # Parse arguments
-    args = parser.parse_args()
-    parsed = vars(args)
+    # Check if we're loading from JSON config file
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1].endswith('.json'):
+        # Load from JSON file
+        json_config_path = sys.argv[1]
+        if not os.path.exists(json_config_path):
+            raise FileNotFoundError(f"Configuration file not found: {json_config_path}")
+        
+        with open(json_config_path, 'r') as f:
+            parsed = json.load(f)
+        
+        # Override with any additional command line arguments
+        if len(sys.argv) > 2:
+            additional_args = parser.parse_args(sys.argv[2:])
+            parsed.update(vars(additional_args))
+    else:
+        # Parse arguments normally
+        args = parser.parse_args()
+        parsed = vars(args)
     
     # Convert boolean flags
     parsed['use_entity_embeddings'] = bool(parsed['use_entity_embeddings'])
     parsed['train_entity_embeddings'] = bool(parsed['train_entity_embeddings'])
     parsed['train_relation_embeddings'] = bool(parsed['train_relation_embeddings'])
     parsed['load_model'] = bool(parsed['load_model'])
+    
+    # Create input_files list for compatibility
+    if parsed['data_input_dir'] and parsed['input_file']:
+        parsed['input_files'] = [os.path.join(parsed['data_input_dir'], parsed['input_file'])]
+    else:
+        parsed['input_files'] = []
     
     # Load vocabularies
     if parsed['vocab_dir']:
@@ -82,6 +128,7 @@ def read_options():
         )
         parsed['model_dir'] = os.path.join(parsed['output_dir'], 'model')
         parsed['log_file_name'] = os.path.join(parsed['output_dir'], 'train.log')
+        parsed['path_logger_file'] = parsed['output_dir']  # For compatibility with original
         
         # Create directories
         os.makedirs(parsed['output_dir'], exist_ok=True)

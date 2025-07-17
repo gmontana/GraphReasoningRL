@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from options import read_options
 from model.trainer import Trainer
+from model.nell_eval import nell_eval
 from utils import device_info
 
 # Set up logging
@@ -42,14 +43,37 @@ def main():
         logger.info(f"Loading model from {options['model_load_dir']}")
         trainer.load_model(options['model_load_dir'])
         
+        # Set output directory for file saving if not already set
+        if 'output_dir' not in options:
+            options['output_dir'] = os.path.dirname(options['model_load_dir'])
+        trainer.output_dir = options['output_dir']
+        
         # Test on test set
         logger.info("Evaluating on test set...")
         trainer.test_environment = trainer.test_test_environment
-        results = trainer.test(beam=True, print_paths=False, save_model=False)
+        print_paths = options['nell_evaluation'] == 1
+        results = trainer.test(beam=True, print_paths=print_paths, save_model=False)
         
         logger.info("Test results:")
         for metric, value in results.items():
             logger.info(f"  {metric}: {value:.4f}")
+        
+        # NELL evaluation if enabled
+        if options['nell_evaluation'] == 1:
+            logger.info("Performing NELL evaluation...")
+            # For loaded models, use the model load directory's parent
+            if 'output_dir' in options:
+                output_dir = options['output_dir']
+            else:
+                output_dir = os.path.dirname(options['model_load_dir'])
+            
+            answers_file = os.path.join(output_dir, 'test_beam', 'pathsanswers')
+            test_pairs_file = os.path.join(options['data_input_dir'], 'sort_test.pairs')
+            
+            if os.path.exists(answers_file) and os.path.exists(test_pairs_file):
+                nell_eval(answers_file, test_pairs_file)
+            else:
+                logger.warning(f"NELL evaluation files not found: {answers_file}, {test_pairs_file}")
     else:
         # Train model
         logger.info("Starting training...")
@@ -58,11 +82,23 @@ def main():
         # Final test
         logger.info("Final evaluation on test set...")
         trainer.test_environment = trainer.test_test_environment
-        results = trainer.test(beam=True, print_paths=False, save_model=False)
+        print_paths = options['nell_evaluation'] == 1
+        results = trainer.test(beam=True, print_paths=print_paths, save_model=False)
         
         logger.info("Final test results:")
         for metric, value in results.items():
             logger.info(f"  {metric}: {value:.4f}")
+        
+        # NELL evaluation if enabled
+        if options['nell_evaluation'] == 1:
+            logger.info("Performing NELL evaluation...")
+            answers_file = os.path.join(options['output_dir'], 'test_beam', 'pathsanswers')
+            test_pairs_file = os.path.join(options['data_input_dir'], 'sort_test.pairs')
+            
+            if os.path.exists(answers_file) and os.path.exists(test_pairs_file):
+                nell_eval(answers_file, test_pairs_file)
+            else:
+                logger.warning(f"NELL evaluation files not found: {answers_file}, {test_pairs_file}")
 
 
 if __name__ == '__main__':

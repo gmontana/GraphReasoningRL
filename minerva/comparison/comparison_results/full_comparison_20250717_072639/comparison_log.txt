@@ -1,0 +1,1530 @@
+Multi-Dataset Comparison Started at Thu 17 Jul 2025 07:26:39 BST
+=====================================================================
+TensorFlow MINERVA implementation:
+Dataset: countries_S1
+Iterations: 100
+
+Running TensorFlow MINERVA...
+Command: python tf_patched/model/trainer.py --data_input_dir ../original/datasets/data_preprocessed/countries_S1 --vocab_dir ../original/datasets/data_preprocessed/countries_S1/vocab --base_output_dir outputs_tensorflow/countries_S1 --total_iterations 100 --eval_every 100 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+
+✅ TensorFlow implementation completed successfully!
+
+Results:
+  hits@1: 1.0000
+  hits@3: 1.0000
+  hits@5: 1.0000
+  hits@10: 1.0000
+  mrr: 1.0000
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_tensorflow/countries_S1/results.json
+
+TensorFlow implementation is currently blocked by compatibility issues.
+Use PyTorch implementation for working results.
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+Running PyTorch MINERVA on countries_S1...
+Command: python /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../src/train.py --data_input_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1 --vocab_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/vocab --base_output_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1 --total_iterations 100 --eval_every 10 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+Configuration:
+  LSTM_layers                  : 1
+  Lambda                       : 0.0
+  base_output_dir              : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1
+  batch_size                   : 32
+  beta                         : 0.01
+  create_vocab                 : 0
+  data_input_dir               : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1
+  device                       : None
+  embedding_size               : 50
+  entity_vocab                 : {'curacao': 270, 'samoa': 265, 'kosovo': 101, 'anguilla': 239, 'united_states': 117, 'azerbaijan': 19, 'sint_maarten': 213, 'uzbekistan': 85, 'north_korea': 222, 'senegal': 178, 'equatorial_guinea': 204, 'cambodia': 112, 'guinea-bissau': 177, 'japan': 9, 'taiwan': 258, 'south-eastern_asia': 7, 'cyprus': 51, 'barbados': 252, 'peru': 120, 'UNK': 272, 'bhutan': 199, 'ivory_coast': 64, 'saint_pierre_and_miquelon': 229, 'lithuania': 78, 'micronesia': 1, 'andorra': 181, 'tunisia': 217, 'palestine': 266, 'rwanda': 57, 'aruba': 119, 'middle_africa': 27, 'french_polynesia': 219, 'timor-leste': 243, 'argentina': 44, 'eastern_europe': 52, 'norway': 160, 'ghana': 67, 'belarus': 76, 'cuba': 96, 'saint_vincent_and_the_grenadines': 260, 'guyana': 142, 'zambia': 31, 'vanuatu': 207, 'bosnia_and_herzegovina': 102, 'guatemala': 135, 'palau': 0, 'belgium': 15, 'cape_verde': 208, 'haiti': 235, 'macau': 218, 'kazakhstan': 80, 'liberia': 68, 'kyrgyzstan': 84, 'netherlands': 11, 'sierra_leone': 71, 'portugal': 182, 'denmark': 150, 'philippines': 263, 'montserrat': 246, 'djibouti': 215, 'south_korea': 228, 'moldova': 184, 'latvia': 224, 'namibia': 30, 'papua_new_guinea': 226, 'switzerland': 152, 'cook_islands': 245, 'melanesia': 90, 'bulgaria': 23, 'jamaica': 193, 'united_arab_emirates': 129, 'angola': 26, 'central_african_republic': 58, 'eastern_africa': 46, 'serbia': 97, 'southern_africa': 37, 'malaysia': 8, 'mozambique': 39, 'greece': 21, 'aland_islands': 254, 'nicaragua': 107, 'brazil': 45, 'afghanistan': 86, 'qatar': 128, 'oceania': 2, 'southern_asia': 4, 'turkmenistan': 82, 'morocco': 170, 'sudan': 62, 'guinea': 70, 'panama': 123, 'nepal': 200, 'asia': 5, 'iceland': 190, 'somalia': 201, 'tokelau': 262, 'tuvalu': 139, 'central_asia': 81, 'croatia': 103, 'nauru': 205, 'venezuela': 124, 'europe': 13, 'brunei': 6, 'new_zealand': 225, 'iran': 20, 'dominican_republic': 234, 'western_asia': 17, 'china': 83, 'armenia': 18, 'thailand': 165, 'iraq': 24, 'bermuda': 236, 'bangladesh': 188, 'ukraine': 74, 'guadeloupe': 241, 'libya': 175, 'mayotte': 72, 'oman': 132, 'northern_america': 116, 'antigua_and_barbuda': 33, 'gambia': 240, 'macedonia': 99, 'americas': 35, 'french_guiana': 171, 'western_sahara': 166, 'british_virgin_islands': 244, 'niue': 114, 'republic_of_the_congo': 32, 'syria': 25, 'western_africa': 65, 'jersey': 231, 'pakistan': 91, 'romania': 105, 'seychelles': 191, 'myanmar': 164, 'egypt': 174, 'guam': 211, 'pitcairn_islands': 232, 'africa': 28, 'austria': 106, 'saint_martin': 214, 'hungary': 104, 'mongolia': 223, 'colombia': 121, 'eastern_asia': 10, 'northern_africa': 167, 'dr_congo': 29, 'niger': 148, 'fiji': 125, 'comoros': 210, 'turkey': 16, 'madagascar': 136, 'belize': 158, 'isle_of_man': 141, 'mauritania': 169, 'mexico': 159, 'togo': 154, 'france': 153, 'bahamas': 212, 'solomon_islands': 197, 'slovakia': 75, 'gibraltar': 180, 'swaziland': 36, 'laos': 113, 'svalbard_and_jan_mayen': 140, 'costa_rica': 110, 'bolivia': 93, 'united_kingdom': 53, 'malawi': 50, 'ecuador': 122, 'vatican_city': 144, 'san_marino': 185, 'albania': 237, 'ireland': 54, 'southern_europe': 98, 'lebanon': 198, 'kiribati': 233, 'british_indian_ocean_territory': 146, 'czechia': 79, 'tajikistan': 87, 'trinidad_and_tobago': 186, 'wallis_and_futuna': 40, 'saint_lucia': 269, 'jordan': 130, 'chile': 94, 'martinique': 230, 'central_europe': 118, 'south_georgia': 189, 'nigeria': 147, 'spain': 179, 'georgia': 22, 'australia_and_new_zealand': 138, 'lesotho': 195, 'burkina_faso': 66, 'mauritius': 257, 'polynesia': 41, 'south_africa': 38, 'sweden': 161, 'gabon': 126, 'saudi_arabia': 127, 'mali': 69, 'grenada': 261, 'yemen': 131, 'russia': 77, 'PAD': 271, 'american_samoa': 194, 'new_caledonia': 89, 'finland': 162, 'chad': 59, 'uruguay': 42, 'falkland_islands': 209, 'reunion': 267, 'india': 92, 'israel': 176, 'paraguay': 95, 'australia': 137, 'greenland': 255, 'uganda': 155, 'burundi': 56, 'kenya': 156, 'el_salvador': 134, 'botswana': 48, 'united_states_minor_outlying_islands': 264, 'marshall_islands': 203, 'united_states_virgin_islands': 216, 'italy': 145, 'algeria': 168, 'bahrain': 187, 'turks_and_caicos_islands': 88, 'south_america': 43, 'northern_europe': 55, 'tanzania': 47, 'ethiopia': 202, 'vietnam': 111, 'south_sudan': 60, 'cocos_keeling_islands': 163, 'cameroon': 61, 'puerto_rico': 259, 'cayman_islands': 268, 'benin': 149, 'canada': 115, 'norfolk_island': 256, 'saint_kitts_and_nevis': 238, 'singapore': 253, 'malta': 183, 'estonia': 221, 'montenegro': 100, 'monaco': 242, 'sao_tome_and_principe': 173, 'slovenia': 250, 'honduras': 109, 'germany': 14, 'western_europe': 12, 'caribbean': 34, 'hong_kong': 251, 'dominica': 247, 'luxembourg': 151, 'suriname': 143, 'eritrea': 206, 'tonga': 63, 'maldives': 3, 'central_america': 108, 'poland': 73, 'indonesia': 227, 'saint_barthelemy': 220, 'christmas_island': 172, 'liechtenstein': 249, 'zimbabwe': 49, 'guernsey': 248, 'kuwait': 133, 'sri_lanka': 196, 'northern_mariana_islands': 157, 'faroe_islands': 192}
+  eval_every                   : 10
+  gamma                        : 1.0
+  grad_clip_norm               : 5
+  hidden_size                  : 50
+  input_file                   : train.txt
+  input_files                  : ['/Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/train.txt']
+  l2_reg_const                 : 0.01
+  learning_rate                : 0.001
+  load_model                   : False
+  log_dir                      : ./logs/
+  log_file_name                : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0/train.log
+  max_num_actions              : 200
+  model_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0/model
+  model_load_dir               : 
+  negative_reward              : 0
+  nell_evaluation              : 0
+  num_rollouts                 : 10
+  output_dir                   : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0
+  output_file                  : 
+  path_length                  : 3
+  path_logger_file             : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0
+  pool                         : max
+  positive_reward              : 1.0
+  pretrained_embeddings_action : 
+  pretrained_embeddings_entity : 
+  relation_vocab               : {'locatedIn': 0, 'NO_OP': 4, 'DUMMY_START_RELATION': 3, 'neighborOf': 1, 'PAD': 2, 'UNK': 5}
+  test_rollouts                : 20
+  total_iterations             : 100
+  train_entity_embeddings      : False
+  train_relation_embeddings    : True
+  use_entity_embeddings        : False
+  vocab_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/vocab
+PyTorch Device Information:
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+2025-07-17 07:26:52,839 - utils - INFO - Using MPS device (Apple Silicon)
+2025-07-17 07:26:52,850 - data.feed_data - INFO - Loaded 1111 train examples
+2025-07-17 07:26:52,850 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/graph.txt
+2025-07-17 07:26:52,851 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:26:52,851 - data.feed_data - INFO - Loaded 24 dev examples
+2025-07-17 07:26:52,851 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/graph.txt
+2025-07-17 07:26:52,852 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:26:52,852 - data.feed_data - INFO - Loaded 24 test examples
+2025-07-17 07:26:52,852 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S1/graph.txt
+2025-07-17 07:26:52,852 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:26:53,192 - __main__ - INFO - Starting training...
+
+0it [00:00, ?it/s]
+1it [00:00, 13.64it/s]
+2025-07-17 07:26:53,816 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:26:53,816 - model.trainer - INFO - Hits@1: 0.7083
+2025-07-17 07:26:53,816 - model.trainer - INFO - Hits@3: 0.9583
+2025-07-17 07:26:53,816 - model.trainer - INFO - Hits@5: 0.9583
+2025-07-17 07:26:53,816 - model.trainer - INFO - Hits@10: 0.9583
+2025-07-17 07:26:53,816 - model.trainer - INFO - Hits@20: 0.9583
+2025-07-17 07:26:53,816 - model.trainer - INFO - MRR: 0.8194
+
+0it [00:00, ?it/s]
+1it [00:00, 79.90it/s]
+2025-07-17 07:26:54,029 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:26:54,029 - model.trainer - INFO - Hits@1: 0.5833
+2025-07-17 07:26:54,029 - model.trainer - INFO - Hits@3: 0.9583
+2025-07-17 07:26:54,029 - model.trainer - INFO - Hits@5: 0.9583
+2025-07-17 07:26:54,029 - model.trainer - INFO - Hits@10: 0.9583
+2025-07-17 07:26:54,029 - model.trainer - INFO - Hits@20: 0.9583
+2025-07-17 07:26:54,029 - model.trainer - INFO - MRR: 0.7569
+
+0it [00:00, ?it/s]
+1it [00:00, 79.74it/s]
+2025-07-17 07:26:54,232 - model.trainer - INFO - Hits@1: 0.5000
+2025-07-17 07:26:54,232 - model.trainer - INFO - Hits@3: 0.8750
+2025-07-17 07:26:54,232 - model.trainer - INFO - Hits@5: 0.8750
+2025-07-17 07:26:54,232 - model.trainer - INFO - Hits@10: 0.8750
+2025-07-17 07:26:54,232 - model.trainer - INFO - Hits@20: 0.8750
+2025-07-17 07:26:54,232 - model.trainer - INFO - MRR: 0.6806
+
+0it [00:00, ?it/s]
+1it [00:00, 64.17it/s]
+2025-07-17 07:26:54,458 - model.trainer - INFO - Hits@1: 0.2083
+2025-07-17 07:26:54,459 - model.trainer - INFO - Hits@3: 0.7917
+2025-07-17 07:26:54,459 - model.trainer - INFO - Hits@5: 0.7917
+2025-07-17 07:26:54,459 - model.trainer - INFO - Hits@10: 0.7917
+2025-07-17 07:26:54,459 - model.trainer - INFO - Hits@20: 0.7917
+2025-07-17 07:26:54,459 - model.trainer - INFO - MRR: 0.4861
+
+0it [00:00, ?it/s]
+1it [00:00, 76.01it/s]
+2025-07-17 07:26:54,674 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/46e0ad0f_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:26:54,674 - model.trainer - INFO - Hits@1: 0.4583
+2025-07-17 07:26:54,674 - model.trainer - INFO - Hits@3: 0.9583
+2025-07-17 07:26:54,674 - model.trainer - INFO - Hits@5: 0.9583
+2025-07-17 07:26:54,674 - model.trainer - INFO - Hits@10: 0.9583
+2025-07-17 07:26:54,674 - model.trainer - INFO - Hits@20: 0.9583
+2025-07-17 07:26:54,674 - model.trainer - INFO - MRR: 0.7083
+
+0it [00:00, ?it/s]
+1it [00:00, 78.62it/s]
+2025-07-17 07:26:54,879 - model.trainer - INFO - Hits@1: 0.2500
+2025-07-17 07:26:54,879 - model.trainer - INFO - Hits@3: 0.6667
+2025-07-17 07:26:54,879 - model.trainer - INFO - Hits@5: 0.6667
+2025-07-17 07:26:54,879 - model.trainer - INFO - Hits@10: 0.6667
+2025-07-17 07:26:54,880 - model.trainer - INFO - Hits@20: 0.6667
+2025-07-17 07:26:54,880 - model.trainer - INFO - MRR: 0.4583
+
+0it [00:00, ?it/s]
+1it [00:00, 80.19it/s]
+2025-07-17 07:26:55,085 - model.trainer - INFO - Hits@1: 0.3750
+2025-07-17 07:26:55,085 - model.trainer - INFO - Hits@3: 0.6667
+2025-07-17 07:26:55,085 - model.trainer - INFO - Hits@5: 0.6667
+2025-07-17 07:26:55,085 - model.trainer - INFO - Hits@10: 0.6667
+2025-07-17 07:26:55,085 - model.trainer - INFO - Hits@20: 0.6667
+2025-07-17 07:26:55,085 - model.trainer - INFO - MRR: 0.5208
+
+0it [00:00, ?it/s]
+1it [00:00, 76.34it/s]
+2025-07-17 07:26:55,300 - model.trainer - INFO - Hits@1: 0.2083
+2025-07-17 07:26:55,300 - model.trainer - INFO - Hits@3: 0.7500
+2025-07-17 07:26:55,300 - model.trainer - INFO - Hits@5: 0.7500
+2025-07-17 07:26:55,300 - model.trainer - INFO - Hits@10: 0.7500
+2025-07-17 07:26:55,300 - model.trainer - INFO - Hits@20: 0.7500
+2025-07-17 07:26:55,300 - model.trainer - INFO - MRR: 0.4792
+
+0it [00:00, ?it/s]
+1it [00:00, 77.78it/s]
+2025-07-17 07:26:55,513 - model.trainer - INFO - Hits@1: 0.5000
+2025-07-17 07:26:55,513 - model.trainer - INFO - Hits@3: 0.7917
+2025-07-17 07:26:55,513 - model.trainer - INFO - Hits@5: 0.7917
+2025-07-17 07:26:55,513 - model.trainer - INFO - Hits@10: 0.7917
+2025-07-17 07:26:55,513 - model.trainer - INFO - Hits@20: 0.7917
+2025-07-17 07:26:55,513 - model.trainer - INFO - MRR: 0.6319
+2025-07-17 07:26:55,704 - model.trainer - INFO - Batch 100: hits=43.0000, avg_reward=0.1344, num_correct=16, accuracy=0.5000, loss=-0.1449
+
+0it [00:00, ?it/s]
+1it [00:00, 73.74it/s]
+2025-07-17 07:26:55,718 - model.trainer - INFO - Hits@1: 0.3750
+2025-07-17 07:26:55,719 - model.trainer - INFO - Hits@3: 0.6667
+2025-07-17 07:26:55,719 - model.trainer - INFO - Hits@5: 0.6667
+2025-07-17 07:26:55,719 - model.trainer - INFO - Hits@10: 0.6667
+2025-07-17 07:26:55,719 - model.trainer - INFO - Hits@20: 0.6667
+2025-07-17 07:26:55,719 - model.trainer - INFO - MRR: 0.5208
+2025-07-17 07:26:55,719 - __main__ - INFO - Final evaluation on test set...
+
+0it [00:00, ?it/s]
+1it [00:00, 78.50it/s]
+2025-07-17 07:26:55,732 - model.trainer - INFO - Hits@1: 0.6667
+2025-07-17 07:26:55,732 - model.trainer - INFO - Hits@3: 0.9167
+2025-07-17 07:26:55,732 - model.trainer - INFO - Hits@5: 0.9167
+2025-07-17 07:26:55,732 - model.trainer - INFO - Hits@10: 0.9167
+2025-07-17 07:26:55,732 - model.trainer - INFO - Hits@20: 0.9167
+2025-07-17 07:26:55,732 - model.trainer - INFO - MRR: 0.7917
+2025-07-17 07:26:55,732 - __main__ - INFO - Final test results:
+2025-07-17 07:26:55,732 - __main__ - INFO -   hits@1: 0.6667
+2025-07-17 07:26:55,732 - __main__ - INFO -   hits@3: 0.9167
+2025-07-17 07:26:55,732 - __main__ - INFO -   hits@5: 0.9167
+2025-07-17 07:26:55,732 - __main__ - INFO -   hits@10: 0.9167
+2025-07-17 07:26:55,732 - __main__ - INFO -   hits@20: 0.9167
+2025-07-17 07:26:55,732 - __main__ - INFO -   mrr: 0.7917
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S1/results.json
+⚠️  Using training validation metrics for fair comparison with TensorFlow
+
+Final metrics:
+  mrr: 0.5208
+  hits@10: 0.6667
+  hits@5: 0.6667
+  hits@3: 0.6667
+  hits@1: 0.3750
+TensorFlow MINERVA implementation:
+Dataset: countries_S2
+Iterations: 100
+
+Running TensorFlow MINERVA...
+Command: python tf_patched/model/trainer.py --data_input_dir ../original/datasets/data_preprocessed/countries_S2 --vocab_dir ../original/datasets/data_preprocessed/countries_S2/vocab --base_output_dir outputs_tensorflow/countries_S2 --total_iterations 100 --eval_every 100 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+
+✅ TensorFlow implementation completed successfully!
+
+Results:
+  hits@1: 0.4583
+  hits@3: 0.5000
+  hits@5: 0.5417
+  hits@10: 0.6250
+  mrr: 0.4927
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_tensorflow/countries_S2/results.json
+
+TensorFlow implementation is currently blocked by compatibility issues.
+Use PyTorch implementation for working results.
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+Running PyTorch MINERVA on countries_S2...
+Command: python /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../src/train.py --data_input_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2 --vocab_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/vocab --base_output_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2 --total_iterations 100 --eval_every 10 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+Configuration:
+  LSTM_layers                  : 1
+  Lambda                       : 0.0
+  base_output_dir              : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2
+  batch_size                   : 32
+  beta                         : 0.01
+  create_vocab                 : 0
+  data_input_dir               : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2
+  device                       : None
+  embedding_size               : 50
+  entity_vocab                 : {'curacao': 270, 'samoa': 265, 'kosovo': 101, 'anguilla': 239, 'united_states': 117, 'azerbaijan': 19, 'sint_maarten': 213, 'uzbekistan': 85, 'north_korea': 222, 'senegal': 178, 'equatorial_guinea': 204, 'cambodia': 112, 'guinea-bissau': 177, 'japan': 9, 'taiwan': 258, 'south-eastern_asia': 7, 'cyprus': 51, 'barbados': 252, 'peru': 120, 'UNK': 272, 'bhutan': 199, 'ivory_coast': 64, 'saint_pierre_and_miquelon': 229, 'lithuania': 78, 'micronesia': 1, 'andorra': 181, 'tunisia': 217, 'palestine': 266, 'rwanda': 57, 'aruba': 119, 'middle_africa': 27, 'french_polynesia': 219, 'timor-leste': 243, 'argentina': 44, 'eastern_europe': 52, 'norway': 160, 'ghana': 67, 'belarus': 76, 'cuba': 96, 'saint_vincent_and_the_grenadines': 260, 'guyana': 142, 'zambia': 31, 'vanuatu': 207, 'bosnia_and_herzegovina': 102, 'guatemala': 135, 'palau': 0, 'belgium': 15, 'cape_verde': 208, 'haiti': 235, 'macau': 218, 'kazakhstan': 80, 'liberia': 68, 'kyrgyzstan': 84, 'netherlands': 11, 'sierra_leone': 71, 'portugal': 182, 'denmark': 150, 'philippines': 263, 'montserrat': 246, 'djibouti': 215, 'south_korea': 228, 'moldova': 184, 'latvia': 224, 'namibia': 30, 'papua_new_guinea': 226, 'switzerland': 152, 'cook_islands': 245, 'melanesia': 90, 'bulgaria': 23, 'jamaica': 193, 'united_arab_emirates': 129, 'angola': 26, 'central_african_republic': 58, 'eastern_africa': 46, 'serbia': 97, 'southern_africa': 37, 'malaysia': 8, 'mozambique': 39, 'greece': 21, 'aland_islands': 254, 'nicaragua': 107, 'brazil': 45, 'afghanistan': 86, 'qatar': 128, 'oceania': 2, 'southern_asia': 4, 'turkmenistan': 82, 'morocco': 170, 'sudan': 62, 'guinea': 70, 'panama': 123, 'nepal': 200, 'asia': 5, 'iceland': 190, 'somalia': 201, 'tokelau': 262, 'tuvalu': 139, 'central_asia': 81, 'croatia': 103, 'nauru': 205, 'venezuela': 124, 'europe': 13, 'brunei': 6, 'new_zealand': 225, 'iran': 20, 'dominican_republic': 234, 'western_asia': 17, 'china': 83, 'armenia': 18, 'thailand': 165, 'iraq': 24, 'bermuda': 236, 'bangladesh': 188, 'ukraine': 74, 'guadeloupe': 241, 'libya': 175, 'mayotte': 72, 'oman': 132, 'northern_america': 116, 'antigua_and_barbuda': 33, 'gambia': 240, 'macedonia': 99, 'americas': 35, 'french_guiana': 171, 'western_sahara': 166, 'british_virgin_islands': 244, 'niue': 114, 'republic_of_the_congo': 32, 'syria': 25, 'western_africa': 65, 'jersey': 231, 'pakistan': 91, 'romania': 105, 'seychelles': 191, 'myanmar': 164, 'egypt': 174, 'guam': 211, 'pitcairn_islands': 232, 'africa': 28, 'austria': 106, 'saint_martin': 214, 'hungary': 104, 'mongolia': 223, 'colombia': 121, 'eastern_asia': 10, 'northern_africa': 167, 'dr_congo': 29, 'niger': 148, 'fiji': 125, 'comoros': 210, 'turkey': 16, 'madagascar': 136, 'belize': 158, 'isle_of_man': 141, 'mauritania': 169, 'mexico': 159, 'togo': 154, 'france': 153, 'bahamas': 212, 'solomon_islands': 197, 'slovakia': 75, 'gibraltar': 180, 'swaziland': 36, 'laos': 113, 'svalbard_and_jan_mayen': 140, 'costa_rica': 110, 'bolivia': 93, 'united_kingdom': 53, 'malawi': 50, 'ecuador': 122, 'vatican_city': 144, 'san_marino': 185, 'albania': 237, 'ireland': 54, 'southern_europe': 98, 'lebanon': 198, 'kiribati': 233, 'british_indian_ocean_territory': 146, 'czechia': 79, 'tajikistan': 87, 'trinidad_and_tobago': 186, 'wallis_and_futuna': 40, 'saint_lucia': 269, 'jordan': 130, 'chile': 94, 'martinique': 230, 'central_europe': 118, 'south_georgia': 189, 'nigeria': 147, 'spain': 179, 'georgia': 22, 'australia_and_new_zealand': 138, 'lesotho': 195, 'burkina_faso': 66, 'mauritius': 257, 'polynesia': 41, 'south_africa': 38, 'sweden': 161, 'gabon': 126, 'saudi_arabia': 127, 'mali': 69, 'grenada': 261, 'yemen': 131, 'russia': 77, 'PAD': 271, 'american_samoa': 194, 'new_caledonia': 89, 'finland': 162, 'chad': 59, 'uruguay': 42, 'falkland_islands': 209, 'reunion': 267, 'india': 92, 'israel': 176, 'paraguay': 95, 'australia': 137, 'greenland': 255, 'uganda': 155, 'burundi': 56, 'kenya': 156, 'el_salvador': 134, 'botswana': 48, 'united_states_minor_outlying_islands': 264, 'marshall_islands': 203, 'united_states_virgin_islands': 216, 'italy': 145, 'algeria': 168, 'bahrain': 187, 'turks_and_caicos_islands': 88, 'south_america': 43, 'northern_europe': 55, 'tanzania': 47, 'ethiopia': 202, 'vietnam': 111, 'south_sudan': 60, 'cocos_keeling_islands': 163, 'cameroon': 61, 'puerto_rico': 259, 'cayman_islands': 268, 'benin': 149, 'canada': 115, 'norfolk_island': 256, 'saint_kitts_and_nevis': 238, 'singapore': 253, 'malta': 183, 'estonia': 221, 'montenegro': 100, 'monaco': 242, 'sao_tome_and_principe': 173, 'slovenia': 250, 'honduras': 109, 'germany': 14, 'western_europe': 12, 'caribbean': 34, 'hong_kong': 251, 'dominica': 247, 'luxembourg': 151, 'suriname': 143, 'eritrea': 206, 'tonga': 63, 'maldives': 3, 'central_america': 108, 'poland': 73, 'indonesia': 227, 'saint_barthelemy': 220, 'christmas_island': 172, 'liechtenstein': 249, 'zimbabwe': 49, 'guernsey': 248, 'kuwait': 133, 'sri_lanka': 196, 'northern_mariana_islands': 157, 'faroe_islands': 192}
+  eval_every                   : 10
+  gamma                        : 1.0
+  grad_clip_norm               : 5
+  hidden_size                  : 50
+  input_file                   : train.txt
+  input_files                  : ['/Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/train.txt']
+  l2_reg_const                 : 0.01
+  learning_rate                : 0.001
+  load_model                   : False
+  log_dir                      : ./logs/
+  log_file_name                : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/train.log
+  max_num_actions              : 200
+  model_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model
+  model_load_dir               : 
+  negative_reward              : 0
+  nell_evaluation              : 0
+  num_rollouts                 : 10
+  output_dir                   : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0
+  output_file                  : 
+  path_length                  : 3
+  path_logger_file             : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0
+  pool                         : max
+  positive_reward              : 1.0
+  pretrained_embeddings_action : 
+  pretrained_embeddings_entity : 
+  relation_vocab               : {'locatedIn': 0, 'NO_OP': 4, 'DUMMY_START_RELATION': 3, 'neighborOf': 1, 'PAD': 2, 'UNK': 5}
+  test_rollouts                : 20
+  total_iterations             : 100
+  train_entity_embeddings      : False
+  train_relation_embeddings    : True
+  use_entity_embeddings        : False
+  vocab_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/vocab
+PyTorch Device Information:
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+2025-07-17 07:27:07,539 - utils - INFO - Using MPS device (Apple Silicon)
+2025-07-17 07:27:07,548 - data.feed_data - INFO - Loaded 118 train examples
+2025-07-17 07:27:07,548 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/graph.txt
+2025-07-17 07:27:07,549 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:07,549 - data.feed_data - INFO - Loaded 24 dev examples
+2025-07-17 07:27:07,549 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/graph.txt
+2025-07-17 07:27:07,550 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:07,550 - data.feed_data - INFO - Loaded 24 test examples
+2025-07-17 07:27:07,550 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S2/graph.txt
+2025-07-17 07:27:07,550 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:07,894 - __main__ - INFO - Starting training...
+
+0it [00:00, ?it/s]
+1it [00:00, 13.11it/s]
+2025-07-17 07:27:08,544 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:08,544 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:08,544 - model.trainer - INFO - Hits@3: 0.0833
+2025-07-17 07:27:08,544 - model.trainer - INFO - Hits@5: 0.1667
+2025-07-17 07:27:08,544 - model.trainer - INFO - Hits@10: 0.2083
+2025-07-17 07:27:08,545 - model.trainer - INFO - Hits@20: 0.2083
+2025-07-17 07:27:08,545 - model.trainer - INFO - MRR: 0.1088
+
+0it [00:00, ?it/s]
+1it [00:00, 75.87it/s]
+2025-07-17 07:27:08,760 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:08,760 - model.trainer - INFO - Hits@1: 0.0000
+2025-07-17 07:27:08,760 - model.trainer - INFO - Hits@3: 0.0833
+2025-07-17 07:27:08,760 - model.trainer - INFO - Hits@5: 0.2083
+2025-07-17 07:27:08,760 - model.trainer - INFO - Hits@10: 0.3333
+2025-07-17 07:27:08,760 - model.trainer - INFO - Hits@20: 0.3333
+2025-07-17 07:27:08,760 - model.trainer - INFO - MRR: 0.0755
+
+0it [00:00, ?it/s]
+1it [00:00, 77.68it/s]
+2025-07-17 07:27:08,973 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:08,973 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:08,973 - model.trainer - INFO - Hits@3: 0.2083
+2025-07-17 07:27:08,973 - model.trainer - INFO - Hits@5: 0.2917
+2025-07-17 07:27:08,973 - model.trainer - INFO - Hits@10: 0.3750
+2025-07-17 07:27:08,973 - model.trainer - INFO - Hits@20: 0.3750
+2025-07-17 07:27:08,973 - model.trainer - INFO - MRR: 0.1685
+
+0it [00:00, ?it/s]
+1it [00:00, 77.65it/s]
+2025-07-17 07:27:09,179 - model.trainer - INFO - Hits@1: 0.0417
+2025-07-17 07:27:09,179 - model.trainer - INFO - Hits@3: 0.2500
+2025-07-17 07:27:09,179 - model.trainer - INFO - Hits@5: 0.2500
+2025-07-17 07:27:09,179 - model.trainer - INFO - Hits@10: 0.3333
+2025-07-17 07:27:09,179 - model.trainer - INFO - Hits@20: 0.3333
+2025-07-17 07:27:09,179 - model.trainer - INFO - MRR: 0.1372
+
+0it [00:00, ?it/s]
+1it [00:00, 77.77it/s]
+2025-07-17 07:27:09,388 - model.trainer - INFO - Hits@1: 0.0417
+2025-07-17 07:27:09,388 - model.trainer - INFO - Hits@3: 0.0833
+2025-07-17 07:27:09,388 - model.trainer - INFO - Hits@5: 0.1667
+2025-07-17 07:27:09,388 - model.trainer - INFO - Hits@10: 0.2083
+2025-07-17 07:27:09,388 - model.trainer - INFO - Hits@20: 0.2083
+2025-07-17 07:27:09,388 - model.trainer - INFO - MRR: 0.0859
+
+0it [00:00, ?it/s]
+1it [00:00, 77.74it/s]
+2025-07-17 07:27:09,594 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:09,594 - model.trainer - INFO - Hits@3: 0.2500
+2025-07-17 07:27:09,594 - model.trainer - INFO - Hits@5: 0.2500
+2025-07-17 07:27:09,594 - model.trainer - INFO - Hits@10: 0.3333
+2025-07-17 07:27:09,594 - model.trainer - INFO - Hits@20: 0.3333
+2025-07-17 07:27:09,594 - model.trainer - INFO - MRR: 0.1726
+
+0it [00:00, ?it/s]
+1it [00:00, 75.94it/s]
+2025-07-17 07:27:09,805 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:09,806 - model.trainer - INFO - Hits@1: 0.2083
+2025-07-17 07:27:09,806 - model.trainer - INFO - Hits@3: 0.3750
+2025-07-17 07:27:09,806 - model.trainer - INFO - Hits@5: 0.3750
+2025-07-17 07:27:09,806 - model.trainer - INFO - Hits@10: 0.4167
+2025-07-17 07:27:09,806 - model.trainer - INFO - Hits@20: 0.4167
+2025-07-17 07:27:09,806 - model.trainer - INFO - MRR: 0.2837
+
+0it [00:00, ?it/s]
+1it [00:00, 78.53it/s]
+2025-07-17 07:27:10,012 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:10,012 - model.trainer - INFO - Hits@3: 0.1667
+2025-07-17 07:27:10,012 - model.trainer - INFO - Hits@5: 0.1667
+2025-07-17 07:27:10,012 - model.trainer - INFO - Hits@10: 0.2083
+2025-07-17 07:27:10,012 - model.trainer - INFO - Hits@20: 0.2083
+2025-07-17 07:27:10,012 - model.trainer - INFO - MRR: 0.1250
+
+0it [00:00, ?it/s]
+1it [00:00, 73.02it/s]
+2025-07-17 07:27:10,218 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:10,218 - model.trainer - INFO - Hits@3: 0.2083
+2025-07-17 07:27:10,218 - model.trainer - INFO - Hits@5: 0.2083
+2025-07-17 07:27:10,218 - model.trainer - INFO - Hits@10: 0.2500
+2025-07-17 07:27:10,218 - model.trainer - INFO - Hits@20: 0.2500
+2025-07-17 07:27:10,218 - model.trainer - INFO - MRR: 0.1458
+2025-07-17 07:27:10,415 - model.trainer - INFO - Batch 100: hits=15.0000, avg_reward=0.0469, num_correct=14, accuracy=0.4375, loss=-0.2959
+
+0it [00:00, ?it/s]
+1it [00:00, 74.66it/s]
+2025-07-17 07:27:10,442 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/a63dfd5c_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:10,442 - model.trainer - INFO - Hits@1: 0.0417
+2025-07-17 07:27:10,442 - model.trainer - INFO - Hits@3: 0.2083
+2025-07-17 07:27:10,442 - model.trainer - INFO - Hits@5: 0.3750
+2025-07-17 07:27:10,442 - model.trainer - INFO - Hits@10: 0.4583
+2025-07-17 07:27:10,442 - model.trainer - INFO - Hits@20: 0.4583
+2025-07-17 07:27:10,442 - model.trainer - INFO - MRR: 0.1487
+2025-07-17 07:27:10,442 - __main__ - INFO - Final evaluation on test set...
+
+0it [00:00, ?it/s]
+1it [00:00, 70.31it/s]
+2025-07-17 07:27:10,457 - model.trainer - INFO - Hits@1: 0.0833
+2025-07-17 07:27:10,457 - model.trainer - INFO - Hits@3: 0.2083
+2025-07-17 07:27:10,457 - model.trainer - INFO - Hits@5: 0.3333
+2025-07-17 07:27:10,457 - model.trainer - INFO - Hits@10: 0.5000
+2025-07-17 07:27:10,457 - model.trainer - INFO - Hits@20: 0.5000
+2025-07-17 07:27:10,457 - model.trainer - INFO - MRR: 0.1991
+2025-07-17 07:27:10,457 - __main__ - INFO - Final test results:
+2025-07-17 07:27:10,457 - __main__ - INFO -   hits@1: 0.0833
+2025-07-17 07:27:10,457 - __main__ - INFO -   hits@3: 0.2083
+2025-07-17 07:27:10,457 - __main__ - INFO -   hits@5: 0.3333
+2025-07-17 07:27:10,457 - __main__ - INFO -   hits@10: 0.5000
+2025-07-17 07:27:10,457 - __main__ - INFO -   hits@20: 0.5000
+2025-07-17 07:27:10,457 - __main__ - INFO -   mrr: 0.1991
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S2/results.json
+⚠️  Using training validation metrics for fair comparison with TensorFlow
+
+Final metrics:
+  mrr: 0.1487
+  hits@10: 0.4583
+  hits@5: 0.3750
+  hits@3: 0.2083
+  hits@1: 0.0417
+TensorFlow MINERVA implementation:
+Dataset: countries_S3
+Iterations: 100
+
+Running TensorFlow MINERVA...
+Command: python tf_patched/model/trainer.py --data_input_dir ../original/datasets/data_preprocessed/countries_S3 --vocab_dir ../original/datasets/data_preprocessed/countries_S3/vocab --base_output_dir outputs_tensorflow/countries_S3 --total_iterations 100 --eval_every 100 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+
+✅ TensorFlow implementation completed successfully!
+
+Results:
+  hits@1: 0.9583
+  hits@3: 0.9583
+  hits@5: 0.9583
+  hits@10: 0.9583
+  mrr: 0.9583
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_tensorflow/countries_S3/results.json
+
+TensorFlow implementation is currently blocked by compatibility issues.
+Use PyTorch implementation for working results.
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+Running PyTorch MINERVA on countries_S3...
+Command: python /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../src/train.py --data_input_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3 --vocab_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/vocab --base_output_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3 --total_iterations 100 --eval_every 10 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+Configuration:
+  LSTM_layers                  : 1
+  Lambda                       : 0.0
+  base_output_dir              : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3
+  batch_size                   : 32
+  beta                         : 0.01
+  create_vocab                 : 0
+  data_input_dir               : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3
+  device                       : None
+  embedding_size               : 50
+  entity_vocab                 : {'nepal': 99, 'kosovo': 158, 'tokelau': 107, 'french_guiana': 149, 'azerbaijan': 181, 'sint_maarten': 60, 'uzbekistan': 214, 'north_korea': 267, 'senegal': 82, 'western_africa': 130, 'PAD': 0, 'cambodia': 230, 'guinea-bissau': 62, 'japan': 7, 'taiwan': 103, 'south-eastern_asia': 134, 'cyprus': 12, 'barbados': 92, 'peru': 233, 'UNK': 1, 'bhutan': 63, 'ivory_coast': 200, 'saint_pierre_and_miquelon': 69, 'lithuania': 210, 'micronesia': 109, 'andorra': 261, 'egypt': 175, 'burundi': 194, 'rwanda': 195, 'aruba': 23, 'middle_africa': 121, 'french_polynesia': 65, 'south_sudan': 198, 'argentina': 191, 'united_states_minor_outlying_islands': 110, 'norway': 146, 'new_caledonia': 19, 'serbia': 221, 'australia': 26, 'cuba': 20, 'montenegro': 223, 'cocos_keeling_islands': 35, 'zambia': 155, 'costa_rica': 229, 'papua_new_guinea': 269, 'bosnia_and_herzegovina': 224, 'guatemala': 242, 'zimbabwe': 172, 'belgium': 178, 'sierra_leone': 204, 'haiti': 94, 'kazakhstan': 141, 'mauritania': 40, 'kyrgyzstan': 213, 'netherlands': 177, 'cape_verde': 54, 'kuwait': 240, 'denmark': 152, 'philippines': 108, 'montserrat': 88, 'djibouti': 156, 'south_korea': 270, 'moldova': 100, 'western_asia': 124, 'namibia': 27, 'chad': 197, 'czechia': 151, 'equatorial_guinea': 79, 'melanesia': 138, 'bulgaria': 162, 'jamaica': 47, 'albania': 93, 'samoa': 111, 'central_african_republic': 196, 'eastern_africa': 129, 'lebanon': 59, 'southern_africa': 135, 'malaysia': 176, 'honduras': 228, 'mozambique': 190, 'reunion': 114, 'aland_islands': 96, 'polynesia': 126, 'nicaragua': 154, 'brazil': 192, 'afghanistan': 215, 'qatar': 236, 'oceania': 3, 'palau': 2, 'curacao': 118, 'morocco': 257, 'christmas_island': 36, 'guinea': 203, 'panama': 68, 'singapore': 95, 'dr_congo': 186, 'sweden': 253, 'asia': 5, 'swaziland': 188, 'somalia': 265, 'tuvalu': 28, 'central_asia': 139, 'croatia': 225, 'nauru': 52, 'venezuela': 164, 'europe': 13, 'brunei': 6, 'gabon': 235, 'iran': 182, 'dominican_republic': 76, 'new_zealand': 67, 'switzerland': 246, 'china': 212, 'georgia': 184, 'armenia': 180, 'kiribati': 74, 'iraq': 153, 'bangladesh': 263, 'ukraine': 206, 'saint_lucia': 117, 'libya': 258, 'mayotte': 16, 'northern_mariana_islands': 34, 'northern_america': 133, 'antigua_and_barbuda': 8, 'macedonia': 222, 'americas': 9, 'mauritius': 101, 'western_sahara': 255, 'british_virgin_islands': 84, 'niue': 22, 'estonia': 81, 'western_europe': 128, 'saint_barthelemy': 66, 'jersey': 72, 'pakistan': 217, 'romania': 226, 'seychelles': 45, 'myanmar': 150, 'russia': 209, 'tunisia': 86, 'guam': 57, 'africa': 17, 'austria': 227, 'saint_martin': 75, 'hungary': 157, 'mongolia': 115, 'colombia': 234, 'eastern_asia': 136, 'northern_africa': 137, 'united_kingdom': 71, 'niger': 243, 'fiji': 24, 'comoros': 56, 'turkey': 179, 'poland': 205, 'madagascar': 25, 'belize': 251, 'isle_of_man': 30, 'bolivia': 219, 'mexico': 252, 'togo': 248, 'france': 247, 'bahamas': 58, 'solomon_islands': 50, 'slovakia': 207, 'gibraltar': 260, 'ireland': 14, 'laos': 231, 'svalbard_and_jan_mayen': 29, 'nigeria': 33, 'anguilla': 80, 'guyana': 165, 'ecuador': 171, 'vatican_city': 31, 'san_marino': 39, 'syria': 145, 'suriname': 143, 'southern_europe': 123, 'india': 218, 'british_indian_ocean_territory': 32, 'saint_vincent_and_the_grenadines': 105, 'ghana': 160, 'tajikistan': 216, 'wallis_and_futuna': 10, 'latvia': 268, 'falkland_islands': 55, 'chile': 220, 'martinique': 70, 'central_europe': 140, 'south_georgia': 43, 'south_africa': 189, 'spain': 148, 'eastern_europe': 131, 'australia_and_new_zealand': 127, 'burkina_faso': 168, 'palestine': 113, 'trinidad_and_tobago': 41, 'united_arab_emirates': 237, 'sri_lanka': 264, 'mali': 202, 'saudi_arabia': 161, 'gambia': 112, 'oman': 239, 'grenada': 106, 'guadeloupe': 83, 'tanzania': 170, 'american_samoa': 48, 'bahrain': 42, 'finland': 254, 'macau': 64, 'uruguay': 11, 'greece': 183, 'malawi': 193, 'israel': 259, 'lesotho': 49, 'angola': 185, 'belarus': 208, 'greenland': 97, 'uganda': 249, 'southern_asia': 120, 'paraguay': 87, 'kenya': 250, 'el_salvador': 241, 'botswana': 144, 'united_states_virgin_islands': 61, 'italy': 102, 'algeria': 256, 'turks_and_caicos_islands': 18, 'south_america': 125, 'northern_europe': 122, 'malta': 38, 'liberia': 201, 'ethiopia': 266, 'bermuda': 77, 'timor-leste': 174, 'vanuatu': 53, 'cameroon': 199, 'puerto_rico': 104, 'cayman_islands': 116, 'benin': 244, 'canada': 232, 'norfolk_island': 98, 'saint_kitts_and_nevis': 78, 'republic_of_the_congo': 187, 'marshall_islands': 51, 'iceland': 44, 'sao_tome_and_principe': 37, 'slovenia': 271, 'united_states': 169, 'germany': 167, 'pitcairn_islands': 73, 'caribbean': 119, 'hong_kong': 272, 'dominica': 89, 'turkmenistan': 211, 'eritrea': 159, 'tonga': 15, 'maldives': 4, 'central_america': 132, 'luxembourg': 245, 'thailand': 142, 'indonesia': 166, 'cook_islands': 85, 'sudan': 147, 'liechtenstein': 91, 'vietnam': 21, 'portugal': 262, 'guernsey': 90, 'monaco': 163, 'jordan': 173, 'yemen': 238, 'faroe_islands': 46}
+  eval_every                   : 10
+  gamma                        : 1.0
+  grad_clip_norm               : 5
+  hidden_size                  : 50
+  input_file                   : train.txt
+  input_files                  : ['/Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/train.txt']
+  l2_reg_const                 : 0.01
+  learning_rate                : 0.001
+  load_model                   : False
+  log_dir                      : ./logs/
+  log_file_name                : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/5a6a4435_pl3_b0.01_tr20_l0.0/train.log
+  max_num_actions              : 200
+  model_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/5a6a4435_pl3_b0.01_tr20_l0.0/model
+  model_load_dir               : 
+  negative_reward              : 0
+  nell_evaluation              : 0
+  num_rollouts                 : 10
+  output_dir                   : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/5a6a4435_pl3_b0.01_tr20_l0.0
+  output_file                  : 
+  path_length                  : 3
+  path_logger_file             : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/5a6a4435_pl3_b0.01_tr20_l0.0
+  pool                         : max
+  positive_reward              : 1.0
+  pretrained_embeddings_action : 
+  pretrained_embeddings_entity : 
+  relation_vocab               : {'locatedIn': 4, 'NO_OP': 2, 'DUMMY_START_RELATION': 1, 'neighborOf': 5, 'PAD': 0, 'UNK': 3}
+  test_rollouts                : 20
+  total_iterations             : 100
+  train_entity_embeddings      : False
+  train_relation_embeddings    : True
+  use_entity_embeddings        : False
+  vocab_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/vocab
+PyTorch Device Information:
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+2025-07-17 07:27:22,010 - utils - INFO - Using MPS device (Apple Silicon)
+2025-07-17 07:27:22,022 - data.feed_data - INFO - Loaded 34 train examples
+2025-07-17 07:27:22,022 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/graph.txt
+2025-07-17 07:27:22,023 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:22,023 - data.feed_data - INFO - Loaded 24 dev examples
+2025-07-17 07:27:22,023 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/graph.txt
+2025-07-17 07:27:22,024 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:22,024 - data.feed_data - INFO - Loaded 24 test examples
+2025-07-17 07:27:22,024 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/countries_S3/graph.txt
+2025-07-17 07:27:22,024 - data.grapher - INFO - Loaded graph with 266 entities
+2025-07-17 07:27:22,361 - __main__ - INFO - Starting training...
+
+0it [00:00, ?it/s]
+1it [00:00, 13.46it/s]
+2025-07-17 07:27:22,982 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/5a6a4435_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:22,982 - model.trainer - INFO - Hits@1: 0.6667
+2025-07-17 07:27:22,982 - model.trainer - INFO - Hits@3: 0.8750
+2025-07-17 07:27:22,982 - model.trainer - INFO - Hits@5: 0.8750
+2025-07-17 07:27:22,982 - model.trainer - INFO - Hits@10: 0.8750
+2025-07-17 07:27:22,982 - model.trainer - INFO - Hits@20: 0.8750
+2025-07-17 07:27:22,982 - model.trainer - INFO - MRR: 0.7500
+
+0it [00:00, ?it/s]
+1it [00:00, 73.73it/s]
+2025-07-17 07:27:23,191 - model.trainer - INFO - Hits@1: 0.3750
+2025-07-17 07:27:23,191 - model.trainer - INFO - Hits@3: 0.6667
+2025-07-17 07:27:23,191 - model.trainer - INFO - Hits@5: 0.7083
+2025-07-17 07:27:23,191 - model.trainer - INFO - Hits@10: 0.7083
+2025-07-17 07:27:23,191 - model.trainer - INFO - Hits@20: 0.7083
+2025-07-17 07:27:23,191 - model.trainer - INFO - MRR: 0.5153
+
+0it [00:00, ?it/s]
+1it [00:00, 77.33it/s]
+2025-07-17 07:27:23,396 - model.trainer - INFO - Hits@1: 0.2917
+2025-07-17 07:27:23,396 - model.trainer - INFO - Hits@3: 0.4583
+2025-07-17 07:27:23,396 - model.trainer - INFO - Hits@5: 0.4583
+2025-07-17 07:27:23,396 - model.trainer - INFO - Hits@10: 0.5000
+2025-07-17 07:27:23,396 - model.trainer - INFO - Hits@20: 0.5000
+2025-07-17 07:27:23,396 - model.trainer - INFO - MRR: 0.3802
+
+0it [00:00, ?it/s]
+1it [00:00, 76.19it/s]
+2025-07-17 07:27:23,598 - model.trainer - INFO - Hits@1: 0.2500
+2025-07-17 07:27:23,598 - model.trainer - INFO - Hits@3: 0.3333
+2025-07-17 07:27:23,598 - model.trainer - INFO - Hits@5: 0.3750
+2025-07-17 07:27:23,598 - model.trainer - INFO - Hits@10: 0.4583
+2025-07-17 07:27:23,598 - model.trainer - INFO - Hits@20: 0.4583
+2025-07-17 07:27:23,598 - model.trainer - INFO - MRR: 0.3122
+
+0it [00:00, ?it/s]
+1it [00:00, 76.11it/s]
+2025-07-17 07:27:23,798 - model.trainer - INFO - Hits@1: 0.2917
+2025-07-17 07:27:23,798 - model.trainer - INFO - Hits@3: 0.4167
+2025-07-17 07:27:23,798 - model.trainer - INFO - Hits@5: 0.4583
+2025-07-17 07:27:23,799 - model.trainer - INFO - Hits@10: 0.4583
+2025-07-17 07:27:23,799 - model.trainer - INFO - Hits@20: 0.4583
+2025-07-17 07:27:23,799 - model.trainer - INFO - MRR: 0.3625
+
+0it [00:00, ?it/s]
+1it [00:00, 74.49it/s]
+2025-07-17 07:27:24,001 - model.trainer - INFO - Hits@1: 0.3333
+2025-07-17 07:27:24,001 - model.trainer - INFO - Hits@3: 0.5000
+2025-07-17 07:27:24,001 - model.trainer - INFO - Hits@5: 0.5000
+2025-07-17 07:27:24,002 - model.trainer - INFO - Hits@10: 0.5000
+2025-07-17 07:27:24,002 - model.trainer - INFO - Hits@20: 0.5000
+2025-07-17 07:27:24,002 - model.trainer - INFO - MRR: 0.4167
+
+0it [00:00, ?it/s]
+1it [00:00, 81.41it/s]
+2025-07-17 07:27:24,201 - model.trainer - INFO - Hits@1: 0.3750
+2025-07-17 07:27:24,201 - model.trainer - INFO - Hits@3: 0.4583
+2025-07-17 07:27:24,201 - model.trainer - INFO - Hits@5: 0.4583
+2025-07-17 07:27:24,202 - model.trainer - INFO - Hits@10: 0.4583
+2025-07-17 07:27:24,202 - model.trainer - INFO - Hits@20: 0.4583
+2025-07-17 07:27:24,202 - model.trainer - INFO - MRR: 0.4097
+
+0it [00:00, ?it/s]
+1it [00:00, 77.83it/s]
+2025-07-17 07:27:24,402 - model.trainer - INFO - Hits@1: 0.3750
+2025-07-17 07:27:24,402 - model.trainer - INFO - Hits@3: 0.4167
+2025-07-17 07:27:24,402 - model.trainer - INFO - Hits@5: 0.4583
+2025-07-17 07:27:24,402 - model.trainer - INFO - Hits@10: 0.4583
+2025-07-17 07:27:24,402 - model.trainer - INFO - Hits@20: 0.4583
+2025-07-17 07:27:24,402 - model.trainer - INFO - MRR: 0.3993
+
+0it [00:00, ?it/s]
+1it [00:00, 76.24it/s]
+2025-07-17 07:27:24,608 - model.trainer - INFO - Hits@1: 0.2917
+2025-07-17 07:27:24,608 - model.trainer - INFO - Hits@3: 0.3333
+2025-07-17 07:27:24,608 - model.trainer - INFO - Hits@5: 0.3333
+2025-07-17 07:27:24,608 - model.trainer - INFO - Hits@10: 0.4167
+2025-07-17 07:27:24,608 - model.trainer - INFO - Hits@20: 0.4167
+2025-07-17 07:27:24,608 - model.trainer - INFO - MRR: 0.3247
+2025-07-17 07:27:24,796 - model.trainer - INFO - Batch 100: hits=158.0000, avg_reward=0.4938, num_correct=32, accuracy=1.0000, loss=-0.7143
+
+0it [00:00, ?it/s]
+1it [00:00, 77.40it/s]
+2025-07-17 07:27:24,810 - model.trainer - INFO - Hits@1: 0.2500
+2025-07-17 07:27:24,810 - model.trainer - INFO - Hits@3: 0.4583
+2025-07-17 07:27:24,810 - model.trainer - INFO - Hits@5: 0.4583
+2025-07-17 07:27:24,810 - model.trainer - INFO - Hits@10: 0.5000
+2025-07-17 07:27:24,810 - model.trainer - INFO - Hits@20: 0.5000
+2025-07-17 07:27:24,810 - model.trainer - INFO - MRR: 0.3514
+2025-07-17 07:27:24,810 - __main__ - INFO - Final evaluation on test set...
+
+0it [00:00, ?it/s]
+1it [00:00, 77.00it/s]
+2025-07-17 07:27:24,823 - model.trainer - INFO - Hits@1: 0.5833
+2025-07-17 07:27:24,823 - model.trainer - INFO - Hits@3: 0.9167
+2025-07-17 07:27:24,823 - model.trainer - INFO - Hits@5: 0.9583
+2025-07-17 07:27:24,823 - model.trainer - INFO - Hits@10: 0.9583
+2025-07-17 07:27:24,823 - model.trainer - INFO - Hits@20: 0.9583
+2025-07-17 07:27:24,823 - model.trainer - INFO - MRR: 0.7326
+2025-07-17 07:27:24,823 - __main__ - INFO - Final test results:
+2025-07-17 07:27:24,823 - __main__ - INFO -   hits@1: 0.5833
+2025-07-17 07:27:24,823 - __main__ - INFO -   hits@3: 0.9167
+2025-07-17 07:27:24,823 - __main__ - INFO -   hits@5: 0.9583
+2025-07-17 07:27:24,823 - __main__ - INFO -   hits@10: 0.9583
+2025-07-17 07:27:24,823 - __main__ - INFO -   hits@20: 0.9583
+2025-07-17 07:27:24,823 - __main__ - INFO -   mrr: 0.7326
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/countries_S3/results.json
+⚠️  Using training validation metrics for fair comparison with TensorFlow
+
+Final metrics:
+  mrr: 0.3514
+  hits@10: 0.5000
+  hits@5: 0.4583
+  hits@3: 0.4583
+  hits@1: 0.2500
+TensorFlow MINERVA implementation:
+Dataset: kinship
+Iterations: 100
+
+Running TensorFlow MINERVA...
+Command: python tf_patched/model/trainer.py --data_input_dir ../original/datasets/data_preprocessed/kinship --vocab_dir ../original/datasets/data_preprocessed/kinship/vocab --base_output_dir outputs_tensorflow/kinship --total_iterations 100 --eval_every 100 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+
+✅ TensorFlow implementation completed successfully!
+
+Results:
+  hits@1: 0.0131
+  hits@3: 0.0281
+  hits@5: 0.0375
+  hits@10: 0.0599
+  mrr: 0.0275
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_tensorflow/kinship/results.json
+
+TensorFlow implementation is currently blocked by compatibility issues.
+Use PyTorch implementation for working results.
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+Running PyTorch MINERVA on kinship...
+Command: python /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../src/train.py --data_input_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship --vocab_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/vocab --base_output_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship --total_iterations 100 --eval_every 10 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+Configuration:
+  LSTM_layers                  : 1
+  Lambda                       : 0.0
+  base_output_dir              : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship
+  batch_size                   : 32
+  beta                         : 0.01
+  create_vocab                 : 0
+  data_input_dir               : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship
+  device                       : None
+  embedding_size               : 50
+  entity_vocab                 : {'PAD': 104, 'person89': 35, 'person88': 89, 'person87': 7, 'person86': 74, 'person85': 66, 'person84': 99, 'person83': 57, 'person82': 15, 'person81': 37, 'person80': 1, 'person38': 36, 'person39': 5, 'person32': 64, 'person33': 58, 'person30': 100, 'person31': 56, 'person36': 11, 'person37': 2, 'person34': 101, 'person35': 69, 'person58': 60, 'person59': 102, 'person50': 34, 'person51': 45, 'person52': 61, 'person53': 40, 'person54': 51, 'person55': 96, 'person56': 87, 'person57': 91, 'person29': 54, 'person28': 42, 'person25': 84, 'person24': 43, 'person27': 63, 'person26': 33, 'person21': 39, 'person20': 82, 'person23': 70, 'person22': 79, 'person49': 4, 'person48': 9, 'person43': 88, 'person42': 78, 'person41': 47, 'person40': 14, 'person47': 81, 'person46': 83, 'person45': 12, 'person44': 103, 'person78': 55, 'person79': 62, 'person76': 65, 'person77': 73, 'person74': 98, 'person75': 85, 'person72': 3, 'person73': 30, 'person70': 29, 'person71': 86, 'person61': 93, 'person60': 32, 'person63': 10, 'person62': 26, 'person65': 22, 'person64': 72, 'person67': 41, 'person66': 28, 'person69': 19, 'person68': 13, 'UNK': 105, 'person14': 38, 'person15': 52, 'person16': 94, 'person17': 18, 'person10': 8, 'person11': 23, 'person12': 6, 'person13': 17, 'person18': 31, 'person19': 80, 'person2': 59, 'person3': 46, 'person0': 21, 'person1': 53, 'person6': 90, 'person7': 50, 'person4': 77, 'person5': 71, 'person8': 68, 'person9': 24, 'person101': 67, 'person100': 0, 'person103': 20, 'person102': 27, 'person98': 95, 'person99': 48, 'person94': 92, 'person95': 44, 'person96': 49, 'person97': 97, 'person90': 16, 'person91': 76, 'person92': 25, 'person93': 75}
+  eval_every                   : 10
+  gamma                        : 1.0
+  grad_clip_norm               : 5
+  hidden_size                  : 50
+  input_file                   : train.txt
+  input_files                  : ['/Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/train.txt']
+  l2_reg_const                 : 0.01
+  learning_rate                : 0.001
+  load_model                   : False
+  log_dir                      : ./logs/
+  log_file_name                : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0/train.log
+  max_num_actions              : 200
+  model_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0/model
+  model_load_dir               : 
+  negative_reward              : 0
+  nell_evaluation              : 0
+  num_rollouts                 : 10
+  output_dir                   : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0
+  output_file                  : 
+  path_length                  : 3
+  path_logger_file             : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0
+  pool                         : max
+  positive_reward              : 1.0
+  pretrained_embeddings_action : 
+  pretrained_embeddings_entity : 
+  relation_vocab               : {'_term9': 21, 'term6': 0, 'term5': 14, 'term4': 6, 'term3': 36, 'term2': 34, 'term1': 22, '_term8': 13, '_term1': 23, '_term0': 31, '_term3': 37, '_term2': 35, '_term5': 15, '_term4': 7, 'term9': 20, 'term8': 12, '_term19': 45, '_term18': 25, '_term15': 19, '_term14': 43, '_term17': 17, '_term16': 33, '_term11': 11, '_term10': 3, '_term13': 27, '_term12': 5, 'UNK': 53, 'term7': 28, 'term0': 30, '_term25': 47, 'term24': 48, 'term25': 46, 'term22': 38, 'term20': 8, 'term21': 40, 'NO_OP': 52, '_term20': 9, '_term21': 41, '_term22': 39, '_term24': 49, '_term7': 29, '_term6': 1, 'PAD': 50, 'DUMMY_START_RELATION': 51, 'term19': 44, 'term18': 24, 'term17': 16, 'term16': 32, 'term15': 18, 'term14': 42, 'term13': 26, 'term12': 4, 'term11': 10, 'term10': 2}
+  test_rollouts                : 20
+  total_iterations             : 100
+  train_entity_embeddings      : False
+  train_relation_embeddings    : True
+  use_entity_embeddings        : False
+  vocab_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/vocab
+PyTorch Device Information:
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+2025-07-17 07:27:37,611 - utils - INFO - Using MPS device (Apple Silicon)
+2025-07-17 07:27:37,631 - data.feed_data - INFO - Loaded 8544 train examples
+2025-07-17 07:27:37,631 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/graph.txt
+2025-07-17 07:27:37,636 - data.grapher - INFO - Loaded graph with 104 entities
+2025-07-17 07:27:37,638 - data.feed_data - INFO - Loaded 1068 dev examples
+2025-07-17 07:27:37,638 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/graph.txt
+2025-07-17 07:27:37,642 - data.grapher - INFO - Loaded graph with 104 entities
+2025-07-17 07:27:37,643 - data.feed_data - INFO - Loaded 1074 test examples
+2025-07-17 07:27:37,644 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/kinship/graph.txt
+2025-07-17 07:27:37,648 - data.grapher - INFO - Loaded graph with 104 entities
+2025-07-17 07:27:37,987 - __main__ - INFO - Starting training...
+
+0it [00:00, ?it/s]
+1it [00:00,  7.13it/s]
+3it [00:00, 10.86it/s]
+5it [00:00, 11.63it/s]
+7it [00:00, 12.28it/s]
+9it [00:00, 12.69it/s]
+11it [00:00, 12.86it/s]
+13it [00:01, 13.08it/s]
+15it [00:01, 13.10it/s]
+17it [00:01, 13.04it/s]
+19it [00:01, 13.09it/s]
+21it [00:01, 13.01it/s]
+23it [00:01, 13.10it/s]
+25it [00:01, 13.15it/s]
+27it [00:02, 13.25it/s]
+29it [00:02, 13.24it/s]
+31it [00:02, 13.25it/s]
+33it [00:02, 13.05it/s]
+34it [00:02, 12.74it/s]
+2025-07-17 07:27:41,404 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:41,404 - model.trainer - INFO - Hits@1: 0.0075
+2025-07-17 07:27:41,404 - model.trainer - INFO - Hits@3: 0.0356
+2025-07-17 07:27:41,404 - model.trainer - INFO - Hits@5: 0.0543
+2025-07-17 07:27:41,404 - model.trainer - INFO - Hits@10: 0.1039
+2025-07-17 07:27:41,404 - model.trainer - INFO - Hits@20: 0.1732
+2025-07-17 07:27:41,404 - model.trainer - INFO - MRR: 0.0340
+
+0it [00:00, ?it/s]
+2it [00:00, 12.96it/s]
+4it [00:00, 13.07it/s]
+6it [00:00, 12.90it/s]
+8it [00:00, 13.01it/s]
+10it [00:00, 12.80it/s]
+12it [00:00, 12.79it/s]
+14it [00:01, 12.68it/s]
+16it [00:01, 12.55it/s]
+18it [00:01, 12.64it/s]
+20it [00:01, 12.70it/s]
+22it [00:01, 12.57it/s]
+24it [00:01, 12.40it/s]
+26it [00:02, 12.52it/s]
+28it [00:02, 12.48it/s]
+30it [00:02, 12.40it/s]
+32it [00:02, 12.44it/s]
+34it [00:02, 13.57it/s]
+34it [00:02, 12.81it/s]
+2025-07-17 07:27:44,449 - model.trainer - INFO - Hits@1: 0.0122
+2025-07-17 07:27:44,450 - model.trainer - INFO - Hits@3: 0.0290
+2025-07-17 07:27:44,450 - model.trainer - INFO - Hits@5: 0.0384
+2025-07-17 07:27:44,450 - model.trainer - INFO - Hits@10: 0.0880
+2025-07-17 07:27:44,450 - model.trainer - INFO - Hits@20: 0.1648
+2025-07-17 07:27:44,450 - model.trainer - INFO - MRR: 0.0329
+
+0it [00:00, ?it/s]
+2it [00:00, 13.03it/s]
+4it [00:00, 12.85it/s]
+6it [00:00, 12.66it/s]
+8it [00:00, 12.41it/s]
+10it [00:00, 12.33it/s]
+12it [00:00, 12.29it/s]
+14it [00:01, 12.23it/s]
+16it [00:01, 12.25it/s]
+18it [00:01, 12.28it/s]
+20it [00:01, 12.27it/s]
+22it [00:01, 12.13it/s]
+24it [00:01, 12.17it/s]
+26it [00:02, 12.31it/s]
+28it [00:02, 12.20it/s]
+30it [00:02, 12.30it/s]
+32it [00:02, 12.30it/s]
+34it [00:02, 13.41it/s]
+34it [00:02, 12.52it/s]
+2025-07-17 07:27:47,575 - model.trainer - INFO - Hits@1: 0.0066
+2025-07-17 07:27:47,575 - model.trainer - INFO - Hits@3: 0.0318
+2025-07-17 07:27:47,575 - model.trainer - INFO - Hits@5: 0.0506
+2025-07-17 07:27:47,575 - model.trainer - INFO - Hits@10: 0.0974
+2025-07-17 07:27:47,575 - model.trainer - INFO - Hits@20: 0.1807
+2025-07-17 07:27:47,575 - model.trainer - INFO - MRR: 0.0334
+
+0it [00:00, ?it/s]
+2it [00:00, 12.08it/s]
+4it [00:00, 11.83it/s]
+6it [00:00, 11.72it/s]
+8it [00:00, 11.83it/s]
+10it [00:00, 11.86it/s]
+12it [00:01, 12.10it/s]
+14it [00:01, 12.14it/s]
+16it [00:01, 12.12it/s]
+18it [00:01, 12.04it/s]
+20it [00:01, 12.02it/s]
+22it [00:01, 11.88it/s]
+24it [00:02, 11.89it/s]
+26it [00:02, 11.94it/s]
+28it [00:02, 11.92it/s]
+30it [00:02, 11.95it/s]
+32it [00:02, 12.00it/s]
+34it [00:02, 13.16it/s]
+34it [00:02, 12.18it/s]
+2025-07-17 07:27:50,828 - model.trainer - INFO - Hits@1: 0.0037
+2025-07-17 07:27:50,828 - model.trainer - INFO - Hits@3: 0.0253
+2025-07-17 07:27:50,828 - model.trainer - INFO - Hits@5: 0.0487
+2025-07-17 07:27:50,828 - model.trainer - INFO - Hits@10: 0.0993
+2025-07-17 07:27:50,828 - model.trainer - INFO - Hits@20: 0.1779
+2025-07-17 07:27:50,828 - model.trainer - INFO - MRR: 0.0308
+
+0it [00:00, ?it/s]
+2it [00:00, 12.42it/s]
+4it [00:00, 11.90it/s]
+6it [00:00, 12.04it/s]
+8it [00:00, 11.90it/s]
+10it [00:00, 11.94it/s]
+12it [00:01, 11.99it/s]
+14it [00:01, 11.90it/s]
+16it [00:01, 11.75it/s]
+18it [00:01, 11.92it/s]
+20it [00:01, 12.05it/s]
+22it [00:01, 12.14it/s]
+24it [00:01, 12.17it/s]
+26it [00:02, 12.14it/s]
+28it [00:02, 12.08it/s]
+30it [00:02, 12.10it/s]
+32it [00:02, 11.92it/s]
+34it [00:02, 13.06it/s]
+34it [00:02, 12.20it/s]
+2025-07-17 07:27:54,056 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:27:54,056 - model.trainer - INFO - Hits@1: 0.0103
+2025-07-17 07:27:54,056 - model.trainer - INFO - Hits@3: 0.0328
+2025-07-17 07:27:54,056 - model.trainer - INFO - Hits@5: 0.0459
+2025-07-17 07:27:54,056 - model.trainer - INFO - Hits@10: 0.1105
+2025-07-17 07:27:54,056 - model.trainer - INFO - Hits@20: 0.1854
+2025-07-17 07:27:54,057 - model.trainer - INFO - MRR: 0.0352
+
+0it [00:00, ?it/s]
+2it [00:00, 12.19it/s]
+4it [00:00, 11.89it/s]
+6it [00:00, 11.81it/s]
+8it [00:00, 11.73it/s]
+10it [00:00, 11.88it/s]
+12it [00:01, 11.79it/s]
+14it [00:01, 11.77it/s]
+16it [00:01, 11.93it/s]
+18it [00:01, 11.01it/s]
+20it [00:01, 10.49it/s]
+22it [00:01, 10.84it/s]
+24it [00:02, 11.19it/s]
+26it [00:02, 11.32it/s]
+28it [00:02, 11.59it/s]
+30it [00:02, 11.67it/s]
+32it [00:02, 11.78it/s]
+34it [00:02, 12.80it/s]
+34it [00:02, 11.72it/s]
+2025-07-17 07:27:57,384 - model.trainer - INFO - Hits@1: 0.0084
+2025-07-17 07:27:57,384 - model.trainer - INFO - Hits@3: 0.0290
+2025-07-17 07:27:57,384 - model.trainer - INFO - Hits@5: 0.0515
+2025-07-17 07:27:57,384 - model.trainer - INFO - Hits@10: 0.0918
+2025-07-17 07:27:57,384 - model.trainer - INFO - Hits@20: 0.1629
+2025-07-17 07:27:57,384 - model.trainer - INFO - MRR: 0.0325
+
+0it [00:00, ?it/s]
+2it [00:00, 12.29it/s]
+4it [00:00, 12.39it/s]
+6it [00:00, 12.49it/s]
+8it [00:00, 12.44it/s]
+10it [00:00, 12.54it/s]
+12it [00:00, 12.32it/s]
+14it [00:01, 12.37it/s]
+16it [00:01, 12.32it/s]
+18it [00:01, 12.35it/s]
+20it [00:01, 12.23it/s]
+22it [00:01, 12.18it/s]
+24it [00:01, 12.19it/s]
+26it [00:02, 12.14it/s]
+28it [00:02, 12.08it/s]
+30it [00:02, 12.07it/s]
+32it [00:02, 12.04it/s]
+34it [00:02, 13.19it/s]
+34it [00:02, 12.43it/s]
+2025-07-17 07:28:00,551 - model.trainer - INFO - Hits@1: 0.0019
+2025-07-17 07:28:00,551 - model.trainer - INFO - Hits@3: 0.0187
+2025-07-17 07:28:00,551 - model.trainer - INFO - Hits@5: 0.0346
+2025-07-17 07:28:00,551 - model.trainer - INFO - Hits@10: 0.0852
+2025-07-17 07:28:00,551 - model.trainer - INFO - Hits@20: 0.1573
+2025-07-17 07:28:00,551 - model.trainer - INFO - MRR: 0.0238
+
+0it [00:00, ?it/s]
+2it [00:00, 12.24it/s]
+4it [00:00, 11.95it/s]
+6it [00:00, 12.08it/s]
+8it [00:00, 12.06it/s]
+10it [00:00, 12.00it/s]
+12it [00:01, 11.91it/s]
+14it [00:01, 11.98it/s]
+16it [00:01, 11.79it/s]
+18it [00:01, 11.80it/s]
+20it [00:01, 12.02it/s]
+22it [00:01, 12.17it/s]
+24it [00:02, 12.03it/s]
+26it [00:02, 12.07it/s]
+28it [00:02, 12.15it/s]
+30it [00:02, 12.08it/s]
+32it [00:02, 12.06it/s]
+34it [00:02, 12.92it/s]
+34it [00:02, 12.18it/s]
+2025-07-17 07:28:03,765 - model.trainer - INFO - Hits@1: 0.0084
+2025-07-17 07:28:03,765 - model.trainer - INFO - Hits@3: 0.0262
+2025-07-17 07:28:03,765 - model.trainer - INFO - Hits@5: 0.0487
+2025-07-17 07:28:03,765 - model.trainer - INFO - Hits@10: 0.0777
+2025-07-17 07:28:03,765 - model.trainer - INFO - Hits@20: 0.1582
+2025-07-17 07:28:03,765 - model.trainer - INFO - MRR: 0.0307
+
+0it [00:00, ?it/s]
+2it [00:00, 12.44it/s]
+4it [00:00, 12.19it/s]
+6it [00:00, 11.98it/s]
+8it [00:00, 12.01it/s]
+10it [00:00, 11.98it/s]
+12it [00:00, 12.09it/s]
+14it [00:01, 12.19it/s]
+16it [00:01, 12.26it/s]
+18it [00:01, 12.18it/s]
+20it [00:01, 12.24it/s]
+22it [00:01, 12.15it/s]
+24it [00:01, 12.24it/s]
+26it [00:02, 12.24it/s]
+28it [00:02, 12.38it/s]
+30it [00:02, 12.35it/s]
+32it [00:02, 12.27it/s]
+34it [00:02, 13.40it/s]
+34it [00:02, 12.42it/s]
+2025-07-17 07:28:06,929 - model.trainer - INFO - Hits@1: 0.0056
+2025-07-17 07:28:06,930 - model.trainer - INFO - Hits@3: 0.0243
+2025-07-17 07:28:06,930 - model.trainer - INFO - Hits@5: 0.0431
+2025-07-17 07:28:06,930 - model.trainer - INFO - Hits@10: 0.0805
+2025-07-17 07:28:06,930 - model.trainer - INFO - Hits@20: 0.1610
+2025-07-17 07:28:06,930 - model.trainer - INFO - MRR: 0.0278
+2025-07-17 07:28:07,354 - model.trainer - INFO - Batch 100: hits=5.0000, avg_reward=0.0156, num_correct=5, accuracy=0.1562, loss=-0.0427
+
+0it [00:00, ?it/s]
+2it [00:00, 12.01it/s]
+4it [00:00, 12.29it/s]
+6it [00:00, 12.14it/s]
+8it [00:00, 12.17it/s]
+10it [00:00, 12.11it/s]
+12it [00:00, 12.13it/s]
+14it [00:01, 11.93it/s]
+16it [00:01, 12.07it/s]
+18it [00:01, 12.09it/s]
+20it [00:01, 12.17it/s]
+22it [00:01, 12.24it/s]
+24it [00:01, 12.21it/s]
+26it [00:02, 12.22it/s]
+28it [00:02, 12.27it/s]
+30it [00:02, 12.26it/s]
+32it [00:02, 12.25it/s]
+34it [00:02, 13.29it/s]
+34it [00:02, 12.37it/s]
+2025-07-17 07:28:10,110 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/687dbafe_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:28:10,110 - model.trainer - INFO - Hits@1: 0.0075
+2025-07-17 07:28:10,110 - model.trainer - INFO - Hits@3: 0.0281
+2025-07-17 07:28:10,110 - model.trainer - INFO - Hits@5: 0.0506
+2025-07-17 07:28:10,110 - model.trainer - INFO - Hits@10: 0.1124
+2025-07-17 07:28:10,110 - model.trainer - INFO - Hits@20: 0.1910
+2025-07-17 07:28:10,110 - model.trainer - INFO - MRR: 0.0343
+2025-07-17 07:28:10,111 - __main__ - INFO - Final evaluation on test set...
+
+0it [00:00, ?it/s]
+2it [00:00, 12.18it/s]
+4it [00:00, 12.47it/s]
+6it [00:00, 12.29it/s]
+8it [00:00, 12.03it/s]
+10it [00:00, 11.76it/s]
+12it [00:01, 11.78it/s]
+14it [00:01, 11.93it/s]
+16it [00:01, 12.01it/s]
+18it [00:01, 12.00it/s]
+20it [00:01, 12.12it/s]
+22it [00:01, 12.23it/s]
+24it [00:01, 12.19it/s]
+26it [00:02, 12.02it/s]
+28it [00:02, 12.13it/s]
+30it [00:02, 11.94it/s]
+32it [00:02, 12.03it/s]
+34it [00:02,  9.58it/s]
+34it [00:02, 11.47it/s]
+2025-07-17 07:28:13,075 - model.trainer - INFO - Hits@1: 0.0056
+2025-07-17 07:28:13,075 - model.trainer - INFO - Hits@3: 0.0261
+2025-07-17 07:28:13,075 - model.trainer - INFO - Hits@5: 0.0438
+2025-07-17 07:28:13,075 - model.trainer - INFO - Hits@10: 0.0959
+2025-07-17 07:28:13,075 - model.trainer - INFO - Hits@20: 0.1704
+2025-07-17 07:28:13,075 - model.trainer - INFO - MRR: 0.0299
+2025-07-17 07:28:13,075 - __main__ - INFO - Final test results:
+2025-07-17 07:28:13,075 - __main__ - INFO -   hits@1: 0.0056
+2025-07-17 07:28:13,075 - __main__ - INFO -   hits@3: 0.0261
+2025-07-17 07:28:13,075 - __main__ - INFO -   hits@5: 0.0438
+2025-07-17 07:28:13,075 - __main__ - INFO -   hits@10: 0.0959
+2025-07-17 07:28:13,075 - __main__ - INFO -   hits@20: 0.1704
+2025-07-17 07:28:13,075 - __main__ - INFO -   mrr: 0.0299
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/kinship/results.json
+⚠️  Using training validation metrics for fair comparison with TensorFlow
+
+Final metrics:
+  mrr: 0.0343
+  hits@10: 0.1124
+  hits@5: 0.0506
+  hits@3: 0.0281
+  hits@1: 0.0075
+TensorFlow MINERVA implementation:
+Dataset: umls
+Iterations: 100
+
+Running TensorFlow MINERVA...
+Command: python tf_patched/model/trainer.py --data_input_dir ../original/datasets/data_preprocessed/umls --vocab_dir ../original/datasets/data_preprocessed/umls/vocab --base_output_dir outputs_tensorflow/umls --total_iterations 100 --eval_every 100 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+
+✅ TensorFlow implementation completed successfully!
+
+Results:
+  hits@1: 0.0123
+  hits@3: 0.0752
+  hits@5: 0.1396
+  hits@10: 0.2485
+  mrr: 0.0718
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_tensorflow/umls/results.json
+
+TensorFlow implementation is currently blocked by compatibility issues.
+Use PyTorch implementation for working results.
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+Running PyTorch MINERVA on umls...
+Command: python /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../src/train.py --data_input_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls --vocab_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/vocab --base_output_dir /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls --total_iterations 100 --eval_every 10 --path_length 3 --batch_size 32 --num_rollouts 10 --test_rollouts 20 --learning_rate 0.001 --beta 0.01 --gamma 1.0 --use_entity_embeddings 0 --train_entity_embeddings 0 --train_relation_embeddings 1
+Configuration:
+  LSTM_layers                  : 1
+  Lambda                       : 0.0
+  base_output_dir              : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls
+  batch_size                   : 32
+  beta                         : 0.01
+  create_vocab                 : 0
+  data_input_dir               : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls
+  device                       : None
+  embedding_size               : 50
+  entity_vocab                 : {'chemical_viewed_structurally': 26, 'medical_device': 131, 'embryonic_structure': 50, 'health_care_activity': 7, 'entity': 5, 'cell_function': 35, 'PAD': 135, 'human': 66, 'temporal_concept': 130, 'age_group': 9, 'social_behavior': 81, 'chemical': 96, 'body_system': 125, 'group': 45, 'therapeutic_or_preventive_procedure': 32, 'family_group': 86, 'enzyme': 37, 'quantitative_concept': 120, 'biologic_function': 13, 'clinical_drug': 24, 'hormone': 42, 'animal': 80, 'food': 126, 'daily_or_recreational_activity': 118, 'qualitative_concept': 117, 'biomedical_or_dental_material': 119, 'cell_or_molecular_dysfunction': 28, 'archaeon': 31, 'idea_or_concept': 129, 'inorganic_chemical': 112, 'eicosanoid': 68, 'cell_component': 41, 'natural_phenomenon_or_process': 11, 'activity': 102, 'acquired_abnormality': 0, 'professional_or_occupational_group': 22, 'fully_formed_anatomical_structure': 38, 'antibiotic': 89, 'gene_or_genome': 100, 'fish': 91, 'patient_or_disabled_group': 23, 'population_group': 8, 'event': 109, 'educational_activity': 122, 'cell': 39, 'environmental_effect_of_humans': 84, 'neuroreactive_substance_or_biogenic_amine': 48, 'bird': 113, 'research_device': 111, 'lipid': 94, 'molecular_function': 47, 'vitamin': 17, 'hazardous_or_poisonous_substance': 82, 'steroid': 20, 'mammal': 110, 'genetic_function': 63, 'experimental_model_of_disease': 1, 'organic_chemical': 43, 'clinical_attribute': 10, 'physical_object': 98, 'substance': 104, 'language': 133, 'intellectual_product': 65, 'alga': 4, 'molecular_sequence': 18, 'biomedical_occupation_or_discipline': 46, 'reptile': 85, 'element_ion_or_isotope': 69, 'injury_or_poisoning': 78, 'classification': 97, 'occupation_or_discipline': 51, 'organ_or_tissue_function': 33, 'geographic_area': 105, 'receptor': 58, 'neoplastic_process': 54, 'self_help_or_relief_organization': 59, 'functional_concept': 134, 'organism_attribute': 72, 'laboratory_procedure': 55, 'vertebrate': 67, 'manufactured_object': 115, 'diagnostic_procedure': 77, 'laboratory_or_test_result': 101, 'professional_society': 107, 'organism_function': 27, 'anatomical_structure': 75, 'anatomical_abnormality': 2, 'human_caused_phenomenon_or_process': 30, 'body_space_or_junction': 90, 'UNK': 136, 'mental_or_behavioral_dysfunction': 6, 'conceptual_entity': 71, 'organophosphorus_compound': 106, 'rickettsia_or_chlamydia': 62, 'biologically_active_substance': 14, 'pharmacologic_substance': 34, 'behavior': 44, 'governmental_or_regulatory_activity': 128, 'nucleic_acid_nucleoside_or_nucleotide': 25, 'amino_acid_sequence': 132, 'sign_or_symptom': 61, 'carbohydrate': 16, 'molecular_biology_research_technique': 76, 'pathologic_function': 36, 'tissue': 79, 'drug_delivery_device': 121, 'mental_process': 21, 'congenital_abnormality': 74, 'phenomenon_or_process': 114, 'immunologic_factor': 52, 'chemical_viewed_functionally': 83, 'machine_activity': 123, 'indicator_reagent_or_diagnostic_aid': 88, 'regulation_or_law': 64, 'spatial_concept': 19, 'bacterium': 53, 'disease_or_syndrome': 15, 'research_activity': 60, 'group_attribute': 70, 'body_part_organ_or_organ_component': 12, 'finding': 73, 'physiologic_function': 3, 'carbohydrate_sequence': 127, 'plant': 93, 'invertebrate': 57, 'fungus': 56, 'virus': 87, 'body_substance': 29, 'nucleotide_sequence': 124, 'individual_behavior': 116, 'health_care_related_organization': 92, 'body_location_or_region': 108, 'amphibian': 49, 'occupational_activity': 103, 'organization': 95, 'organism': 99, 'amino_acid_peptide_or_protein': 40}
+  eval_every                   : 10
+  gamma                        : 1.0
+  grad_clip_norm               : 5
+  hidden_size                  : 50
+  input_file                   : train.txt
+  input_files                  : ['/Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/train.txt']
+  l2_reg_const                 : 0.01
+  learning_rate                : 0.001
+  load_model                   : False
+  log_dir                      : ./logs/
+  log_file_name                : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0/train.log
+  max_num_actions              : 200
+  model_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0/model
+  model_load_dir               : 
+  negative_reward              : 0
+  nell_evaluation              : 0
+  num_rollouts                 : 10
+  output_dir                   : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0
+  output_file                  : 
+  path_length                  : 3
+  path_logger_file             : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0
+  pool                         : max
+  positive_reward              : 1.0
+  pretrained_embeddings_action : 
+  pretrained_embeddings_entity : 
+  relation_vocab               : {'produces': 20, 'occurs_in': 16, 'conceptually_related_to': 84, 'manages': 56, 'PAD': 92, 'causes': 40, '_exhibits': 51, '_location_of': 1, '_precedes': 65, 'surrounds': 86, '_associated_with': 9, '_practices': 91, '_ingredient_of': 53, '_occurs_in': 17, 'derivative_of': 88, '_interacts_with': 11, 'evaluation_of': 46, 'DUMMY_START_RELATION': 93, '_result_of': 13, 'associated_with': 8, '_conceptually_related_to': 85, 'interacts_with': 10, 'result_of': 12, 'exhibits': 50, 'method_of': 60, 'interconnects': 82, 'part_of': 34, 'precedes': 64, 'property_of': 54, '_causes': 41, '_measures': 37, 'connected_to': 24, 'affects': 6, '_surrounds': 87, 'performs': 68, 'complicates': 14, 'process_of': 26, 'consists_of': 66, 'assesses_effect_of': 58, 'analyzes': 72, '_analyzes': 73, '_affects': 7, 'diagnoses': 48, 'ingredient_of': 52, '_adjacent_to': 81, '_evaluation_of': 47, '_derivative_of': 89, '_uses': 19, '_produces': 21, 'disrupts': 30, '_method_of': 61, '_issue_in': 33, '_process_of': 27, '_prevents': 39, 'conceptual_part_of': 70, '_treats': 45, '_part_of': 35, '_performs': 69, 'contains': 78, '_manifestation_of': 3, '_co-occurs_with': 29, '_connected_to': 25, '_indicates': 43, '_carries_out': 75, '_complicates': 15, 'carries_out': 74, 'UNK': 95, '_diagnoses': 49, 'treats': 44, '_interconnects': 83, 'prevents': 38, 'location_of': 0, 'issue_in': 32, 'developmental_form_of': 76, 'indicates': 42, '_assesses_effect_of': 59, '_isa': 5, '_contains': 79, 'practices': 90, 'degree_of': 22, 'co-occurs_with': 28, 'measurement_of': 62, 'NO_OP': 94, 'measures': 36, 'uses': 18, '_developmental_form_of': 77, 'isa': 4, '_measurement_of': 63, 'manifestation_of': 2, '_manages': 57, '_disrupts': 31, '_property_of': 55, '_conceptual_part_of': 71, '_degree_of': 23, 'adjacent_to': 80, '_consists_of': 67}
+  test_rollouts                : 20
+  total_iterations             : 100
+  train_entity_embeddings      : False
+  train_relation_embeddings    : True
+  use_entity_embeddings        : False
+  vocab_dir                    : /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/vocab
+PyTorch Device Information:
+PyTorch version: 2.6.0
+CUDA available: False
+MPS available: True
+MPS device: Apple Silicon GPU
+2025-07-17 07:28:25,285 - utils - INFO - Using MPS device (Apple Silicon)
+2025-07-17 07:28:25,302 - data.feed_data - INFO - Loaded 5216 train examples
+2025-07-17 07:28:25,302 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/graph.txt
+2025-07-17 07:28:25,304 - data.grapher - INFO - Loaded graph with 135 entities
+2025-07-17 07:28:25,305 - data.feed_data - INFO - Loaded 652 dev examples
+2025-07-17 07:28:25,305 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/graph.txt
+2025-07-17 07:28:25,307 - data.grapher - INFO - Loaded graph with 135 entities
+2025-07-17 07:28:25,307 - data.feed_data - INFO - Loaded 661 test examples
+2025-07-17 07:28:25,307 - data.grapher - INFO - Loading knowledge graph from /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/../original/datasets/data_preprocessed/umls/graph.txt
+2025-07-17 07:28:25,310 - data.grapher - INFO - Loaded graph with 135 entities
+2025-07-17 07:28:25,671 - __main__ - INFO - Starting training...
+
+0it [00:00, ?it/s]
+2it [00:00, 14.15it/s]
+5it [00:00, 21.64it/s]
+8it [00:00, 24.82it/s]
+12it [00:00, 26.97it/s]
+15it [00:00, 27.26it/s]
+18it [00:00, 27.91it/s]
+21it [00:00, 25.44it/s]
+21it [00:00, 25.20it/s]
+2025-07-17 07:28:27,132 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:28:27,132 - model.trainer - INFO - Hits@1: 0.0230
+2025-07-17 07:28:27,132 - model.trainer - INFO - Hits@3: 0.0537
+2025-07-17 07:28:27,132 - model.trainer - INFO - Hits@5: 0.0997
+2025-07-17 07:28:27,132 - model.trainer - INFO - Hits@10: 0.1840
+2025-07-17 07:28:27,132 - model.trainer - INFO - Hits@20: 0.2577
+2025-07-17 07:28:27,133 - model.trainer - INFO - MRR: 0.0630
+
+0it [00:00, ?it/s]
+3it [00:00, 28.38it/s]
+6it [00:00, 28.37it/s]
+9it [00:00, 28.39it/s]
+12it [00:00, 28.27it/s]
+15it [00:00, 27.30it/s]
+18it [00:00, 27.86it/s]
+21it [00:00, 28.48it/s]
+2025-07-17 07:28:28,160 - model.trainer - INFO - Model saved to /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/3e8157dc_pl3_b0.01_tr20_l0.0/model/model.pt
+2025-07-17 07:28:28,161 - model.trainer - INFO - Hits@1: 0.0107
+2025-07-17 07:28:28,161 - model.trainer - INFO - Hits@3: 0.0613
+2025-07-17 07:28:28,161 - model.trainer - INFO - Hits@5: 0.0997
+2025-07-17 07:28:28,161 - model.trainer - INFO - Hits@10: 0.1994
+2025-07-17 07:28:28,161 - model.trainer - INFO - Hits@20: 0.2684
+2025-07-17 07:28:28,161 - model.trainer - INFO - MRR: 0.0576
+
+0it [00:00, ?it/s]
+3it [00:00, 27.77it/s]
+6it [00:00, 27.89it/s]
+9it [00:00, 27.93it/s]
+12it [00:00, 27.37it/s]
+15it [00:00, 26.70it/s]
+18it [00:00, 27.50it/s]
+21it [00:00, 28.17it/s]
+2025-07-17 07:28:29,187 - model.trainer - INFO - Hits@1: 0.0138
+2025-07-17 07:28:29,187 - model.trainer - INFO - Hits@3: 0.0537
+2025-07-17 07:28:29,187 - model.trainer - INFO - Hits@5: 0.0966
+2025-07-17 07:28:29,187 - model.trainer - INFO - Hits@10: 0.1764
+2025-07-17 07:28:29,187 - model.trainer - INFO - Hits@20: 0.2592
+2025-07-17 07:28:29,187 - model.trainer - INFO - MRR: 0.0569
+
+0it [00:00, ?it/s]
+3it [00:00, 28.51it/s]
+6it [00:00, 28.12it/s]
+9it [00:00, 28.03it/s]
+12it [00:00, 28.25it/s]
+15it [00:00, 27.71it/s]
+18it [00:00, 27.88it/s]
+21it [00:00, 28.45it/s]
+2025-07-17 07:28:30,203 - model.trainer - INFO - Hits@1: 0.0153
+2025-07-17 07:28:30,203 - model.trainer - INFO - Hits@3: 0.0506
+2025-07-17 07:28:30,203 - model.trainer - INFO - Hits@5: 0.0874
+2025-07-17 07:28:30,203 - model.trainer - INFO - Hits@10: 0.1733
+2025-07-17 07:28:30,203 - model.trainer - INFO - Hits@20: 0.2515
+2025-07-17 07:28:30,203 - model.trainer - INFO - MRR: 0.0548
+
+0it [00:00, ?it/s]
+3it [00:00, 28.44it/s]
+6it [00:00, 28.06it/s]
+9it [00:00, 28.33it/s]
+12it [00:00, 28.56it/s]
+15it [00:00, 28.26it/s]
+18it [00:00, 28.41it/s]
+21it [00:00, 28.99it/s]
+2025-07-17 07:28:31,200 - model.trainer - INFO - Hits@1: 0.0215
+2025-07-17 07:28:31,200 - model.trainer - INFO - Hits@3: 0.0552
+2025-07-17 07:28:31,200 - model.trainer - INFO - Hits@5: 0.0890
+2025-07-17 07:28:31,200 - model.trainer - INFO - Hits@10: 0.1856
+2025-07-17 07:28:31,200 - model.trainer - INFO - Hits@20: 0.2592
+2025-07-17 07:28:31,200 - model.trainer - INFO - MRR: 0.0625
+
+0it [00:00, ?it/s]
+3it [00:00, 26.05it/s]
+6it [00:00, 27.23it/s]
+9it [00:00, 27.67it/s]
+12it [00:00, 27.58it/s]
+15it [00:00, 26.96it/s]
+18it [00:00, 27.41it/s]
+21it [00:00, 27.93it/s]
+2025-07-17 07:28:32,218 - model.trainer - INFO - Hits@1: 0.0153
+2025-07-17 07:28:32,218 - model.trainer - INFO - Hits@3: 0.0383
+2025-07-17 07:28:32,218 - model.trainer - INFO - Hits@5: 0.0813
+2025-07-17 07:28:32,218 - model.trainer - INFO - Hits@10: 0.1580
+2025-07-17 07:28:32,218 - model.trainer - INFO - Hits@20: 0.2255
+2025-07-17 07:28:32,218 - model.trainer - INFO - MRR: 0.0483
+
+0it [00:00, ?it/s]
+3it [00:00, 27.85it/s]
+6it [00:00, 27.00it/s]
+9it [00:00, 27.36it/s]
+12it [00:00, 27.64it/s]
+15it [00:00, 27.31it/s]
+18it [00:00, 27.84it/s]
+21it [00:00, 28.13it/s]
+2025-07-17 07:28:33,234 - model.trainer - INFO - Hits@1: 0.0153
+2025-07-17 07:28:33,234 - model.trainer - INFO - Hits@3: 0.0445
+2025-07-17 07:28:33,234 - model.trainer - INFO - Hits@5: 0.0767
+2025-07-17 07:28:33,234 - model.trainer - INFO - Hits@10: 0.1580
+2025-07-17 07:28:33,234 - model.trainer - INFO - Hits@20: 0.2592
+2025-07-17 07:28:33,234 - model.trainer - INFO - MRR: 0.0541
+
+0it [00:00, ?it/s]
+3it [00:00, 26.97it/s]
+6it [00:00, 27.15it/s]
+9it [00:00, 27.50it/s]
+12it [00:00, 27.62it/s]
+15it [00:00, 27.10it/s]
+18it [00:00, 27.29it/s]
+21it [00:00, 27.77it/s]
+2025-07-17 07:28:34,269 - model.trainer - INFO - Hits@1: 0.0261
+2025-07-17 07:28:34,269 - model.trainer - INFO - Hits@3: 0.0675
+2025-07-17 07:28:34,269 - model.trainer - INFO - Hits@5: 0.0997
+2025-07-17 07:28:34,270 - model.trainer - INFO - Hits@10: 0.1656
+2025-07-17 07:28:34,270 - model.trainer - INFO - Hits@20: 0.2316
+2025-07-17 07:28:34,270 - model.trainer - INFO - MRR: 0.0643
+
+0it [00:00, ?it/s]
+3it [00:00, 24.90it/s]
+6it [00:00, 25.13it/s]
+9it [00:00, 25.42it/s]
+12it [00:00, 25.50it/s]
+15it [00:00, 25.16it/s]
+18it [00:00, 25.15it/s]
+21it [00:00, 26.33it/s]
+21it [00:00, 25.71it/s]
+2025-07-17 07:28:35,370 - model.trainer - INFO - Hits@1: 0.0291
+2025-07-17 07:28:35,370 - model.trainer - INFO - Hits@3: 0.0706
+2025-07-17 07:28:35,370 - model.trainer - INFO - Hits@5: 0.0982
+2025-07-17 07:28:35,370 - model.trainer - INFO - Hits@10: 0.1718
+2025-07-17 07:28:35,370 - model.trainer - INFO - Hits@20: 0.2715
+2025-07-17 07:28:35,370 - model.trainer - INFO - MRR: 0.0711
+2025-07-17 07:28:35,663 - model.trainer - INFO - Batch 100: hits=7.0000, avg_reward=0.0219, num_correct=6, accuracy=0.1875, loss=-0.0639
+
+0it [00:00, ?it/s]
+3it [00:00, 24.15it/s]
+6it [00:00, 24.19it/s]
+9it [00:00, 24.09it/s]
+12it [00:00, 24.23it/s]
+15it [00:00, 23.87it/s]
+18it [00:00, 24.11it/s]
+21it [00:00, 24.99it/s]
+21it [00:00, 24.47it/s]
+2025-07-17 07:28:36,522 - model.trainer - INFO - Hits@1: 0.0215
+2025-07-17 07:28:36,522 - model.trainer - INFO - Hits@3: 0.0629
+2025-07-17 07:28:36,522 - model.trainer - INFO - Hits@5: 0.0828
+2025-07-17 07:28:36,522 - model.trainer - INFO - Hits@10: 0.1641
+2025-07-17 07:28:36,522 - model.trainer - INFO - Hits@20: 0.2377
+2025-07-17 07:28:36,522 - model.trainer - INFO - MRR: 0.0590
+2025-07-17 07:28:36,522 - __main__ - INFO - Final evaluation on test set...
+
+0it [00:00, ?it/s]
+3it [00:00, 22.78it/s]
+6it [00:00, 23.22it/s]
+9it [00:00, 23.33it/s]
+12it [00:00, 23.41it/s]
+15it [00:00, 23.61it/s]
+18it [00:00, 23.82it/s]
+21it [00:01, 14.95it/s]
+21it [00:01, 18.78it/s]
+2025-07-17 07:28:37,640 - model.trainer - INFO - Hits@1: 0.0106
+2025-07-17 07:28:37,641 - model.trainer - INFO - Hits@3: 0.0212
+2025-07-17 07:28:37,641 - model.trainer - INFO - Hits@5: 0.0469
+2025-07-17 07:28:37,641 - model.trainer - INFO - Hits@10: 0.1573
+2025-07-17 07:28:37,641 - model.trainer - INFO - Hits@20: 0.2496
+2025-07-17 07:28:37,641 - model.trainer - INFO - MRR: 0.0419
+2025-07-17 07:28:37,641 - __main__ - INFO - Final test results:
+2025-07-17 07:28:37,641 - __main__ - INFO -   hits@1: 0.0106
+2025-07-17 07:28:37,641 - __main__ - INFO -   hits@3: 0.0212
+2025-07-17 07:28:37,641 - __main__ - INFO -   hits@5: 0.0469
+2025-07-17 07:28:37,641 - __main__ - INFO -   hits@10: 0.1573
+2025-07-17 07:28:37,641 - __main__ - INFO -   hits@20: 0.2496
+2025-07-17 07:28:37,641 - __main__ - INFO -   mrr: 0.0419
+
+Results saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/outputs_pytorch/umls/results.json
+⚠️  Using training validation metrics for fair comparison with TensorFlow
+
+Final metrics:
+  mrr: 0.0590
+  hits@10: 0.1641
+  hits@5: 0.0828
+  hits@3: 0.0629
+  hits@1: 0.0215
+
+================================================================================
+Testing dataset: countries_S1
+================================================================================
+================================================================================
+MINERVA Implementation Comparison
+================================================================================
+⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance
+⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues
+================================================================================
+✓ TensorFlow 2.19.0 available
+✓ PyTorch 2.6.0 available
+
+Running comparison on dataset: countries_S1
+Iterations: 100
+Random seed: 42
+Output directory: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S1_20250717_072641
+
+⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only
+⚠️  TensorFlow test phase is disabled due to checkpoint issues
+
+============================================================
+Running TensorFlow Implementation (Training Validation Only)
+============================================================
+Running TensorFlow implementation...
+
+============================================================
+Running PyTorch Implementation (Training Validation Only)
+============================================================
+Running PyTorch implementation...
+
+============================================================
+Comparison Results (Training Validation Metrics Only)
+============================================================
+
+Metric          TensorFlow   PyTorch      Difference   Status
+------------------------------------------------------------
+hits@1          1.0000       0.3750       0.6250       ✗ Different
+hits@3          1.0000       0.6667       0.3333       ✗ Different
+hits@5          1.0000       0.6667       0.3333       ✗ Different
+hits@10         1.0000       0.6667       0.3333       ✗ Different
+mrr             1.0000       0.5208       0.4792       ✗ Different
+============================================================
+
+Detailed comparison saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S1_20250717_072641/comparison_results.json
+Summary report saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S1_20250717_072641/COMPARISON_REPORT.md
+
+================================================================================
+Testing dataset: countries_S2
+================================================================================
+================================================================================
+MINERVA Implementation Comparison
+================================================================================
+⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance
+⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues
+================================================================================
+✓ TensorFlow 2.19.0 available
+✓ PyTorch 2.6.0 available
+
+Running comparison on dataset: countries_S2
+Iterations: 100
+Random seed: 42
+Output directory: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S2_20250717_072656
+
+⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only
+⚠️  TensorFlow test phase is disabled due to checkpoint issues
+
+============================================================
+Running TensorFlow Implementation (Training Validation Only)
+============================================================
+Running TensorFlow implementation...
+
+============================================================
+Running PyTorch Implementation (Training Validation Only)
+============================================================
+Running PyTorch implementation...
+
+============================================================
+Comparison Results (Training Validation Metrics Only)
+============================================================
+
+Metric          TensorFlow   PyTorch      Difference   Status
+------------------------------------------------------------
+hits@1          0.4583       0.0417       0.4166       ✗ Different
+hits@3          0.5000       0.2083       0.2917       ✗ Different
+hits@5          0.5417       0.3750       0.1667       ✗ Different
+hits@10         0.6250       0.4583       0.1667       ✗ Different
+mrr             0.4927       0.1487       0.3440       ✗ Different
+============================================================
+
+Detailed comparison saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S2_20250717_072656/comparison_results.json
+Summary report saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S2_20250717_072656/COMPARISON_REPORT.md
+
+================================================================================
+Testing dataset: countries_S3
+================================================================================
+================================================================================
+MINERVA Implementation Comparison
+================================================================================
+⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance
+⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues
+================================================================================
+✓ TensorFlow 2.19.0 available
+✓ PyTorch 2.6.0 available
+
+Running comparison on dataset: countries_S3
+Iterations: 100
+Random seed: 42
+Output directory: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S3_20250717_072710
+
+⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only
+⚠️  TensorFlow test phase is disabled due to checkpoint issues
+
+============================================================
+Running TensorFlow Implementation (Training Validation Only)
+============================================================
+Running TensorFlow implementation...
+
+============================================================
+Running PyTorch Implementation (Training Validation Only)
+============================================================
+Running PyTorch implementation...
+
+============================================================
+Comparison Results (Training Validation Metrics Only)
+============================================================
+
+Metric          TensorFlow   PyTorch      Difference   Status
+------------------------------------------------------------
+hits@1          0.9583       0.2500       0.7083       ✗ Different
+hits@3          0.9583       0.4583       0.5000       ✗ Different
+hits@5          0.9583       0.4583       0.5000       ✗ Different
+hits@10         0.9583       0.5000       0.4583       ✗ Different
+mrr             0.9583       0.3514       0.6069       ✗ Different
+============================================================
+
+Detailed comparison saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S3_20250717_072710/comparison_results.json
+Summary report saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/countries_S3_20250717_072710/COMPARISON_REPORT.md
+
+================================================================================
+Testing dataset: kinship
+================================================================================
+================================================================================
+MINERVA Implementation Comparison
+================================================================================
+⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance
+⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues
+================================================================================
+✓ TensorFlow 2.19.0 available
+✓ PyTorch 2.6.0 available
+
+Running comparison on dataset: kinship
+Iterations: 100
+Random seed: 42
+Output directory: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/kinship_20250717_072725
+
+⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only
+⚠️  TensorFlow test phase is disabled due to checkpoint issues
+
+============================================================
+Running TensorFlow Implementation (Training Validation Only)
+============================================================
+Running TensorFlow implementation...
+
+============================================================
+Running PyTorch Implementation (Training Validation Only)
+============================================================
+Running PyTorch implementation...
+
+============================================================
+Comparison Results (Training Validation Metrics Only)
+============================================================
+
+Metric          TensorFlow   PyTorch      Difference   Status
+------------------------------------------------------------
+hits@1          0.0131       0.0075       0.0056       ✓ Close
+hits@3          0.0281       0.0281       0.0000       ✓ Close
+hits@5          0.0375       0.0506       0.0131       ✓ Close
+hits@10         0.0599       0.1124       0.0525       ✓ Close
+mrr             0.0275       0.0343       0.0068       ✓ Close
+============================================================
+
+Detailed comparison saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/kinship_20250717_072725/comparison_results.json
+Summary report saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/kinship_20250717_072725/COMPARISON_REPORT.md
+
+================================================================================
+Testing dataset: umls
+================================================================================
+================================================================================
+MINERVA Implementation Comparison
+================================================================================
+⚠️  WARNING: This comparison only evaluates TRAINING PHASE performance
+⚠️  Test phase evaluation is skipped due to TensorFlow compatibility issues
+================================================================================
+✓ TensorFlow 2.19.0 available
+✓ PyTorch 2.6.0 available
+
+Running comparison on dataset: umls
+Iterations: 100
+Random seed: 42
+Output directory: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/umls_20250717_072813
+
+⚠️  IMPORTANT: Comparing TRAINING VALIDATION metrics only
+⚠️  TensorFlow test phase is disabled due to checkpoint issues
+
+============================================================
+Running TensorFlow Implementation (Training Validation Only)
+============================================================
+Running TensorFlow implementation...
+
+============================================================
+Running PyTorch Implementation (Training Validation Only)
+============================================================
+Running PyTorch implementation...
+
+============================================================
+Comparison Results (Training Validation Metrics Only)
+============================================================
+
+Metric          TensorFlow   PyTorch      Difference   Status
+------------------------------------------------------------
+hits@1          0.0123       0.0215       0.0092       ✓ Close
+hits@3          0.0752       0.0629       0.0123       ✓ Close
+hits@5          0.1396       0.0828       0.0568       ✓ Close
+hits@10         0.2485       0.1641       0.0844       ✗ Different
+mrr             0.0718       0.0590       0.0128       ✓ Close
+============================================================
+
+Detailed comparison saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/umls_20250717_072813/comparison_results.json
+Summary report saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/umls_20250717_072813/COMPARISON_REPORT.md
+
+================================================================================
+OVERALL COMPARISON SUMMARY
+================================================================================
+
+Multi-dataset summary saved to: /Users/u1770777/Library/CloudStorage/GoogleDrive-giovanni.montana@gmail.com/My Drive/mycode/GraphReasoningRL/minerva/comparison/comparison_results/MULTI_DATASET_SUMMARY_20250717_072837.md
+Overall matching rate: 1/5 datasets
+
+=====================================================================
+Comparison completed at Thu 17 Jul 2025 07:28:38 BST
+Copying individual results...
+All results copied to comparison_results/full_comparison_20250717_072639

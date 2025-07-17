@@ -228,6 +228,8 @@ def main():
     parser = argparse.ArgumentParser(description='Compare TF and PyTorch MINERVA implementations')
     parser.add_argument('--dataset', default='countries_S1', 
                         help='Dataset to use (e.g., countries_S1, kinship, WN18RR)')
+    parser.add_argument('--datasets', nargs='+', default=None,
+                        help='Multiple datasets to compare')
     parser.add_argument('--iterations', type=int, default=100,
                         help='Number of training iterations')
     parser.add_argument('--seed', type=int, default=42,
@@ -237,29 +239,86 @@ def main():
     
     args = parser.parse_args()
     
-    if args.test_multiple:
-        # Test on multiple small datasets
-        datasets = ['countries_S1', 'countries_S2', 'kinship']
-        all_results = []
-        
-        for dataset in datasets:
-            print(f"\n{'='*80}")
-            print(f"Testing dataset: {dataset}")
-            print('='*80)
-            
-            result = run_comparison(dataset, args.iterations, args.seed)
-            if result:
-                all_results.append(result)
-        
-        # Summary of all tests
-        print("\n" + "="*80)
-        print("OVERALL SUMMARY")
-        print("="*80)
-        
-        for result in all_results:
-            print(f"{result['dataset']}: {result['verdict']}")
+    if args.datasets:
+        # Use specified datasets
+        datasets = args.datasets
+    elif args.test_multiple:
+        # Default set of datasets for multiple testing
+        datasets = ['countries_S1', 'countries_S2', 'countries_S3', 'kinship', 'umls']
     else:
-        run_comparison(args.dataset, args.iterations, args.seed)
+        # Single dataset
+        datasets = [args.dataset]
+    
+    all_results = []
+    
+    for dataset in datasets:
+        print(f"\n{'='*80}")
+        print(f"Testing dataset: {dataset}")
+        print('='*80)
+        
+        result = run_comparison(dataset, args.iterations, args.seed)
+        if result:
+            all_results.append(result)
+    
+    # Create overall summary if multiple datasets
+    if len(datasets) > 1:
+        create_overall_summary(all_results)
+    
+    
+def create_overall_summary(all_results):
+    """Create summary report for multiple datasets"""
+    print("\n" + "="*80)
+    print("OVERALL COMPARISON SUMMARY")
+    print("="*80)
+    
+    summary_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'comparison_results')
+    os.makedirs(summary_dir, exist_ok=True)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    summary_file = os.path.join(summary_dir, f'MULTI_DATASET_SUMMARY_{timestamp}.md')
+    
+    with open(summary_file, 'w') as f:
+        f.write("# MINERVA Multi-Dataset Comparison Summary\n\n")
+        f.write("⚠️ **IMPORTANT**: Comparing TRAINING VALIDATION metrics only\n\n")
+        f.write(f"**Date**: {timestamp}\n")
+        f.write(f"**Datasets Tested**: {len(all_results)}\n\n")
+        
+        f.write("## Summary Table\n\n")
+        f.write("| Dataset | Hits@10 (TF) | Hits@10 (PyTorch) | MRR (TF) | MRR (PyTorch) | Status |\n")
+        f.write("|---------|--------------|-------------------|----------|---------------|--------|\n")
+        
+        total_close = 0
+        for result in all_results:
+            comp = result['comparison']
+            h10_close = comp['hits@10']['is_close']
+            mrr_close = comp['mrr']['is_close']
+            overall_close = h10_close and mrr_close
+            
+            if overall_close:
+                total_close += 1
+                status = "✓ Match"
+            else:
+                status = "✗ Differ"
+            
+            f.write(f"| {result['dataset']} | "
+                   f"{comp['hits@10']['tensorflow']:.4f} | "
+                   f"{comp['hits@10']['pytorch']:.4f} | "
+                   f"{comp['mrr']['tensorflow']:.4f} | "
+                   f"{comp['mrr']['pytorch']:.4f} | "
+                   f"{status} |\n")
+        
+        f.write(f"\n**Overall Matching Rate**: {total_close}/{len(all_results)} datasets\n")
+        
+        # Per-metric summary
+        f.write("\n## Per-Metric Summary\n\n")
+        metrics = ['hits@1', 'hits@3', 'hits@5', 'hits@10', 'mrr']
+        
+        for metric in metrics:
+            close_count = sum(1 for r in all_results if r['comparison'][metric]['is_close'])
+            f.write(f"- **{metric}**: {close_count}/{len(all_results)} datasets match\n")
+    
+    print(f"\nMulti-dataset summary saved to: {summary_file}")
+    print(f"Overall matching rate: {total_close}/{len(all_results)} datasets")
 
 
 if __name__ == '__main__':

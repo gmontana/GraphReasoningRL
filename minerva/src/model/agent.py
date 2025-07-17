@@ -34,7 +34,7 @@ class Agent(nn.Module):
             self.action_vocab_size, 
             2 * self.embedding_size
         )
-        if params.get('pretrained_embeddings_action') is not None:
+        if params.get('pretrained_embeddings_action') and params['pretrained_embeddings_action'].strip():
             self.relation_embeddings.weight.data = torch.FloatTensor(params['pretrained_embeddings_action'])
         else:
             nn.init.xavier_uniform_(self.relation_embeddings.weight)
@@ -45,7 +45,7 @@ class Agent(nn.Module):
                 self.entity_vocab_size,
                 2 * self.entity_embedding_size
             )
-            if params.get('pretrained_embeddings_entity') is not None:
+            if params.get('pretrained_embeddings_entity') and params['pretrained_embeddings_entity'].strip():
                 self.entity_embeddings.weight.data = torch.FloatTensor(params['pretrained_embeddings_entity'])
             else:
                 nn.init.xavier_uniform_(self.entity_embeddings.weight)

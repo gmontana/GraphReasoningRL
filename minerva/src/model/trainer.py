@@ -8,7 +8,13 @@ import time
 import os
 import logging
 from collections import defaultdict
-# from scipy.special import logsumexp as lse  # Not used in PyTorch version
+import torch.nn.functional as F
+
+def lse(x):
+    """Log-sum-exp function for numerical stability"""
+    if isinstance(x, list):
+        x = torch.tensor(x)
+    return torch.logsumexp(x, dim=0).item()
 
 from model.agent import Agent
 from model.environment import Environment
@@ -48,11 +54,15 @@ class Trainer:
         
         # Optimizer and baseline
         self.baseline = ReactiveBaseline(l=self.Lambda)
-        self.optimizer = optim.Adam(self.agent.parameters(), lr=self.learning_rate)
+        self.optimizer = optim.Adam(self.agent.parameters(), lr=self.learning_rate, 
+                                   weight_decay=getattr(self, 'l2_reg_const', 1e-2))
         
         # For decaying beta
         self.global_step = 0
         self.decaying_beta_rate = 0.90
+        
+        # Initialize pretrained embeddings if provided
+        self.initialize_pretrained_embeddings()
         
     def calc_reinforce_loss(self, per_example_loss, per_example_logits, cum_discounted_reward):
         """Calculate REINFORCE loss with baseline and entropy regularization"""
@@ -110,6 +120,43 @@ class Trainer:
             cum_disc_reward[:, t] = running_add
             
         return cum_disc_reward
+    
+    def initialize_pretrained_embeddings(self):
+        """Initialize pretrained embeddings if provided."""
+        pretrained_action = getattr(self, 'pretrained_embeddings_action', '')
+        pretrained_entity = getattr(self, 'pretrained_embeddings_entity', '')
+        
+        if pretrained_action and pretrained_action.strip():
+            try:
+                logger.info(f"Loading pretrained relation embeddings from {pretrained_action}")
+                embeddings = np.loadtxt(pretrained_action)
+                embeddings_tensor = torch.FloatTensor(embeddings).to(self.device)
+                
+                # Check dimensions match
+                if embeddings_tensor.shape != self.agent.relation_embeddings.weight.shape:
+                    logger.warning(f"Pretrained relation embedding shape {embeddings_tensor.shape} "
+                                 f"doesn't match model shape {self.agent.relation_embeddings.weight.shape}")
+                else:
+                    self.agent.relation_embeddings.weight.data.copy_(embeddings_tensor)
+                    logger.info("Successfully loaded pretrained relation embeddings")
+            except Exception as e:
+                logger.error(f"Failed to load pretrained relation embeddings: {e}")
+        
+        if pretrained_entity and pretrained_entity.strip():
+            try:
+                logger.info(f"Loading pretrained entity embeddings from {pretrained_entity}")
+                embeddings = np.loadtxt(pretrained_entity)
+                embeddings_tensor = torch.FloatTensor(embeddings).to(self.device)
+                
+                # Check dimensions match
+                if embeddings_tensor.shape != self.agent.entity_embeddings.weight.shape:
+                    logger.warning(f"Pretrained entity embedding shape {embeddings_tensor.shape} "
+                                 f"doesn't match model shape {self.agent.entity_embeddings.weight.shape}")
+                else:
+                    self.agent.entity_embeddings.weight.data.copy_(embeddings_tensor)
+                    logger.info("Successfully loaded pretrained entity embeddings")
+            except Exception as e:
+                logger.error(f"Failed to load pretrained entity embeddings: {e}")
     
     def train(self, num_epochs=None):
         """Main training loop"""
@@ -242,6 +289,10 @@ class Trainer:
         all_final_reward_20 = 0
         auc = 0
         
+        # For NELL evaluation
+        paths = defaultdict(list)
+        answers = []
+        
         total_examples = self.test_environment.total_no_examples
         
         with torch.no_grad():
@@ -342,8 +393,8 @@ class Trainer:
                     prev_relation = chosen_relation
                     
                     if print_paths:
-                        entity_trajectory.append(current_entities)
-                        relation_trajectory.append(chosen_relation)
+                        entity_trajectory.append(current_entities.cpu().numpy())
+                        relation_trajectory.append(chosen_relation.cpu().numpy())
                     
                     # Take action in environment
                     state = episode(action_idx.cpu().numpy())
@@ -361,20 +412,42 @@ class Trainer:
                 # Calculate metrics
                 sorted_idx = np.argsort(-log_probs, axis=1)
                 
+                # Get current entities for this batch
+                ce = episode.state['current_entities'].reshape(temp_batch_size, self.test_rollouts)
+                
                 for b in range(temp_batch_size):
                     answer_pos = None
                     seen = set()
                     pos = 0
                     
-                    # Find position of correct answer
-                    for r in sorted_idx[b]:
-                        if reward_reshape[b, r] == self.positive_reward:
-                            answer_pos = pos
-                            break
-                        entity = episode.state['current_entities'].reshape(temp_batch_size, self.test_rollouts)[b, r]
-                        if entity not in seen:
-                            seen.add(entity)
-                            pos += 1
+                    if self.pool == 'max':
+                        # Max pooling (original logic)
+                        for r in sorted_idx[b]:
+                            if reward_reshape[b, r] == self.positive_reward:
+                                answer_pos = pos
+                                break
+                            if ce[b, r] not in seen:
+                                seen.add(ce[b, r])
+                                pos += 1
+                    
+                    elif self.pool == 'sum':
+                        # Sum pooling with log-sum-exp
+                        scores = defaultdict(list)
+                        answer = ''
+                        for r in sorted_idx[b]:
+                            scores[ce[b, r]].append(log_probs[b, r])
+                            if reward_reshape[b, r] == self.positive_reward:
+                                answer = ce[b, r]
+                        
+                        final_scores = defaultdict(float)
+                        for e in scores:
+                            final_scores[e] = lse(scores[e])
+                        
+                        sorted_answers = sorted(final_scores, key=final_scores.get, reverse=True)
+                        if answer in sorted_answers:
+                            answer_pos = sorted_answers.index(answer)
+                        else:
+                            answer_pos = None
                     
                     # Update metrics
                     if answer_pos is not None:
@@ -390,6 +463,36 @@ class Trainer:
                                             all_final_reward_1 += 1
                         
                         auc += 1.0 / (answer_pos + 1)
+                    
+                    # Collect data for NELL evaluation if print_paths is enabled
+                    if print_paths:
+                        qr = self.rev_relation_vocab[episode.get_query_relation()[b * self.test_rollouts]]
+                        start_e = self.rev_entity_vocab[episode.start_entities[b * self.test_rollouts]]
+                        end_e = self.rev_entity_vocab[episode.end_entities[b * self.test_rollouts]]
+                        
+                        paths[str(qr)].append(str(start_e) + "\t" + str(end_e) + "\n")
+                        paths[str(qr)].append("Reward:" + str(1 if answer_pos is not None and answer_pos < 10 else 0) + "\n")
+                        
+                        for r in sorted_idx[b]:
+                            indx = b * self.test_rollouts + r
+                            se = episode.start_entities.reshape((temp_batch_size, self.test_rollouts))
+                            
+                            if reward_reshape[b, r] == self.positive_reward:
+                                rev = 1
+                            else:
+                                rev = -1
+                            
+                            answers.append(self.rev_entity_vocab[se[b, r]] + '\t' + 
+                                         self.rev_entity_vocab[ce[b, r]] + '\t' + 
+                                         str(log_probs[b, r]) + '\n')
+                            
+                            if len(entity_trajectory) > 0:
+                                entity_path = '\t'.join([str(self.rev_entity_vocab[e[indx]]) for e in entity_trajectory])
+                                relation_path = '\t'.join([str(self.rev_relation_vocab[re[indx]]) for re in relation_trajectory])
+                                paths[str(qr)].append(entity_path + '\n' + relation_path + '\n' + 
+                                                    str(rev) + '\n' + str(log_probs[b, r]) + '\n___\n')
+                        
+                        paths[str(qr)].append("#####################\n")
         
         # Calculate final metrics
         all_final_reward_1 /= total_examples
@@ -403,6 +506,25 @@ class Trainer:
         if save_model and all_final_reward_10 >= self.max_hits_at_10:
             self.max_hits_at_10 = all_final_reward_10
             self.save_model()
+        
+        # Save paths and answers for NELL evaluation
+        if print_paths:
+            import codecs
+            test_beam_dir = os.path.join(self.output_dir, 'test_beam')
+            os.makedirs(test_beam_dir, exist_ok=True)
+            
+            logger.info(f"Printing paths at {test_beam_dir}")
+            for q in paths:
+                j = q.replace('/', '-')
+                path_file = os.path.join(test_beam_dir, f'paths_{j}')
+                with codecs.open(path_file, 'w', 'utf-8') as pos_file:
+                    for p in paths[q]:
+                        pos_file.write(p)
+            
+            answers_file = os.path.join(test_beam_dir, 'pathsanswers')
+            with open(answers_file, 'w') as answer_file:
+                for a in answers:
+                    answer_file.write(a)
         
         # Log results
         logger.info(f"Hits@1: {all_final_reward_1:.4f}")
