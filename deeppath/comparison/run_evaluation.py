@@ -5,7 +5,8 @@ Script to run the evaluation module on a trained DeepPath model.
 
 import sys
 import os
-from deeppath.evaluate import evaluate_logic
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.evaluate import evaluate_logic
 
 def main():
     if len(sys.argv) < 2:

@@ -26,9 +26,9 @@ import sys
 import argparse
 import time
 
-from deeppath.agents import PolicyAgent, SupervisedPolicyAgent, train_reinforce
-from deeppath.environment import Env
-from deeppath.utils import select_device
+from src.agents import PolicyAgent, SupervisedPolicyAgent, train_reinforce
+from src.environment import Env
+from src.utils import select_device
 
 # Default data path
 DEFAULT_DATA_PATH = './NELL-995/'

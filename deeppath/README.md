@@ -39,39 +39,30 @@ The discovered paths are evaluated based on their ability to answer new entity p
 
 ## Installation
 
-### Option 1: Install as a Python package (Development Mode)
+### Option 1: Using Conda environment (Recommended)
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/DeepPath.git
 cd DeepPath
 
-# Install in development mode
-pip install -e .
-```
-
-This installs the package in development mode, allowing you to modify the code and have changes immediately available.
-
-### Option 2: Using Conda environment
-
-```bash
 # Run the setup script
 ./setup_conda_env.sh
 
 # Activate the environment
 conda activate deeppath_torch
-
-# Install the package in development mode
-pip install -e .
 ```
 
-### Option 3: Using pip requirements only
+### Option 2: Using pip
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/DeepPath.git
+cd DeepPath
+
+# Install dependencies
 pip install -r requirements.txt
 ```
-
-Note: This only installs dependencies and doesn't install the DeepPath package itself.
 
 ## Download Dataset
 
@@ -123,8 +114,8 @@ The DeepPath implementation includes these core components:
 
 ```
 DeepPath/
-├── deeppath/               # Main Python package
-│   ├── __init__.py         # Package initialization
+├── src/                    # Source code
+│   ├── __init__.py         # Module initialization
 │   ├── agents.py           # Agent implementations
 │   ├── environment.py      # Knowledge graph environment
 │   ├── evaluate.py         # Evaluation utilities
@@ -133,9 +124,7 @@ DeepPath/
 │   └── utils.py            # Utility functions
 ├── main.py                 # CLI entry point
 ├── pathfinder.sh           # Convenience script
-├── setup.py                # Package setup script
-├── pyproject.toml          # Project metadata
-└── requirements.txt        # Package dependencies
+└── requirements.txt        # Dependencies
 ```
 
 ### Implementation Notes

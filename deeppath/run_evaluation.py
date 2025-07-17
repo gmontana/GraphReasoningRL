@@ -20,7 +20,7 @@ else:
 
 print(f"Using device: {device}")
 
-from deeppath.evaluate import evaluate_logic
+from src.evaluate import evaluate_logic
 
 def main():
     if len(sys.argv) < 2:
