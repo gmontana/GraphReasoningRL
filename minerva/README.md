@@ -103,6 +103,7 @@ The original implementation includes several preprocessed datasets:
 - **FB15K-237**: Freebase knowledge base subset
 - **WN18RR**: WordNet subset
 - **NELL-995**: Never-Ending Language Learning KB
+- **Grid Worlds (4x4, 6x6, 8x8, 10x10)**: Navigation problems as knowledge graphs
 
 Datasets are located in `original/datasets/data_preprocessed/`.
 

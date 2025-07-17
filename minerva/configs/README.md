@@ -8,7 +8,7 @@ To use a configuration file with the PyTorch implementation:
 
 ```bash
 cd minerva/src
-python train.py @../configs/countries_s1.json
+python train.py ../configs/countries_s1.json
 ```
 
 Or load specific parameters:

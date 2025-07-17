@@ -5,11 +5,11 @@
   "status": "success",
   "error": null,
   "metrics": {
-    "hits@1": 0.9583,
-    "hits@3": 0.9583,
-    "hits@5": 0.9583,
-    "hits@10": 0.9583,
-    "mrr": 0.9583
+    "hits@1": 0.8333,
+    "hits@3": 0.875,
+    "hits@5": 0.875,
+    "hits@10": 0.875,
+    "mrr": 0.8542
   },
   "fixes_completed": [
     "Python 2 to 3 syntax conversion",

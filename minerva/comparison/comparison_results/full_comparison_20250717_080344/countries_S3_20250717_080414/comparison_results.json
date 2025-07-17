@@ -1,0 +1,80 @@
+{
+  "dataset": "countries_S3",
+  "iterations": 100,
+  "seed": 42,
+  "timestamp": "20250717_080414",
+  "tensorflow_results": {
+    "dataset": "countries_S3",
+    "framework": "tensorflow",
+    "iterations": 100,
+    "status": "success",
+    "error": null,
+    "metrics": {
+      "hits@1": 0.8333,
+      "hits@3": 0.875,
+      "hits@5": 0.875,
+      "hits@10": 0.875,
+      "mrr": 0.8542
+    },
+    "fixes_completed": [
+      "Python 2 to 3 syntax conversion",
+      "Import path fixes",
+      "scipy dependency replacement",
+      "TensorFlow 1.x API compatibility",
+      "tf.contrib replacements",
+      "Keras 3 LSTM compatibility",
+      "RNN cell API changes",
+      "Division operator fixes",
+      "Checkpoint loading fixes"
+    ]
+  },
+  "pytorch_results": {
+    "dataset": "countries_S3",
+    "framework": "pytorch",
+    "iterations": 100,
+    "metrics": {
+      "mrr": 0.3542,
+      "hits@10": 0.4167,
+      "hits@5": 0.4167,
+      "hits@3": 0.4167,
+      "hits@1": 0.2917
+    }
+  },
+  "comparison": {
+    "hits@1": {
+      "tensorflow": 0.8333,
+      "pytorch": 0.2917,
+      "difference": 0.5416000000000001,
+      "relative_diff": 0.6499459978399137,
+      "is_close": false
+    },
+    "hits@3": {
+      "tensorflow": 0.875,
+      "pytorch": 0.4167,
+      "difference": 0.4583,
+      "relative_diff": 0.5237714285714286,
+      "is_close": false
+    },
+    "hits@5": {
+      "tensorflow": 0.875,
+      "pytorch": 0.4167,
+      "difference": 0.4583,
+      "relative_diff": 0.5237714285714286,
+      "is_close": false
+    },
+    "hits@10": {
+      "tensorflow": 0.875,
+      "pytorch": 0.4167,
+      "difference": 0.4583,
+      "relative_diff": 0.5237714285714286,
+      "is_close": false
+    },
+    "mrr": {
+      "tensorflow": 0.8542,
+      "pytorch": 0.3542,
+      "difference": 0.49999999999999994,
+      "relative_diff": 0.5853430110044485,
+      "is_close": false
+    }
+  }
+}

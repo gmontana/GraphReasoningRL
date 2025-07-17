@@ -1,0 +1,80 @@
+{
+  "dataset": "kinship",
+  "iterations": 100,
+  "seed": 42,
+  "timestamp": "20250717_080428",
+  "tensorflow_results": {
+    "dataset": "kinship",
+    "framework": "tensorflow",
+    "iterations": 100,
+    "status": "success",
+    "error": null,
+    "metrics": {
+      "hits@1": 0.0122,
+      "hits@3": 0.0309,
+      "hits@5": 0.0478,
+      "hits@10": 0.089,
+      "mrr": 0.0334
+    },
+    "fixes_completed": [
+      "Python 2 to 3 syntax conversion",
+      "Import path fixes",
+      "scipy dependency replacement",
+      "TensorFlow 1.x API compatibility",
+      "tf.contrib replacements",
+      "Keras 3 LSTM compatibility",
+      "RNN cell API changes",
+      "Division operator fixes",
+      "Checkpoint loading fixes"
+    ]
+  },
+  "pytorch_results": {
+    "dataset": "kinship",
+    "framework": "pytorch",
+    "iterations": 100,
+    "metrics": {
+      "mrr": 0.0311,
+      "hits@10": 0.088,
+      "hits@5": 0.0421,
+      "hits@3": 0.0281,
+      "hits@1": 0.0084
+    }
+  },
+  "comparison": {
+    "hits@1": {
+      "tensorflow": 0.0122,
+      "pytorch": 0.0084,
+      "difference": 0.0038000000000000013,
+      "relative_diff": 0.31147540983606564,
+      "is_close": true
+    },
+    "hits@3": {
+      "tensorflow": 0.0309,
+      "pytorch": 0.0281,
+      "difference": 0.0028000000000000004,
+      "relative_diff": 0.09061488673139159,
+      "is_close": true
+    },
+    "hits@5": {
+      "tensorflow": 0.0478,
+      "pytorch": 0.0421,
+      "difference": 0.005700000000000004,
+      "relative_diff": 0.11924686192468627,
+      "is_close": true
+    },
+    "hits@10": {
+      "tensorflow": 0.089,
+      "pytorch": 0.088,
+      "difference": 0.0010000000000000009,
+      "relative_diff": 0.011235955056179785,
+      "is_close": true
+    },
+    "mrr": {
+      "tensorflow": 0.0334,
+      "pytorch": 0.0311,
+      "difference": 0.0023,
+      "relative_diff": 0.0688622754491018,
+      "is_close": true
+    }
+  }
+}

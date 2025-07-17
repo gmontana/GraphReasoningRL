@@ -3,10 +3,10 @@
   "framework": "pytorch",
   "iterations": 100,
   "metrics": {
-    "mrr": 0.5208,
-    "hits@10": 0.6667,
-    "hits@5": 0.6667,
-    "hits@3": 0.6667,
-    "hits@1": 0.375
+    "mrr": 0.5417,
+    "hits@10": 0.7917,
+    "hits@5": 0.7917,
+    "hits@3": 0.7917,
+    "hits@1": 0.2917
   }
 }
