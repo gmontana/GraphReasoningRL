@@ -1,39 +1,11 @@
 # Graph Reasoning with Reinforcement Learning
 
-This repository contains implementations of reinforcement learning algorithms for reasoning over knowledge graphs.
+This repository provides PyTorch implementations of reinforcement learning algorithms for reasoning over knowledge graphs.
 
-## Algorithms Implemented
+## Algorithms
 
-- **DeepPath**: Reasoning with Reinforcement Learning - [DeepPath: A Reinforcement Learning Method for Knowledge Graph Reasoning](deeppath/) (EMNLP 2017)
-  - PyTorch implementation
-  - Path-finding approach using policy gradient
+- **[DeepPath](deeppath/)** (EMNLP 2017): A reinforcement learning method for knowledge graph reasoning that learns to find paths between entities.
 
-- **MINERVA**: Multi-Hop Reasoning - [Go for a Walk and Arrive at the Answer](minerva/) (ICLR 2018)
-  - TensorFlow (original) and PyTorch implementations
-  - Learns to navigate knowledge graphs by following relations
+- **[MINERVA](minerva/)** (ICLR 2018): Multi-hop reasoning that learns to navigate knowledge graphs by taking a sequence of relation-following steps.
 
-More algorithms may be added in the future.
-
-## Repository Structure
-
-```
-GraphReasoningRL/
-├── deeppath/          # DeepPath implementation
-│   ├── src/           # PyTorch source code
-│   ├── models/        # Trained models
-│   └── demo/          # Demo and examples
-├── minerva/           # MINERVA implementation
-│   ├── original/      # Original TensorFlow code
-│   ├── src/           # PyTorch implementation
-│   └── comparison/    # Tools to compare implementations
-└── README.md          # This file
-```
-
-## Getting Started
-
-Each algorithm has its own directory with detailed documentation. Start with:
-- [MINERVA Documentation](minerva/README.md)
-
-## License
-
-Please refer to individual algorithm directories for specific license information.
+Each algorithm directory contains its own detailed documentation and usage instructions.
