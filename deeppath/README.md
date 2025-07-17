@@ -1,62 +1,138 @@
-# DeepPath: Reinforcement Learning for Knowledge Graph Reasoning
+# DeepPath: A Reinforcement Learning Method for Knowledge Graph Reasoning
 
-This repository contains a PyTorch implementation of DeepPath, a reinforcement learning approach for knowledge graph reasoning. This implementation introduces several modifications to the original TensorFlow version, including native hardware acceleration support, filtered knowledge graph training, improved path diversity calculation, and robust error handling while maintaining functional equivalence.
+This repository contains both the original TensorFlow implementation and our new PyTorch implementation of DeepPath, a reinforcement learning method for reasoning over knowledge graphs. DeepPath finds reasoning paths between entities in knowledge graphs by training an agent to navigate from source to target entities.
 
 ## How DeepPath Works
 
-### 1. Knowledge Graph and Problem Formulation
+### 1. Knowledge Graph Query Answering
 
-A knowledge graph (KG) is a structured representation of facts in the form of entities and relations between them. Each fact is a triple (head entity, relation, tail entity), such as (Michael Jordan, playsFor, Chicago Bulls). 
+DeepPath addresses the problem of finding missing links in knowledge graphs. Given a query like (LeBron James, playsForTeam, ?), the agent learns to navigate through the knowledge graph to find the answer (e.g., LA Lakers) by following a sequence of relations.
 
-The task of knowledge graph reasoning is to infer missing relations between entities. Instead of simply memorizing patterns from data, we want to understand the reasoning paths that explain why certain relations exist. This enables:
-- Better explainability of predictions
-- Higher accuracy by using multi-hop reasoning
-- Generalization to unseen entity pairs
-
-DeepPath approaches this task by finding meaningful reasoning paths between entities. For example, given a relation like "athletePlaysForTeam", the algorithm might discover paths such as:
-- athletePlaysSport → sportPlayedByTeam (An athlete plays a sport that is played by a team)
-- hasCoach → coachesTeam (An athlete has a coach who coaches a team)
+Unlike embedding-based methods, DeepPath:
+- Provides interpretable reasoning paths between entities
+- Learns to navigate the discrete graph structure
+- Can generalize to unseen entity pairs
+- Discovers multiple reasoning patterns for each relation
 
 ### 2. Agent-Environment System
 
-- **State**: Entity pair embeddings (current entity + target entity)
-- **Actions**: Selecting which relation to follow from the current entity
-- **Environment**: The knowledge graph (excluding direct links between query entities)
-- **Reward**: Combination of:
-  - Success reward (when target is reached)
-  - Efficiency reward (inversely proportional to path length)
-  - Diversity reward (finding diverse reasoning patterns)
+- **State**: Current entity and target entity embeddings
+- **Actions**: Selecting which outgoing relation to follow
+- **Environment**: Knowledge graph with direct links removed during training
+- **Reward**: Binary reward for reaching the correct target entity
 
 ### 3. Learning Process
 
-1. **Supervised Phase**: The agent first learns from a "teacher" that uses BFS to find valid paths
-2. **Reinforcement Phase**: The agent then explores on its own, refining its policy through REINFORCE algorithm
-3. **Path Ranking**: Finally, the discovered paths are ranked by their efficiency and predictive power
+1. **Supervised Learning**: Agent learns from a teacher (BFS algorithm) that finds correct paths
+2. **Reinforcement Learning**: Agent refines its policy using REINFORCE algorithm
+3. **Path Ranking**: Discovered paths are ranked by their predictive accuracy
 
-### 4. Path Evaluation
+### 4. Key Innovations
 
-The discovered paths are evaluated based on their ability to answer new entity pair queries, where no direct relation edge exists. The algorithm uses the Mean Average Precision (MAP) metric to evaluate path quality.
+- **Two-phase training**: Supervised pre-training followed by RL fine-tuning
+- **Path diversity**: Encourages finding multiple reasoning patterns
+- **Efficiency reward**: Shorter paths are preferred
+- **Teacher forcing**: BFS teacher provides initial guidance
+
+## Algorithm Deep Dive
+
+### The Core Idea
+
+DeepPath treats knowledge graph reasoning as a sequential decision problem. The agent learns to walk from a source entity to a target entity by selecting relations at each step.
+
+For example, to answer "Which team does LeBron James play for?":
+1. Start at entity "LeBron James"
+2. Choose relation "playsPosition" → reach "Small Forward"
+3. Choose relation "positionPlayedByTeam" → reach "LA Lakers"
+
+### The DeepPath Algorithm
+
+#### 1. Problem Formulation
+
+**Input**: Knowledge Graph and Query (e_source, r_query, ?)
+- KG: Set of triples (head, relation, tail)
+- Query: Find e_target given e_source and relation type
+
+**Output**: Reasoning paths that connect e_source to e_target
+
+#### 2. Markov Decision Process (MDP)
+
+- **State s_t**: Current entity e_t and target entity e_target embeddings
+- **Action a_t**: Select relation r from available relations at e_t
+- **Transition**: Follow relation r to reach next entity
+- **Reward**: 
+  - +1 if final entity equals target
+  - -1/length for efficiency bonus
+  - Path diversity bonus
+
+#### 3. Two-Phase Training
+
+**Phase 1: Supervised Learning**
+```
+1. Teacher (BFS) finds correct paths
+2. Agent learns to imitate teacher's actions
+3. Cross-entropy loss on action selection
+```
+
+**Phase 2: Reinforcement Learning**
+```
+1. Agent explores using learned policy
+2. REINFORCE algorithm updates policy
+3. Encourages diverse path discovery
+```
+
+#### 4. Path Ranking and Evaluation
+
+After training, paths are ranked by:
+- Accuracy on validation set
+- Path length (shorter is better)  
+- Coverage of test entity pairs
+
+Mean Average Precision (MAP) measures final performance.
+
+### PyTorch Implementation Details
+
+See [src/README.md](src/README.md) for PyTorch-specific implementation details, configuration options, and usage instructions.
+
+## Directory Structure
+
+```
+deeppath/
+├── README.md                   # This file
+├── src/                        # PyTorch implementation
+│   ├── agents.py               # RL and supervised agents
+│   ├── environment.py          # KG navigation
+│   ├── models.py               # Neural networks
+│   ├── search.py               # BFS teacher
+│   ├── evaluate.py             # Path evaluation
+│   └── README.md               # PyTorch details
+├── comparison/                 # TensorFlow comparison
+│   ├── tensorflow/             # Original TF code
+│   └── compare_implementations.py
+├── NELL-995/                   # Dataset
+│   └── tasks/                  # Relation-specific data
+├── main.py                     # Entry point
+└── requirements.txt            # Dependencies
+```
 
 ## Installation
 
-### Option 1: Using Conda environment (Recommended)
+### Using Conda (Recommended)
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/yourusername/DeepPath.git
 cd DeepPath
 
-# Run the setup script
+# Setup environment
 ./setup_conda_env.sh
-
-# Activate the environment
 conda activate deeppath_torch
 ```
 
-### Option 2: Using pip
+### Using pip
 
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/yourusername/DeepPath.git
 cd DeepPath
 
@@ -64,167 +140,83 @@ cd DeepPath
 pip install -r requirements.txt
 ```
 
-## Download Dataset
+## Dataset
 
-Download the knowledge graph dataset from the official repository:
-- [NELL-995](https://github.com/wenhuchen/KB-Reasoning-Data/tree/master/NELL-995)
-
-You can clone the dataset repository directly:
+DeepPath uses the NELL-995 dataset. Download it from:
+- [KB-Reasoning-Data](https://github.com/wenhuchen/KB-Reasoning-Data)
 
 ```bash
+# Download and extract
 git clone https://github.com/wenhuchen/KB-Reasoning-Data.git
 cp -r KB-Reasoning-Data/NELL-995 ./
 ```
 
-Extract the dataset into the repository directory.
-
 ## Usage
 
-### Training and Testing
-
-You can run the full pipeline using the main script:
+### PyTorch Implementation
 
 ```bash
-# Run full pipeline (train + test)
+# Full pipeline (supervised + RL + evaluation)
 python main.py athletePlaysForTeam
 
-# Training only
-python main.py athletePlaysForTeam --mode train
-
-# Testing only
-python main.py athletePlaysForTeam --mode test
+# Individual phases
+python main.py athletePlaysForTeam --mode train_sl  # Supervised only
+python main.py athletePlaysForTeam --mode train_rl  # RL only
+python main.py athletePlaysForTeam --mode test      # Evaluation only
 ```
 
-Or use the convenience script:
+See [src/README.md](src/README.md) for detailed PyTorch usage and configuration.
 
-```bash
-./pathfinder.sh athletePlaysForTeam
-```
-
-### Core Components
-
-The DeepPath implementation includes these core components:
-
-- **Environment**: Manages the knowledge graph and handles state transitions
-- **Agent**: Implements the policy network for path finding
-- **Search**: Provides the teacher algorithm for supervised learning 
-- **Utils**: Contains utility functions and constants
-
-### Code Structure
-
-```
-DeepPath/
-├── src/                    # Source code
-│   ├── __init__.py         # Module initialization
-│   ├── agents.py           # Agent implementations
-│   ├── environment.py      # Knowledge graph environment
-│   ├── evaluate.py         # Evaluation utilities
-│   ├── models.py           # Neural network models
-│   ├── search.py           # Path finding algorithms
-│   └── utils.py            # Utility functions
-├── main.py                 # CLI entry point
-├── pathfinder.sh           # Convenience script
-└── requirements.txt        # Dependencies
-```
-
-### Implementation Notes
-
-- **Path Finding**: The teacher algorithm removes direct links between entities to encourage finding meaningful indirect paths
-- **Reinforcement Learning**: Uses the REINFORCE algorithm to train the policy network
-- **Evaluation**: Paths are evaluated based on efficiency (path length) and diversity
-
-## Comparing Implementations
-
-We provide comprehensive tools to verify parity between the PyTorch and original TensorFlow implementations:
+### Comparing Implementations
 
 ```bash
 cd comparison/
 
-# Run complete benchmark comparing both implementations
-./run_complete_benchmark.sh athletePlaysForTeam
-
-# Compare path discovery results
+# Compare PyTorch vs TensorFlow
 python compare_implementations.py athletePlaysForTeam
 
-# Run individual implementations
-python run_tf_original.sh athletePlaysForTeam    # TensorFlow version
-cd .. && python main.py athletePlaysForTeam      # PyTorch version
-
-# Analyze benchmark results
-python analyze_benchmark_results.py
+# Run full benchmark
+./run_complete_benchmark.sh athletePlaysForTeam
 ```
 
-The comparison tools will:
-- Run both implementations on the same dataset
-- Compare discovered reasoning paths
-- Measure runtime performance
-- Generate detailed comparison reports in `comparison/logs/`
+## Implementation Features
 
-See `comparison/README.md` for detailed instructions on running comparisons.
+### PyTorch Implementation:
+- Multi-device support (CUDA, MPS, CPU)
+- Modern PyTorch patterns
+- Enhanced stability and logging
+- Verified parity with original
 
-## Implementation Details
+### TensorFlow Implementation:
+- Original implementation from paper
+- TensorFlow 1.x based
+- Reference for comparison
 
-### PyTorch Implementation Features
+## Results
 
-1. **Modern Architecture**:
-   - Pure PyTorch implementation with eager execution
-   - Clean modular design separating agent, environment, and search components
-   - Type hints and comprehensive documentation
-   - Support for GPU acceleration (CUDA/MPS)
+On NELL-995 dataset, DeepPath discovers interpretable reasoning paths:
 
-2. **Verified Parity**:
-   - Same REINFORCE algorithm with teacher guidance
-   - Identical state representation and network architecture
-   - Matching path discovery behavior
-   - Comparable Mean Average Precision (MAP) scores
+**Example: athletePlaysForTeam**
+- Path 1: athlete → playsPosition → position → positionPlayedByTeam → team
+- Path 2: athlete → athleteHomeStadium → stadium → teamHomeStadium⁻¹ → team
 
-3. **Enhanced Features**:
-   - Filtered knowledge graph training (removes test edges)
-   - Improved path diversity calculation
-   - Robust error handling and logging
-   - Batch processing for efficiency
-
-### Key Components
-
-- **Agent** (`agents.py`): Policy network implementation with REINFORCE algorithm
-- **Environment** (`environment.py`): Knowledge graph navigation and state management
-- **Search** (`search.py`): BFS teacher algorithm for supervised learning
-- **Models** (`models.py`): Neural network architectures for policy learning
-- **Evaluate** (`evaluate.py`): Path ranking and MAP calculation
-
-### Verified Results
-
-On NELL-995 dataset (athletePlaysForTeam relation):
-- Discovered meaningful reasoning paths
-- Achieved comparable MAP scores to original implementation
-- Successfully learned multi-hop reasoning patterns
-
-Example discovered paths:
-- athletePlaysForTeam → teamPlaysInLeague → leagueHasTeam
-- athletePlaysForTeam → athleteHomeStadium → stadiumHomeToTeam
-
-### Performance Considerations
-
-- Supports both CPU and GPU execution (CUDA/MPS)
-- Uses batch processing for training
-- Runtime varies based on hardware and dataset size
+These paths achieve competitive accuracy while providing explanations for predictions.
 
 ## Citation
 
 If you use this code, please cite the original paper:
 
-```
-@InProceedings{wenhan_emnlp2017,
-  author    = {Xiong, Wenhan and Hoang, Thien and Wang, William Yang},
-  title     = {DeepPath: A Reinforcement Learning Method for Knowledge Graph Reasoning},
-  booktitle = {Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP 2017)},
-  month     = {September},
-  year      = {2017},
-  address   = {Copenhagen, Denmark},
-  publisher = {ACL}
+```bibtex
+@inproceedings{xiong2017deeppath,
+  title = {DeepPath: A Reinforcement Learning Method for Knowledge Graph Reasoning},
+  author = {Xiong, Wenhan and Hoang, Thien and Wang, William Yang},
+  booktitle = {Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year = {2017},
+  pages = {564--573}
 }
 ```
 
 ## Acknowledgements
 
-- [Original DeepPath implementation (TensorFlow)](https://github.com/xwhan/DeepPath)
+- [Original DeepPath implementation](https://github.com/xwhan/DeepPath)
+- NELL-995 dataset from [KB-Reasoning-Data](https://github.com/wenhuchen/KB-Reasoning-Data)
