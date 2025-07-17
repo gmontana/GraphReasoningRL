@@ -1,70 +1,13 @@
 # MINERVA PyTorch Implementation
 
-This is a complete PyTorch implementation of MINERVA (Meandering In Networks of Entities to Reach Verisimilar Answers), a reinforcement learning agent for knowledge graph reasoning.
+This directory contains the PyTorch-specific implementation details for MINERVA. For algorithm explanation and project overview, see the [main README](../README.md).
 
-## Features
+## PyTorch-Specific Features
 
-### ✅ Complete Feature Parity with Original
-
-This implementation includes all features from the original TensorFlow version:
-
-1. **Core Algorithm**
-   - REINFORCE with baseline
-   - Cumulative discounted rewards
-   - Entropy regularization with decaying beta
-   - Reactive baseline with exponential moving average
-
-2. **Model Architecture**
-   - LSTM policy network with configurable layers
-   - Entity and relation embeddings
-   - Optional entity embedding usage
-   - Pretrained embedding support
-
-3. **Evaluation Methods**
-   - Beam search for inference
-   - Max and sum pooling strategies
-   - Hits@1/3/5/10/20 metrics
-   - Mean Reciprocal Rank (MRR)
-   - NELL evaluation system
-
-4. **Data Processing**
-   - Vocabulary creation scripts
-   - NELL-specific preprocessing
-   - Support for all 24 original datasets
-   - JSON configuration files
-
-### 🚀 Enhanced Features
-
-1. **Multi-Device Support**
-   - Automatic device detection
-   - CUDA support for NVIDIA GPUs
-   - MPS support for Apple Silicon (M1/M2/M3/M4)
-   - CPU fallback
-
-2. **Modern PyTorch Implementation**
-   - Clean module structure
-   - Type hints where applicable
-   - Comprehensive error handling
-   - Detailed logging
-
-3. **Additional Features**
-   - L2 regularization support
-   - JSON configuration loading
-   - Command-line override for configs
-   - Progress bars with tqdm
-
-## Installation
-
-```bash
-# Basic requirements
-pip install torch numpy tqdm
-
-# For CUDA support
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-
-# For development
-pip install pytest black isort
-```
+- **Multi-Device Support**: Automatic detection and support for CUDA, MPS (Apple Silicon), and CPU
+- **Modern PyTorch Patterns**: nn.Module architecture, eager execution, native optimizers
+- **Enhanced Logging**: Detailed training progress with tqdm integration
+- **Flexible Configuration**: JSON configs with command-line overrides
 
 ## Quick Start
 
@@ -188,63 +131,24 @@ python train.py \
 --device                      # Device: 'cuda', 'mps', 'cpu', None
 ```
 
-## Datasets
+## Data Processing Scripts
 
-### Supported Datasets
-
-All 24 original datasets are supported with JSON configurations:
-
-**Knowledge Graphs:**
-- FB15K-237
-- WN18RR
-- NELL-995
-- UMLS
-- Kinship
-
-**Countries (Synthetic):**
-- Countries S1/S2/S3
-
-**Grid Worlds:**
-- Grid 4x4, 6x6, 8x8, 10x10
-
-**NELL Relations:**
-- agentbelongstoorganization
-- athleteplaysforteam
-- athleteplaysinleague
-- athleteplayssport
-- organizationheadquarteredincity
-- personborninlocation
-- teamplaysinleague
-- And more...
-
-### Data Format
-
-Datasets should contain:
-```
-dataset_dir/
-├── train.txt          # Training triples
-├── dev.txt            # Development triples
-├── test.txt           # Test triples
-├── graph.txt          # Full graph for navigation
-└── vocab/
-    ├── entity_vocab.json
-    └── relation_vocab.json
-```
-
-### Creating New Datasets
-
+### Vocabulary Creation
 ```bash
-# Generic vocabulary creation
 python data/create_vocab.py \
     --data_input_dir /path/to/dataset \
     --vocab_dir /path/to/dataset/vocab
+```
 
-# NELL-specific preprocessing
+### NELL Preprocessing
+```bash
 python data/preprocess_nell.py \
     --task_dir /path/to/nell/task \
     --task_name athleteplayssport \
     --output_dir /path/to/output
 ```
+
+For dataset information and formats, see the [main README](../README.md#datasets).
 
 ## Training Process
 
@@ -368,15 +272,3 @@ When contributing, please:
 3. Update documentation
 4. Follow existing code style
 
-## Citation
-
-If you use this implementation, please cite the original paper:
-
-```bibtex
-@inproceedings{minerva,
-  title = {Go for a Walk and Arrive at the Answer: Reasoning Over Paths in Knowledge Bases using Reinforcement Learning},
-  author = {Das, Rajarshi and Dhuliawala, Shehzaad and Zaheer, Manzil and Vilnis, Luke and Durugkar, Ishan and Krishnamurthy, Akshay and Smola, Alex and McCallum, Andrew},
-  booktitle = {ICLR},
-  year = {2018}
-}
-```

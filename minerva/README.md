@@ -350,23 +350,14 @@ Datasets are located in `original/datasets/data_preprocessed/`.
 ```bash
 cd src/
 
-# Train on a dataset (basic usage)
-python train.py \
-    --data_input_dir ../original/datasets/data_preprocessed/countries_S1 \
-    --vocab_dir ../original/datasets/data_preprocessed/countries_S1/vocab \
-    --total_iterations 1000
-
-# Use JSON configuration file
+# Use JSON configuration (recommended)
 python train.py ../configs/countries_s1.json
 
-# Override specific parameters from JSON config
+# Override specific parameters
 python train.py ../configs/countries_s1.json --total_iterations 2000 --batch_size 256
-
-# Specify device (auto-detects by default)
-python train.py ../configs/countries_s1.json --device cuda  # NVIDIA GPU
-python train.py ../configs/countries_s1.json --device mps   # Apple Silicon
-python train.py ../configs/countries_s1.json --device cpu   # CPU only
 ```
+
+See [src/README.md](src/README.md) for detailed PyTorch usage, configuration options, and troubleshooting.
 
 ### TensorFlow Implementation (Modernized)
 
@@ -412,37 +403,20 @@ See `comparison/COMPARISON_GUIDE.md` and `comparison/PARITY_REPORT.md` for detai
 
 ## Implementation Details
 
-### PyTorch Implementation Features
+### Implementation Features
 
-1. **Complete Feature Parity** (98% match with original):
-   - ✅ REINFORCE with baseline algorithm
-   - ✅ LSTM policy network with configurable layers
-   - ✅ Entity and relation embeddings
-   - ✅ Beam search evaluation
-   - ✅ Max and sum pooling strategies
-   - ✅ NELL evaluation system
-   - ✅ Pretrained embedding support
-   - ✅ All 24 dataset configurations
+**PyTorch Implementation** ([src/](src/)):
+- Complete feature parity (98% match) with original TensorFlow
+- Multi-device support: CUDA, MPS (Apple Silicon), CPU
+- Modern PyTorch patterns and practices
+- JSON configuration with command-line overrides
+- See [src/README.md](src/README.md) for implementation details
 
-2. **Multi-Device Support**:
-   - CUDA for NVIDIA GPUs
-   - MPS for Apple Silicon (M1/M2/M3/M4)
-   - CPU fallback
-   - Automatic device detection
-
-3. **Enhanced Features**:
-   - JSON configuration files
-   - Data preprocessing scripts
-   - L2 regularization support
-   - Comprehensive logging
-   - Modern PyTorch practices
-
-### Key Components
-
-- **Agent** (`model/agent.py`): LSTM policy network with entity/relation embeddings
-- **Environment** (`model/environment.py`): KG navigation and reward calculation
-- **Trainer** (`model/trainer.py`): REINFORCE training loop with baseline
-- **Data** (`data/`): Graph loading and batch generation
+**TensorFlow Modernization**:
+- Updated to work with TensorFlow 2.x and Python 3.8+
+- Custom Keras 3 LSTM wrapper for compatibility
+- Training phase works correctly
+- Test phase disabled due to checkpoint compatibility issues
 
 ### Verified Results
 
